@@ -26,7 +26,26 @@ urlpatterns = [
     # path('data/graduation_diagnosis/', views.connect),
 
     # 화면
+    #naver.com -> path('', views.index)
     path('', views.index),
+    path('login/', views.login),
+    path('test/', views.test),
+
+    # path('rule/create/search/group/', views.ruleCreateSearchGroup),
+    # path('rule/search/department/', views.ruleCreateSearchGroup),
+    
+    # serializer
+    # path('data/', include(routers.urls)),
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    
+    # 로그인
+    # path('join/', views.signup, name='join'),
+    # 모든 URL
+    # re_path('(?P<url_info>.*?)/$', views.urls),
+
+]
+
+'''
     path('admin/', admin.site.urls),
     path('user/login/', views.login),
     path('user/logout/', views.logout),
@@ -53,17 +72,4 @@ urlpatterns = [
 
 
     path('data/', views.welcome),
-
-    # path('rule/create/search/group/', views.ruleCreateSearchGroup),
-    # path('rule/search/department/', views.ruleCreateSearchGroup),
-    
-    # serializer
-    # path('data/', include(routers.urls)),
-    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    
-    # 로그인
-    # path('join/', views.signup, name='join'),
-    # 모든 URL
-    # re_path('(?P<url_info>.*?)/$', views.urls),
-
-]
+    '''

@@ -50,7 +50,10 @@ from django.shortcuts import render, redirect
 
 
 def index(request):
-    return render(request, 'index.html', {}) 
+    return render(request, 'index.html', {})
+
+def test(request):
+    return render(request, 'test.html', {})
 
 def abeek(request):
     return render(request, 'abeek.html', {})
