@@ -1,0 +1,189 @@
+{% include "include/header.html"%}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <!-- title -->
+            <small><!-- subtitle --></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-warning"></i> System</a></li>
+            <li class="active">Bug Reporting</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        {% include "include/alert.html"%}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">시스템 이용 도중 문제가 발생하였나요?</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="service">어떤 서비스에서 문제가 발생하였나요?</label>
+                                    <select class="form-control select2" id="service" style="width: 100%;">
+                                        <option selected="selected">선택 안 함</option>
+                                        <option>로그인</option>
+                                        <option>대시보드</option>
+                                        <option>공지사항</option>
+                                        <option>졸업 판정</option>
+                                        <option>졸업 허가 및 유예 업무</option>
+                                        <option>졸업 이수 시뮬레이션</option>
+                                        <option>졸업 관련 문의</option>
+                                        <option>[관리자/스태프] 시스템 > 과목 그룹 관리</option>
+                                        <option>[관리자/스태프] 시스템 > 졸업 요건 관리</option>
+                                        <option>[관리자/스태프] 시스템 > 과목 관리</option>
+                                        <option>[관리자/스태프] 시스템 > 설계 과목 관리</option>
+                                        <option>[관리자/스태프] 시스템 > 일반 설정 관리</option>
+                                        <option>[관리자/스태프] 시스템 > 졸업 인증 관리</option>
+                                        <option>자주 묻는 질문</option>
+                                        <option>기타</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="types">어떤 종류의 문제인가요? (복수 선택 가능)</label>
+                                    <select class="form-control select2" id="types" multiple="multiple" data-placeholder="선택해주세요" style="width: 100%;">
+                                        <option>권한 / 접근</option>
+                                        <option>비정상 동작</option>
+                                        <option>사용자 인터페이스(UI) / 사용자 경험(UX)</option>
+                                        <option>건의사항</option>
+                                        <option>기타</option>
+                                    </select>
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">연락 가능한 이메일 주소를 알려주세요</label>
+                                    <input type="text" id="email" class="form-control" placeholder="필수 (예: gildong@abc.com)">
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phone">연락 가능한 전화번호를 알려주세요</label>
+                                    <input type="text" id="phone" class="form-control" placeholder="필수 (예: 010-1234-5678)">
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea id="report_editor" name="editor1" rows="10" cols="80"></textarea>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-danger btn-block" id="send">신고하기</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <i class="icon fa fa-info-circle"></i> 시스템에 치명적인 문제가 있는 경우, lattechiffon@gmail.com 으로 직접 연락해주시기 바랍니다.
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+{% include "include/footer.html"%}
+
+<!-- CK Editor -->
+<script src="/webjars/AdminLTE/2.4.2/bower_components/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        CKEDITOR.replace('report_editor')
+    });
+
+    $('.select2').select2();
+
+    $('#send').click(function () {
+        $('#send').css('display', 'none');
+
+        $.ajax({
+            url: '/report/send',
+            type: 'post',
+            data: { 'serviceName': $('#service').val(),
+                    'issueType': $('#types').val(),
+                    'email': $('#email').val(),
+                    'phone': $('#phone').val(),
+                    'content': CKEDITOR.instances['report_editor'].getData() },
+            success: function (result) {
+                if (result === 'success') {
+                    iziToast.show({
+                        title: '알림',
+                        message: info00,
+                        theme: 'light',
+                        color: 'green',
+                        position: 'topRight',
+                        timeout: 1500,
+                        onOpening: function () {
+                            $('#modal-publish').modal('hide')},
+                        onOpened: function () {
+                            location.reload();
+                        }
+                    })
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    });
+
+                    $('#send').css('display', '');
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+
+                $('#send').css('display', '');
+            }
+        })
+    })
+</script>
+
+{% include "include/script.html"%}

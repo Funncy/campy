@@ -1,0 +1,492 @@
+{% include "include/header.html"%}
+
+<style>
+    input.upload {
+        width: 100%;
+        height: 200px;
+        font-weight: 600;
+        color: #ffffff;
+        cursor: pointer;
+        border: 3px dashed rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0);
+        opacity: 0;
+        filter: alpha(opacity=0);
+        position: relative;
+    }
+
+    button.replace {
+        width: calc(100% - 30px);
+        height: 200px;
+        text-align: center;
+        font-weight: 600;
+        color: #ffffff;
+        cursor: pointer;
+        border: 3px dashed rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        font-size: 20px;
+        color: rgba(0, 0, 0, .5);
+        position: absolute;
+    }
+
+    drop-zone {
+        width: 100%;
+        height: 200px;
+        border: 3px dashed rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        text-align: center;
+        position: relative;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0);
+    }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            마이페이지
+            <small>My Page</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-university"></i> Settings</a></li>
+            <li class="active">My Page</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        {% include "include/alert.html"%}
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" src="/person-placeholder.jpg" alt="User profile picture">
+
+                        <h3 class="profile-username text-center">
+                            <!--#userdata--><!--userdata.name--><!--/userdata-->
+                            <!--^userdata-->손님<!--/userdata-->
+                        </h3>
+
+                        <p class="text-muted text-center"><!--userauth--> / <!--userdata.id--></p>
+
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item" id="student_id" value="<!--userdata.id-->">
+                                <b>입학연도</b> <a class="pull-right"><!-- user_admission_year --></a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>소속대학</b> <a class="pull-right" id="student_major_name_1"><!-- user_major_name_1 --></a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>소속학과</b> <a class="pull-right" id="student_major_name_2"><!-- user_major_name_2 --></a>
+                            </li>
+                        </ul>
+
+                        <a href="/screen/user/logout" class="btn btn-primary btn-block"><b>로그아웃</b></a>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+                <!-- About Me Box -->
+                <div class="box box-primary visible-md visible-lg">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">유관 행정부서 안내</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> 교무처 학적과</strong>
+                        <p class="text-muted">
+                            졸업 사정 관련 업무 처리
+                            <br>담당자: 한영교 주임 (02-3408-3037)
+                            <br>사무실: 집현관 109호
+                        </p>
+                        <hr>
+
+                        <strong><i class="fa fa-book margin-r-5"></i> 교무처 수업과</strong>
+                        <p class="text-muted">
+                            수강편람 관련 업무 처리
+                            <br>담당자: 윤광열 주임 (02-3408-3041)
+                            <br>사무실: 집현관 110호
+                        </p>
+                        <hr>
+
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> 안내사항</strong>
+                        <p>졸업관리시스템에 대한 문의사항은 개발팀으로 연락하여 주시기 바랍니다.</p>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#registration" data-toggle="tab">학적사항</a></li>
+                        <li class="disabled"><a href="#!" data-toggle="tab">성적 데이터</a></li>
+                        <li class="disabled"><a href="#!" data-toggle="tab">이용 기록</a></li>
+                        <li class="disabled"><a href="#!" data-toggle="tab">설정</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="registration">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="student_major" class="col-md-2 control-label">소속 학과 (주전공)</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control select2" id="student_major" style="width: 100%;" data-placeholder="소속 학과(주전공)를 선택하세요.">
+                                            <option value="<!-- user_major_no -->" selected="selected">[현재] <!-- user_major_name_1--> <!--user_major_name_2--></option>
+                                            <!-- #selectable_department_list -->
+                                            <option value="<!-- no -->"><!-- name --></option>
+                                            <!-- /selectable_department_list -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="student_major2" class="col-md-2 control-label">복수(연계)전공</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control select2" id="student_major2" style="width: 100%;" data-placeholder="복수전공을 선택하세요.">
+                                            <option value="<!-- user_major2_no -->" selected="selected">[현재] <!-- user_major2_name--></option>
+                                            <!-- #selectable_department_list -->
+                                            <option value="<!-- no -->"><!-- name --></option>
+                                            <!-- /selectable_department_list -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="student_major3" class="col-md-2 control-label">부전공</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control select2" id="student_major3" style="width: 100%;" data-placeholder="부전공을 선택하세요.">
+                                            <option value="<!-- user_major3_no -->" selected="selected">[현재] <!-- user_major3_name--></option>
+                                            <!-- #selectable_department_list -->
+                                            <option value="<!-- no -->"><!-- name --></option>
+                                            <!-- /selectable_department_list -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="student_major4" class="col-md-2 control-label">제2전공</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control select2" id="student_major4" style="width: 100%;" data-placeholder="오픈 베타 버전은 제2전공 지정을 지원하지 않습니다." disabled>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="student_teaching" class="col-md-2 control-label">교직이수</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control select2" id="student_teaching" style="width: 100%;" data-placeholder="오픈 베타 버전은 교직이수 지정을 지원하지 않습니다." disabled>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="student_abeek" class="col-md-2 control-label">공학인증</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control select2" id="student_abeek" style="width: 100%;" data-placeholder="오픈 베타 버전은 공학인증 지정을 지원하지 않습니다." disabled>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label for="student_special" class="col-md-2 control-label">특수 과정</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control select2" id="student_special" style="width: 100%;" data-placeholder="오픈 베타 버전은 특수 과정 지정을 지원하지 않습니다." disabled>
+                                            <!--</ㅠㄱ><option>ROTC (학군단)</option>
+                                            <option>조기 졸업</option>
+                                            <option>학석사 연계과정</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary btn-block" id="save">저장하기</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="data">
+                            <!-- The timeline -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form id="FILE_FORM" enctype="multipart/form-data" method="post" action="">
+                                        <div class="form-group">
+                                            <label>첨부파일</label>
+                                            <button id ="filename" class="form-control replace"><i class="fa fa-info-circle"></i><br>성적 데이터 파일을 점선 영역으로 끌어 놓으세요.<br>하나의 엑셀 파일(.xls)만 등록할 수 있습니다.</button>
+                                            <input id="excelFile" type="file" name="excelFile" class="form-control upload" onchange="checkfilename()">
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="record">
+
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="modal fade" id="modal-info">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center">등록할 성적 데이터는 어디에서 가져올 수 있습니까?</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>안녕하세요.
+                            <!--#userdata--><!--userdata.name--> 님<!--/userdata-->
+                            <!--^userdata-->손님<!--/userdata-->
+                            <br>세종대학교 404E 개발팀입니다.</p>
+                        <p>우리 개발팀은 오랜 기간에 걸쳐 지속적으로 세종대학교 학술전산처와 함께 학생의 성적 데이터 처리에 대해 논의해왔습니다.
+                            <br>논의하는 과정에서 서로의 입장차를 이해하고 타협하여 다음과 같이 협의하게 되었습니다.</p>
+                        <p></p>
+                        <p>1. 졸업관리시스템의 서버에는 학생의 성적 데이터를 일절 저장하지 않는다.
+                            <br>2. 학생들은 졸업관리시스템을 이용하는 과정에서 필요한 성적 데이터를 스스로 등록하도록 한다.
+                            <br>3. 성적 데이터는 사전에 개발팀과 세종대학교 전산과 간의 상호 협의한 형식에 따른다.</p>
+                        <p></p>
+                        <p>—</p>
+                        <p></p>
+                        <p>등록 가능한 성적 데이터는 다음의 방법으로 취득하실 수 있습니다.</p>
+                        <p></p>
+                        <p class="text-bold">1. 세종대학교 학사정보시스템(https://uis.sejong.ac.kr/)에 로그인합니다.
+                        <br>2. 좌측 메뉴에서 '기이수성적조회'를 선택합니다.
+                        <br>3. 우측 결과 화면에서 '다운로드'를 선택하여 엑셀 파일을 내려받습니다.</p>
+                        <p></p>
+                        <p>개발팀은 앞으로도 더 나은 서비스 제공을 위해 항상 노력하겠습니다.</p>
+                        <p>고맙습니다.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+{% include "include/footer.html"%}
+
+<script type="text/javascript">
+    $('.select2').select2();
+
+    var student_major = $('#student_major');
+    var student_major2 = $('#student_major2');
+    var student_major3 = $('#student_major3');
+
+    function checkFileType(filePath) {
+        var fileFormat = filePath.split(".");
+
+        return fileFormat.indexOf("xls") > -1;
+
+    }
+
+    function checkfilename(){
+        var file = $("#excelFile").val();
+        var filename = file.split("\\");
+
+        if (!checkFileType(file)) {
+            document.getElementById("filename").innerHTML = '<i class="fa fa-warning"></i><br>해당 파일은 첨부할 수 없습니다.<br><i>' + filename[filename.length-1] + '</i>';
+            return false;
+        }
+
+        document.getElementById("filename").innerHTML = '<i class="fa fa-check"></i><br>다음 파일이 정상적으로 첨부되었습니다.<br><i>' + filename[filename.length-1] + '</i>';
+
+    }
+
+    $('#search').click(function () {
+        var file = $("#excelFile").val();
+        var filename = file.split("\\");
+
+        if (file === "" || file == null) {
+            document.getElementById("filename").innerHTML = '<i class="fa fa-warning"></i><br>파일이 첨부되지 않았습니다.<br>엑셀 파일을 첨부하여 주십시오.';
+
+            return false;
+        } else if (!checkFileType(file)) {
+            document.getElementById("filename").innerHTML = '<i class="fa fa-warning"></i><br>해당 파일은 첨부할 수 없습니다.<br><i>' + filename[filename.length-1] + '</i>';
+
+            return false;
+        }
+
+        document.getElementById("filename").innerHTML = '<i class="fa fa-check"></i><br>다음 파일이 정상적으로 첨부되었습니다.<br><i>' + filename[filename.length-1] + '</i>';
+
+        var form = $('#FILE_FORM')[0];
+        var formData = new FormData(form);
+        formData.append("fileObj", $("#excelFile")[0].files[0]);
+
+        $.ajax({
+            url: '/settings/student',
+            type: 'post',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (result) {
+                if (result === 'success') {
+                    location.replace("/assessment")
+                }
+                else{
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    })
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                })
+            }
+        })
+
+    });
+
+    $('#save').click(function () {
+        if (student_major.find('option:selected').val() === "0") {
+            iziToast.show({
+                title: '알림',
+                message: info01 + alert05,
+                theme: 'light',
+                color: 'red',
+                position: 'topRight',
+                timeout: 3000
+            });
+
+            return false;
+        }
+
+        if (student_major2.find('option:selected').val() !== "0" && student_major.find('option:selected').val() === student_major2.find('option:selected').val()) {
+            iziToast.show({
+                title: '알림',
+                message: info01 + alert06,
+                theme: 'light',
+                color: 'red',
+                position: 'topRight',
+                timeout: 3000
+            });
+
+            return false;
+        }
+
+        if (student_major3.find('option:selected').val() !== "0" && student_major.find('option:selected').val() === student_major3.find('option:selected').val()) {
+            iziToast.show({
+                title: '알림',
+                message: info01 + alert06,
+                theme: 'light',
+                color: 'red',
+                position: 'topRight',
+                timeout: 3000
+            });
+
+            return false;
+        }
+
+        if (student_major2.find('option:selected').val() !== "0" && student_major3.find('option:selected').val() !== "0" && student_major2.find('option:selected').val() === student_major3.find('option:selected').val()) {
+            iziToast.show({
+                title: '알림',
+                message: info01 + alert06,
+                theme: 'light',
+                color: 'red',
+                position: 'topRight',
+                timeout: 3000
+            });
+
+            return false;
+        }
+
+        $('#save').prop('disabled', 'disabled');
+
+        $.ajax({
+            url:'/user/update/profile',
+            type: 'post',
+            data: {
+                'dept_no': student_major.val(),
+                'major2': student_major2.val(),
+                'major3': student_major3.val(),
+                'student_id': $('#student_id').val()
+            },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    $('#student_major_name_1').text(result['major_name_1']);
+                    $('#student_major_name_2').text(result['major_name_2']);
+                    $('#student_major2_name').text(result['major2_name']);
+                    $('#student_major3_name').text(result['major3_name']);
+
+                    iziToast.show({
+                        title: '알림',
+                        message: info00,
+                        theme: 'light',
+                        color: 'green',
+                        position: 'topRight',
+                        timeout: 1500,
+                        onClosing: function () {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    $('#save').prop('disabled', '');
+
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    })
+                }
+            },
+            error: function () {
+                $('#save').prop('disabled', '');
+
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                })
+            }
+        })
+    });
+
+</script>
+
+{% include "include/script.html"%}

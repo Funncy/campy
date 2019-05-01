@@ -1,0 +1,106 @@
+{% include "include/header.html"%}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            학생 데이터 관리
+            <small>Student Data Settings</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-university"></i> Settings</a></li>
+            <li class="active">Student Data</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        {% include "include/alert.html"%}
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-danger">
+                    <div class="box-header">
+                        <h3 class="box-title">학생 데이터 등록 및 교체 결과</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="student-data-list" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>연도</th>
+                                <th>학기</th>
+                                <th>입학연도</th>
+                                <th>학번</th>
+                                <th>소속</th>
+                                <th>학수번호</th>
+                                <th>교과목명</th>
+                                <th>구분</th>
+                                <th>교직영역</th>
+                                <th>선택영역</th>
+                                <th>학점</th>
+                                <th>등급</th>
+                                <th>평가</th>
+                                <th>평점</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--#posts-->
+                            <tr>
+                                <td><!--year--></td>
+                                <td><!--semester--></td>
+                                <td><!--admissionYear--></td>
+                                <td><!--studentId--></td>
+                                <td><!--dept--></td>
+                                <td><!--subjectNo--></td>
+                                <td><!--subjectName--></td>
+                                <td><!--category--></td>
+                                <td><!--teaching--></td>
+                                <td><!--selectArea--></td>
+                                <td><!--credit--></td>
+                                <td><!--grade--></td>
+                                <td><!--evaluationMethod--></td>
+                                <td><!--score--></td>
+                            </tr>
+                            <!--/posts-->
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+
+{% include "include/footer.html"%}
+
+<script type="text/javascript">
+    $(function () {
+        $('#student-data-list').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false,
+            'language': {
+                'info': '_PAGE_ / _PAGES_ 페이지',
+                'paginate': {
+                    'first': '처음',
+                    'previous': '이전',
+                    'next': '다음',
+                    'last': '마지막'
+                }
+            }
+        })
+    })
+</script>
+
+{% include "include/script.html"%}

@@ -1,0 +1,811 @@
+{% include "include/header.html"%}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            졸업 요건 관리
+            <small>Graduation Rule Settings</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-university"></i> Settings</a></li>
+            <li class="active">Graduation Rule</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        {% include "include/alert.html"%}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-warning">
+                    <div class="overlay" id="search-check" style="display: none;">
+                        <i class="fa fa-check"></i>
+                    </div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title">STEP 1: 졸업 요건 검색</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse" id="search-rule"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="year">입학연도</label>
+                                    <select class="form-control select2" id="year" style="width: 100%;">
+                                        <option selected="selected">2018</option>
+                                        <option>2017</option>
+                                        <option>2016</option>
+                                        <option>2015</option>
+                                        <option>2014</option>
+                                        <option>2013</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="major">학과</label>
+                                    <select class="form-control select2" id="major" style="width: 100%;">
+                                        <option selected="selected">없음</option>
+                                    </select>
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="track">이수 트랙</label>
+                                    <select class="form-control select2" id="track" style="width: 100%;">
+                                        <option selected="selected" value="1">공통</option>
+                                        <option value="2">주전공</option>
+                                        <option value="3">복수전공</option>
+                                        <option value="4">부전공</option>
+                                        <option value="5">제2전공</option>
+                                        <option value="6">교직이수</option>
+                                        <option value="7">공학인증</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" id="search" class="btn btn-default btn-block"><i class="fa fa-search"></i> 졸업 요건 조회하기</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <i class="icon fa fa-warning"></i> 졸업 요건이 정상적으로 조회되지 않는다면 <a href="report"><b>시스템 오류 신고</b></a>를 이용해주세요.
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-danger collapsed-box">
+                    <div class="overlay" id="result-wait">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title">STEP 2: 졸업 요건 확인 및 설정</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse" id="result-rule"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>입학연도</label>
+                                    <span class="form-control" id="searched_year" style="width: 100%;">-</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>학과</label>
+                                    <span class="form-control" id="searched_major" style="width: 100%;">-</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>이수 트랙</label>
+                                    <span class="form-control" id="searched_track" style="width: 100%;">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" id="result-close" class="btn btn-default btn-block"><i class="fa fa-undo"></i> 졸업 요건 재검색</button>
+                                <p class="text-center">&mdash;</p>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-striped table-hover text-center" id="table-rule">
+                                    <thead>
+                                    <tr>
+                                        <th class="hidden-xs" style="width: 80px">요건 번호</th>
+                                        <th>과목 그룹 이름</th>
+                                        <th style="width: 80px">요건 종류</th>
+                                        <th style="width: 80px">지정 점수</th>
+                                        <th class="hidden-xs" style="width: 100px">관리</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbody-rule">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer" style="display: none;">
+                        <i class="icon fa fa-info-circle"></i> 각 과목 그룹에 해당하는 이수 교과목은 <a href="/screen/group"><b>과목 그룹 관리</b></a>에서 지정하실 수 있습니다.<br>
+                        <i class="icon fa fa-info-circle"></i> 엑셀파일로 모든 학과의 졸업 요건을 내보내고 싶으신가요? <a href="#!"><b>서비스 준비 중</b></a>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+
+            <div class="modal fade" id="modal-create">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">새로운 졸업 요건을 추가합니다.</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>입학연도</label>
+                                        <span class="form-control" id="modal_searched_year" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>학과</label>
+                                        <span class="form-control" id="modal_searched_major" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>이수 트랙</label>
+                                        <span class="form-control" id="modal_searched_track" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                            <p class="text-center">&mdash;</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group has-feedback">
+                                        <label for="modal_rule_group">과목 그룹</label>
+                                        <select class="form-control select2" id="modal_rule_group" style="width: 100%;">
+                                            <option selected="selected">없음</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="modal_rule_type">졸업 요건 종류</label>
+                                        <select class="form-control select2" id="modal_rule_type" style="width: 100%;">
+                                            <option selected="selected" value="1">이수 학점</option>
+                                            <option value="2">평균 평점</option>
+                                            <option value="3">이수 교과목 수</option>
+                                            <option value="4">서로 다른 이수 영역 수</option>
+                                            <option value="5">이수 설계 학점 (공학인증)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="modal_rule_minimum">졸업 요건 지정 점수 (최솟값)</label>
+                                        <input type="text" class="form-control text-center" id="modal_rule_minimum">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                            </form>
+                            <i class="icon fa fa-info-circle"></i> 새로운 졸업 요건을 추가할 때에는 이미 존재하는 졸업 요건에 유의하시기 바랍니다.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-primary" id="modal_create">추가하기</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+
+            <div class="modal fade" id="modal-update">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">기존의 졸업 요건을 수정합니다.</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="modal_update_year">입학연도</label>
+                                            <span class="form-control" id="modal_update_year" style="width: 100%;">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="modal_update_major">학과</label>
+                                            <span class="form-control" id="modal_update_major" style="width: 100%;">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="modal_update_track">이수 트랙</label>
+                                            <span class="form-control" id="modal_update_track" style="width: 100%;">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                                <p class="text-center">&mdash;</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group has-feedback">
+                                            <label for="modal_update_rule_group">과목 그룹</label>
+                                            <span class="form-control" id="modal_update_rule_group" style="width: 100%;">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="modal_update_rule_type">졸업 요건 종류</label>
+                                            <select class="form-control select2" id="modal_update_rule_type" style="width: 100%;">
+                                                <option selected="selected" value="1">이수 학점</option>
+                                                <option value="2">평균 평점</option>
+                                                <option value="3">이수 교과목 수</option>
+                                                <option value="4">서로 다른 이수 영역 수</option>
+                                                <option value="5">이수 설계 학점 (공학인증)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="modal_update_rule_minimum">졸업 요건 지정 점수 (최솟값)</label>
+                                            <input type="text" class="form-control text-center" id="modal_update_rule_minimum">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </form>
+                            <i class="icon fa fa-info-circle"></i> 새로운 졸업 요건을 추가할 때에는 이미 존재하는 졸업 요건에 유의하시기 바랍니다.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-primary" id="modal_update">수정하기</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+<!-- /.content-wrapper -->
+
+{% include "include/footer.html"%}
+
+<!-- CK Editor -->
+<script src="/webjars/AdminLTE/2.4.2/bower_components/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript">
+    var selected_rule_no;
+    var major = $('#major');
+    var rule_list = $('#tbody-rule');
+
+    $('.select2').select2();
+
+    $('#year').change(function () {
+        major.prop('disabled', 'disabled');
+
+        $.ajax({
+            url: '/rule/search/department',
+            type: 'get',
+            data: { 'year': $('#year').val() },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    major.empty();
+
+                    if (!result['count']) {
+                        iziToast.show({
+                            title: '알림',
+                            message: info01 + alert03,
+                            theme: 'light',
+                            color: 'red',
+                            position: 'topRight',
+                            timeout: 3000
+                        })
+                    } else {
+                        for (var key in result['departments']) {
+                            if (result['departments'].hasOwnProperty(key)) {
+                                major.append('<option value="' + result['departments'][key]['no'] + '">' + result['departments'][key]['name'] + '</option>')
+                            }
+                        }
+
+                        major.prop('disabled', '')
+                    }
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    })
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                })
+            }
+        })
+    });
+
+    $('#search').click(function () {
+        $('#search').prop('disabled', 'disabled');
+        $('#search-check').css("display", "");
+
+        $.ajax({
+            url: '/rule/search/rule',
+            type: 'get',
+            data: { 'dept': major.val(),
+                'track': $('#track').val() },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    var selected_year = $('#year').find('option:selected').val();
+                    var selected_major = $('#major').find('option:selected').text();
+                    var selected_track = $('#track').find('option:selected').text();
+
+                    $('#searched_year').text(selected_year);
+                    $('#searched_major').text(selected_major);
+                    $('#searched_track').text(selected_track);
+
+                    $('#modal_searched_year').text(selected_year);
+                    $('#modal_searched_major').text(selected_major);
+                    $('#modal_searched_track').text(selected_track);
+
+                    $('#modal_update_year').text(selected_year);
+                    $('#modal_update_major').text(selected_major);
+                    $('#modal_update_track').text(selected_track);
+
+                    rule_list.empty();
+
+                    for (var key in result['rules']) {
+                        var rule_type;
+
+                        if (result['rules'].hasOwnProperty(key)) {
+                            switch (result['rules'][key]['ruleType']) {
+                                case 1:
+                                    rule_type = '이수 학점'; break;
+
+                                case 2:
+                                    rule_type = '평균 평점'; break;
+
+                                case 3:
+                                    rule_type = '이수 과목'; break;
+
+                                case 4:
+                                    rule_type = '이수 영역'; break;
+
+                                case 5:
+                                    rule_type = '설계 학점'; break;
+                            }
+                            rule_list.append('<tr><td class="hidden-xs">' + result['rules'][key]['no'] + '</td><td>' + result['rules'][key]['systemSubjectGroup']['name'] + '</td><td>' + rule_type + '</td><td>' + result['rules'][key]['ruleMinimum'] + '</td><td class="hidden-xs"><button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-update" onclick="update('+ result['rules'][key]['no'] +', \'' + result['rules'][key]['systemSubjectGroup']['name'] + '\', \'' + result['rules'][key]['ruleType'] + '\', \'' + result['rules'][key]['ruleMinimum'] + '\')">수정</button> <button type="button" class="btn btn-danger btn-xs">삭제</button></td></tr>');
+                        }
+                    }
+
+                    if(result['rules'].length === 0 &&  $('#track').val() <= 5){ //제2 전공 트랙까지만 일괄 생성
+                        rule_list.append('<tr class="hidden-xs"><td class="hidden-xs"></td><td></td><td></td><td></td><td class="hidden-xs"><button type="button" class="btn btn-primary btn-xs" onclick="addDefaultRule()">일괄 요건 추가</button></td></tr>');
+                    }
+                    else {
+                        rule_list.append('<tr class="hidden-xs"><td class="hidden-xs"></td><td></td><td></td><td></td><td class="hidden-xs"><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-create">새 요건 추가</button></td></tr>');
+                    }
+
+                    $('#search-rule').trigger("click");
+                    $('#result-wait').css("display", "none");
+                    $('#result-rule').trigger("click");
+
+                    getRuleGroupList()
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    });
+
+                    $('#searched_year').text('-');
+                    $('#searched_major').text('-');
+                    $('#searched_track').text('-');
+
+                    $('#search-check').css("display", "none");
+                    $('#search').prop('disabled', '')
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+
+                $('#searched_year').text('-');
+                $('#searched_major').text('-');
+                $('#searched_track').text('-');
+
+                $('#search-check').css("display", "none");
+                $('#search').prop('disabled', '')
+            }
+        })
+    });
+
+    $('#modal_update').click(function () {
+        $('#modal_update').prop('disabled', 'disabled');
+
+        $.ajax({
+            url: '/rule/update',
+            type: 'post',
+            data: { 'no': selected_rule_no,
+                'rule_type': $('#modal_update_rule_type').val(),
+                'rule_minimum': $('#modal_update_rule_minimum').val() },
+            success: function (result) {
+                if (result === 'success') {
+                    iziToast.show({
+                        title: '알림',
+                        message: info00,
+                        theme: 'light',
+                        color: 'green',
+                        position: 'topRight',
+                        timeout: 1500,
+                        onOpening: function () {
+                            $('#modal_update').prop('disabled', '');
+                            $('#modal-update').modal('hide') },
+                        onOpened: function () {
+                            reload() }
+                    })
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    });
+
+                    $('#modal_update').prop('disabled', '')
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+
+                $('#searched_year').text('-');
+                $('#searched_major').text('-');
+                $('#searched_track').text('-');
+
+                $('#modal_update').prop('disabled', '')
+            }
+        })
+    });
+
+    $('#modal_create').click(function () {
+        $('#modal_create').prop('disabled', 'disabled');
+
+        $.ajax({
+            url: '/rule/create',
+            type: 'post',
+            data: { 'dept': $('#major').val(),
+                'group_no': $('#modal_rule_group').val(),
+                'rule_type': $('#modal_rule_type').val(),
+                'rule_minimum': $('#modal_rule_minimum').val(),
+                'track': $('#track').val() },
+            success: function (result) {
+                if (result === 'success') {
+                    iziToast.show({
+                        title: '알림',
+                        message: info00,
+                        theme: 'light',
+                        color: 'green',
+                        position: 'topRight',
+                        timeout: 1500,
+                        onOpening: function () {
+                            $('#modal_create').prop('disabled', '');
+                            $('#modal-create').modal('hide')},
+                        onOpened: function () {
+                            reload() }
+                    })
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    });
+
+                    $('#modal_create').prop('disabled', '')
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+
+                $('#searched_year').text('-');
+                $('#searched_major').text('-');
+                $('#searched_track').text('-');
+
+                $('#modal_create').prop('disabled', '')
+            }
+        })
+    });
+
+    $('#result-close').click(function() {
+        $('#search').prop('disabled', '');
+        $('#search-check').css("display", "none");
+
+        $('#search-rule').trigger("click");
+        $('#result-wait').css("display", "");
+        $('#result-rule').trigger("click")
+    });
+
+    function getRuleGroupList() {
+        $('#modal_rule_group').prop('disabled', 'disabled');
+
+        $.ajax({
+            url: '/rule/create/search/group',
+            type: 'get',
+            data: { 'dept': major.val(), 'year': $('#year').val() },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    var modal_rule_group = $('#modal_rule_group');
+
+                    modal_rule_group.empty();
+
+                    if (!result['count']) {
+                        iziToast.show({
+                            title: '알림',
+                            message: info01 + alert03,
+                            theme: 'light',
+                            color: 'red',
+                            position: 'topRight',
+                            timeout: 3000
+                        })
+                    } else {
+                        for (var key in result['groups']) {
+                            if (result['groups'].hasOwnProperty(key)) {
+                                modal_rule_group.append('<option value="' + result['groups'][key]['no'] + '">' + result['groups'][key]['name'] + '</option>')
+                            }
+                        }
+
+                        modal_rule_group.prop('disabled', '')
+                    }
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    })
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                })
+            }
+        })
+    }
+
+    function update(rule_no, group_name, rule_type, rule_minimum) {
+        selected_rule_no = rule_no;
+        $('#modal_update_rule_group').text(group_name);
+
+        var modal_update_rule_type = $('#modal_update_rule_type');
+
+        modal_update_rule_type.val(rule_type);
+        modal_update_rule_type.trigger('change');
+
+        $('#modal_update_rule_minimum').val(rule_minimum)
+    }
+
+    function reload() {
+        $.ajax({
+            url: '/rule/search/rule',
+            type: 'get',
+            data: { 'dept': major.val(), 'track': $('#track').val() },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    var selected_year = $('#year').find('option:selected').val();
+                    var selected_major = $('#major').find('option:selected').text();
+                    var selected_track = $('#track').find('option:selected').text();
+
+                    $('#searched_year').text(selected_year);
+                    $('#searched_major').text(selected_major);
+                    $('#searched_track').text(selected_track);
+
+                    $('#modal_searched_year').text(selected_year);
+                    $('#modal_searched_major').text(selected_major);
+                    $('#modal_searched_track').text(selected_track);
+
+                    $('#modal_update_year').text(selected_year);
+                    $('#modal_update_major').text(selected_major);
+                    $('#modal_update_track').text(selected_track);
+
+                    rule_list.empty();
+
+                    for (var key in result['rules']) {
+                        var rule_type;
+
+                        if (result['rules'].hasOwnProperty(key)) {
+                            switch (result['rules'][key]['ruleType']) {
+                                case 1:
+                                    rule_type = '이수 학점'; break;
+
+                                case 2:
+                                    rule_type = '평균 평점'; break;
+
+                                case 3:
+                                    rule_type = '이수 과목'; break;
+
+                                case 4:
+                                    rule_type = '이수 영역'; break;
+
+                                case 5:
+                                    rule_type = '설계 학점'; break;
+                            }
+                            rule_list.append('<tr><td class="hidden-xs">' + result['rules'][key]['no'] + '</td><td>' + result['rules'][key]['systemSubjectGroup']['name'] + '</td><td>' + rule_type + '</td><td>' + result['rules'][key]['ruleMinimum'] + '</td><td class="hidden-xs"><button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-update" onclick="update(' + result['rules'][key]['no'] + ', \'' + result['rules'][key]['systemSubjectGroup']['name'] + '\', \'' + result['rules'][key]['ruleType'] + '\', \'' + result['rules'][key]['ruleMinimum'] + '\')">수정</button> <button type="button" class="btn btn-danger btn-xs">삭제</button></td></tr>');
+                        }
+                    }
+                    if(result['rules'].length === 0 &&  $('#track').val() <= 5){ //제2 전공 트랙까지만 일괄 생성
+                        rule_list.append('<tr class="hidden-xs"><td class="hidden-xs"></td><td></td><td></td><td></td><td class="hidden-xs"><button type="button" class="btn btn-primary btn-xs" onclick="addDefaultRule()">일괄 요건 추가</button></td></tr>');
+                    }
+                    else {
+                        rule_list.append('<tr class="hidden-xs"><td class="hidden-xs"></td><td></td><td></td><td></td><td class="hidden-xs"><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-create">새 요건 추가</button></td></tr>');
+                    }
+                    getRuleGroupList()
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    });
+
+                    $('#searched_year').text('-');
+                    $('#searched_major').text('-');
+                    $('#searched_track').text('-')
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+
+                $('#searched_year').text('-');
+                $('#searched_major').text('-');
+                $('#searched_track').text('-')
+            }
+        })
+    }
+
+    function addDefaultRule() {
+        $.ajax({
+            url: '/rule/createDefault',
+            type: 'post',
+            data: {
+                'dept_no': major.val(),
+                'track': $('#track').val() },
+            success: function (result) {
+                if(result === 'success'){
+                    reload();
+                }
+                else{
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    });
+                }
+            },
+            error:function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+            }
+        })
+    }
+
+</script>
+
+{% include "include/script.html"%}

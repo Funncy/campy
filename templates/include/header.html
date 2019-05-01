@@ -1,0 +1,281 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>세종대학교 졸업관리시스템</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.4.8/css/ionicons.min.css">
+    <!-- daterange picker
+    <link rel="stylesheet" href="/webjars/AdminLTE/2.4.2/bower_components/bootstrap-daterangepicker/daterangepicker.css"> -->
+    <!-- bootstrap datepicker
+    <link rel="stylesheet" href="/webjars/AdminLTE/2.4.2/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"> -->
+    <!-- Bootstrap time Picker
+    <link rel="stylesheet" href="/webjars/AdminLTE/2.4.2/plugins/timepicker/bootstrap-timepicker.min.css"> -->
+    <!-- Select2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.10/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.10/css/skins/skin-red.min.css">
+    <!-- Pace style -->
+    <!--<link rel="stylesheet" href="/webjars/AdminLTE/2.4.2/plugins/pace/pace.min.css">-->
+    <!-- izitoast -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/all.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <style>
+        @import url(http://cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css);
+
+        body, div, span, h1, h2, h3, h4 {
+            font-family: 'Source Sans Pro', 'Nanum Square';
+        }
+
+        .example-modal .modal {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            right: auto;
+            left: auto;
+            display: block;
+            z-index: 1;
+        }
+
+        .example-modal .modal {
+            background: transparent !important;
+        }
+
+        .modal {
+            overflow: auto;
+        }
+
+        .modal-dialog{
+            overflow-y: initial;
+        }
+
+        .modal-body{
+            max-height: calc(100vh - 185px);
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+<div class="wrapper">
+
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="/" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>SJ</b>U</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>SEJONG</b>University</span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account Menu -->
+                    <!--#userdata-->
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!-- The user image in the navbar-->
+                            <img src="{% static 'img/person-placeholder.jpg' %}" class="user-image" alt="User Image">
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                            <span class="hidden-xs">
+                                <!--userdata.name--> 님
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-header">
+                                <img src="{% static 'img/person-placeholder.jpg' %}" class="img-circle" alt="User Image">
+
+                                <p>
+                                    <!--userdata.name-->
+                                    <small><!--userauth--> / <!--userdata.id--></small>
+                                </p>
+                            </li>
+                            <!-- Menu Body
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Friends</a>
+                                    </div>
+                                </div>
+                            </li> -->
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="/user/mypage" class="btn btn-default btn-flat">마이페이지</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/user/logout" class="btn btn-default btn-flat">로그아웃</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--/userdata-->
+                    <!--^userdata-->
+                    <li>
+                        <a href="/user/login">
+                            <!-- The user image in the navbar-->
+                            <i class="fa fa-key"></i>
+                            <span class="hidden-xs">로그인</span>
+                        </a>
+                    </li>
+                    <!--/userdata-->
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="{% static 'img/person-placeholder.jpg' %}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <!--#userdata-->
+                    <p><!--userdata.name--> 님</p>
+                    <!-- Status -->
+                    <a href="#!"><!--userauth--> / <!--userdata.id--></a>
+                    <!--/userdata-->
+                    <!--^userdata-->
+                    <p>손님</p>
+                    <!-- Status -->
+                    <a href="/user/login">로그인이 필요합니다</a>
+                    <!--/userdata-->
+                </div>
+            </div>
+
+            <!-- search form (Optional) --><!--
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+                </div>
+            </form>
+            --><!-- /.search form -->
+
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu" data-widget="tree"><li class="header">대시보드</li>
+                <li class="<!--#sidebarDashboardActive-->active<!--/sidebarDashboardActive-->"><a href="/"><i class="fa fa-dashboard"></i> <span>대시보드</span></a></li>
+                <li class="<!--#sidebarNoticeActive-->active<!--/sidebarNoticeActive-->"><a href="/notice"><i class="fa fa-newspaper-o"></i> <span>공지사항</span></a></li>
+
+                <!--#authAdmin-->
+                <li class="header">졸업 관리</li>
+                <li class="<!--#sidebarJudgingActive-->active<!--/sidebarJudgingActive-->"><a href="/assessment"><i class="fa fa-graduation-cap"></i> <span>졸업 판정</span></a></li>
+                <li><a href="#"><i class="fa fa-check-square-o"></i> <span>졸업 허가 및 유예 업무</span></a></li>
+                <li class="<!--#sidebarSimulationActive-->active<!--/sidebarSimulationActive-->"><a href="/simulation"><i class="fa fa-road"></i> <span>졸업 이수 시뮬레이션</span></a></li>
+
+                <li class="header">시스템</li>
+                <li class="treeview <!--#sidebarSettingsActive-->active<!--/sidebarSettingsActive-->">
+                    <a href="#!"><i class="fa fa-university"></i> <span>시스템 관리</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="<!--#sidebarSubjectGroupSettingActive-->active<!--/sidebarSubjectGroupSettingActive-->"><a href="/group">과목 그룹 관리</a></li>
+                        <li class="<!--#sidebarRuleSettingActive-->active<!--/sidebarRuleSettingActive-->"><a href="/rule">졸업 요건 관리</a></li>
+                        <li class="<!--#sidebarSubjectSettingActive-->active<!--/sidebarSubjectSettingActive-->"><a href="/subject">과목 관리</a></li>
+                        <li class="<!--#sidebarAbeekSettingActive-->active<!--/sidebarAbeekSettingActive-->"><a href="/abeek">설계 과목 관리</a></li>
+                        <li class="<!--#sidebarGeneralSettingActive-->active<!--/sidebarGeneralSettingActive-->"><a href="/settings/general">일반 설정 관리</a></li>
+                        <li class="<!--#sidebarCertificationSettingActive-->active<!--/sidebarCertificationSettingActive-->"><a href="/certification">졸업 인증 관리</a></li>
+                    </ul>
+                </li>
+                <li class="<!--#sidebarFaqActive-->active<!--/sidebarFaqActive-->"><a href="/faq"><i class="fa fa-question-circle"></i> <span>자주 묻는 질문</span></a></li>
+                <li class="<!--#sidebarReportActive-->active<!--/sidebarReportActive-->"><a href="/report"><i class="fa fa-warning"></i> <span>시스템 오류 신고</span></a></li>
+                <!--/authAdmin-->
+
+                <!--#authStaff-->
+                <li class="header">졸업 관리</li>
+                <li class="<!--#sidebarJudgingActive-->active<!--/sidebarJudgingActive-->"><a href="/assessment"><i class="fa fa-graduation-cap"></i> <span>졸업 판정</span></a></li>
+                <li><a href="#"><i class="fa fa-check-square-o"></i> <span>졸업 허가 및 유예 업무</span></a></li>
+                <li class="<!--#sidebarSimulationActive-->active<!--/sidebarSimulationActive-->"><a href="/simulation"><i class="fa fa-road"></i> <span>졸업 이수 시뮬레이션</span></a></li>
+
+                <li class="header">시스템</li>
+                <li class="treeview <!--#sidebarSettingsActive-->active<!--/sidebarSettingsActive-->">
+                    <a href="#!"><i class="fa fa-university"></i> <span>시스템 관리</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="<!--#sidebarSubjectGroupSettingActive-->active<!--/sidebarSubjectGroupSettingActive-->"><a href="/group">과목 그룹 관리</a></li>
+                        <li class="<!--#sidebarRuleSettingActive-->active<!--/sidebarRuleSettingActive-->"><a href="/rule">졸업 요건 관리</a></li>
+                        <li class="<!--#sidebarSubjectSettingActive-->active<!--/sidebarSubjectSettingActive-->"><a href="/subject">과목 관리</a></li>
+                        <li class="<!--#sidebarAbeekSettingActive-->active<!--/sidebarAbeekSettingActive-->"><a href="/abeek">설계 과목 관리</a></li>
+                        <li class="<!--#sidebarGeneralSettingActive-->active<!--/sidebarGeneralSettingActive-->"><a href="/settings/general">일반 설정 관리</a></li>
+                        <li class="<!--#sidebarCertificationSettingActive-->active<!--/sidebarCertificationSettingActive-->"><a href="/certification">졸업 인증 관리</a></li>
+                    </ul>
+                </li>
+                <li class="<!--#sidebarFaqActive-->active<!--/sidebarFaqActive-->"><a href="/faq"><i class="fa fa-question-circle"></i> <span>자주 묻는 질문</span></a></li>
+                <li class="<!--#sidebarReportActive-->active<!--/sidebarReportActive-->"><a href="/report"><i class="fa fa-warning"></i> <span>시스템 오류 신고</span></a></li>
+                <!--/authStaff-->
+
+                <!--#authStudent-->
+                <li class="header">졸업 관리</li>
+                <li class="<!--#sidebarJudgingActive-->active<!--/sidebarJudgingActive-->"><a href="/assessment"><i class="fa fa-graduation-cap"></i> <span>졸업 판정</span></a></li>
+                <li class="<!--#sidebarSimulationActive-->active<!--/sidebarSimulationActive-->"><a href="/simulation"><i class="fa fa-road"></i> <span>졸업 이수 시뮬레이션</span></a></li>
+
+
+                <li class="header">시스템</li>
+                <li class="<!--#sidebarFaqActive-->active<!--/sidebarFaqActive-->"><a href="/faq"><i class="fa fa-question-circle"></i> <span>자주 묻는 질문</span></a></li>
+                <li class="<!--#sidebarReportActive-->active<!--/sidebarReportActive-->"><a href="/report"><i class="fa fa-warning"></i> <span>시스템 오류 신고</span></a></li>
+                <!--/authStudent-->
+            </ul>
+            <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>

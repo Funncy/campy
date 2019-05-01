@@ -1,0 +1,93 @@
+{% load staticfiles %}
+{% include "include/header.html"%}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <!-- title -->
+            <small><!-- subtitle --></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        {% include "include/alert.html"%}
+
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-6">
+                        <p class="text-center"><img src="{% static 'img/emblem.png' %}" style="width: 300px; height: 300px; margin-top: 30px;"></p>
+                        <p class="text-center" style="font-size: 200%; margin-top: 20px;"><b>세종대학교<br>졸업관리시스템</b></p>
+                        <p class="text-center" style="font-size: 150%; margin-top: 40px;"><i>Open Beta<br>2019. 02. 13. (Wed) ~ 2018. 02. 20. (Wed)</i></p>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-warning"></i> 오픈 베타 서비스 이용 대상 안내</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                안녕하세요. 세종대학교 졸업관리 시스템 개발팀 GMS입니다.
+                                <br>이번 오픈 베타는 다음의 조건에 모두 해당하는 학생 사용자에 한해서 이용이 가능합니다.
+                                <br>
+                                <br>1. 신입학 전형으로 2013년,2014년,2015년,2016년,2017년에 입학한 학생  (편입학 학생은 이용 불가)
+                                <br>2. 연계전공, 제2전공, ROTC, 학석사 연계 예비생 및 교직과정 이수자에 모두 해당하지 않는 학생 (복수전공, 부전공 및 조기졸업 대상자는 이용 가능)
+                                <br>3. 교환학생, 파견학생 및 타 대학 교류 등의 사유로 타 대학에서 이수한 과목 기록이 없는 학생
+                                <br>
+                                <br>오픈 베타 서비스는 시스템 검증을 위해 제한된 인원의 학생들에게 먼저 제공되며, 이후 정식 버전에서 이용 대상 범위가 확대될 예정입니다. 고맙습니다.
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                세종대학교 졸업관리시스템
+                            </div>
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-warning"></i> 시스템 오류 신고 안내</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                안녕하세요. 세종대학교 졸업관리 시스템 개발팀 GMS입니다.
+                                <br>오픈 베타 서비스 기간 동안에 발생한 오류는 즉시 개발팀으로 신고하여 주시기 바랍니다.
+                                <br>
+                                <br><strong>개발팀 이메일: gms.error@gmail.com</strong>
+                                <br>
+                                <br>여러분의 적극적인 오류 신고가 더 나은 졸업관리시스템을 만듭니다. 고맙습니다.
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer text-center">
+                                세종대학교 졸업관리시스템
+                            </div>
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+{% include "include/footer.html"%}
+{% include "include/script.html"%}
