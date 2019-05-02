@@ -78,7 +78,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'campy.wsgi.application'
 
-
+AUTH_USER_MODEL = 'app_account_management.UserInfo'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'campy.wsgi.application'
 DATABASES = {
     'default': {
          'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'campy', # CREATE DATABASE campy default CHARACTER SET UTF8;
+         'NAME': 'campy2', # CREATE DATABASE campy default CHARACTER SET UTF8;
          'USER': 'root',
          'PASSWORD': 'applemac',
          'HOST': '127.0.0.1',

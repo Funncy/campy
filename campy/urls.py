@@ -30,6 +30,7 @@ urlpatterns = [
     path('', views.index),
     path('login/', views.login),
     path('test/', views.test),
+    path('admin/', admin.site.urls),
 
     # path('rule/create/search/group/', views.ruleCreateSearchGroup),
     # path('rule/search/department/', views.ruleCreateSearchGroup),
