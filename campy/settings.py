@@ -88,7 +88,7 @@ DATABASES = {
          'ENGINE': 'django.db.backends.mysql',
          'NAME': 'campy', # CREATE DATABASE campy default CHARACTER SET UTF8;
          'USER': 'root',
-         'PASSWORD': 'rootpassword',
+         'PASSWORD': 'applemac',
          'HOST': '127.0.0.1',
          'PORT': '3306',
 
