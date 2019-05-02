@@ -1,0 +1,54 @@
+{% load static %}
+{% include "include/header.html" %}
+          <!-- Content Wrapper. Contains page content -->
+          <div class="content-wrapper">
+            <section class="content-header">나의 수강 이력 관리
+                <div class="container-fluid">
+
+                </div>
+            </section>
+            <section class="content container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover" style="text-align: center">
+                                    <thead>
+                                        <th>과목이름</th>
+                                        <th>학년</th>
+                                        <th>학기</th>
+                                        <th>영역</th>
+                                        <th>학점</th>
+                                        <th>교수님</th>
+                                        <th>성적</th>
+                                        <th></th>
+                                    </thead>
+                                    <tbody>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                        <td>6</td>
+                                        <td>7</td>
+                                        <td><a href="https://naver.com"><i class="fa fa-times"></i></a></td>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <span class="col-md-2">총학점:100</span><span class="col-md-2">평균학점:3.46</span>
+                        <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-create"><i class="fa fa-plus"></i> 과목 추가하기</button><br><br>
+                        <button class="btn btn-primary pull-right">엑셀 업로드</button>
+                    </div>
+                </div>
+
+
+          
+            </section>
+          </div>
+          <!-- /.content-wrapper -->
+      
+
+      
+{% include "include/footer.html" %}
