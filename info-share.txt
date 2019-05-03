@@ -15,7 +15,6 @@ set character_set_client = euckr;
 set character_set_connection = euckr;
 set character_set_results = euckr;
 
-
 데이터 붓기###########################################################################################
 
 delete from app_data_conversion_datadumpo;
@@ -63,3 +62,7 @@ Fixed -기능이름 -오류내용
 Deleted -기능이름 -삭제이유
 #기능 아닌 내용 커밋
 Revised -내용
+
+git add -f staticfiles/*
+git push origin master
+git commit -m "Added MariaDB connect setting"
