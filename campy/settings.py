@@ -86,9 +86,9 @@ AUTH_USER_MODEL = 'app_account_management.UserInfo'
 DATABASES = {
     'default': {
          'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'campy2', # CREATE DATABASE campy default CHARACTER SET UTF8;
+         'NAME': 'campy', # CREATE DATABASE campy default CHARACTER SET UTF8;
          'USER': 'root',
-         'PASSWORD': 'applemac',
+         'PASSWORD': 'rootpassword',
          'HOST': '127.0.0.1',
          'PORT': '3306',
 
