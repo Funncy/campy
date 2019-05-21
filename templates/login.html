@@ -4,26 +4,24 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title> campy | login </title>
+  <title> Campy | login </title>
   
-  <link rel="stylesheet" href="{% static 'dist/font-awesome/4.7.0/css/font-awesome.min.css' %}">
+  <script src="{% static 'dist/jquery/3.4.1/jquery.min.js' %}"></script>
   <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/dist/css/adminlte.css' %}">
-  <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/iCheck/flat/blue.css' %}">
-
+  
 </head>
 
   <body class="hold-transition login-page">
-    <div class='body'>
+    <div id='body'>
 
       <div class="login-box">
-        
+      
         <div class="login-logo">
           <h1>SEJONG University</h1>
-          <h2>CAMPY</h2>
+          <h2>Campy</h2>
         </div><!-- /.login-logo -->
 
         <div class="card">
-          
           <div class="card-body login-card-body">
 
               <div class="input-group mb-3">
@@ -32,14 +30,14 @@
 
               <div class="form-group has-feedback">
                 <div class="input-group mb-3">
-                  <input type="password" class="form-control" placeholder="Password">
+                  <input type="password" class= "form-control" placeholder="Password">
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-8"></div><!-- /.col -->
                 <div class="col-4">
-                  <button type="button" class="btn btn-block btn-primary">로그인</button>
+                  <button type="button" class="btn btn-block btn-primary" onclick="logging()">로그인</button>
                 </div><!-- /.col -->
               </div>
 
@@ -47,15 +45,31 @@
               <a href="#">Search Email</a><br>
               <a href="#">Search password</a>
             </p>
-          
+
           </div><!-- /.login-card-body -->
         </div>
-
       </div><!-- /.login-box -->
 
     </div><!-- /.body -->
+    
     <script>
-      
+      function logging(params) {
+        $.ajax({
+          type:"POST",
+          url:"",
+          data : {name : "홍길동"},
+          dataType : "json",
+          
+          success: function(data){
+            data = 'true'
+            alert(data)
+          },
+          error: function(xhr, status, error) {
+            alert(error);
+          }
+
+        });
+      }
     </script>
 
   </body>
