@@ -1,56 +1,32 @@
-# import logging
-# from rest_framework import viewsets
-# from django.contrib.auth import login
-# from django.contrib.auth.models import  Group, User
-# from University.models import Subject
-# from DjangoGms.serializers import *
-# logging.basicConfig(filename='./log/info.log', level=logging.INFO)
-# from .forms import UserForm
-# import requests
-
 from django.contrib.auth import authenticate, login as auth_login
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
-
-# from .custom_auth import check_if_user
-
-
-# class UserViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows users to be viewed or edited.
-#     """
-
-#     # orm 쿼리
-#     queryset = User.objects.all().order_by('-date_joined')
-#     # 데이터 형식
-#     serializer_class = UserSerializer
-
-# class GroupViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows groups to be viewed or edited.
-#     """
-#     queryset = Group.objects.all()
-#     serializer_class = GroupSerializer    
-
-# class SubjectViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows groups to be viewed or edited.
-#     """
-#     queryset = Subject.objects.all()
-#     serializer_class = SubjectSerializer
-
-
-# class Connect(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows groups to be viewed or edited.
-#     """
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-
 def index(request):
     return render(request, 'index.html', {})
+
+def department_manage(request):
+    return render(request, 'department-manage.html', {})
+
+
+def subject_manage(request):
+    return render(request, 'subject-manage.html', {})
+
+def subject_groups_set(request):
+    return render(request, 'subject-groups-set.html', {})
+
+
+def graduation_requirements_set(request):
+    return render(request, 'graduation-requirements-set.html', {})
+
+def graduation_diagnosis(request):
+    return render(request, 'graduation-diagnosis.html', {})
+
+def history(requset):
+    return render(request, 'history.html', {})
+
+def register(requset):
+    return render(request, 'register.html', {})
 
 def test(request):
     return render(request, 'test.html', {})
@@ -99,7 +75,7 @@ def student_data(request):
 
 def student_data_list(request):
     return render(request, 'student_data_list.html', {})
-  
+
 def student_data_upload(request):
     return render(request, 'student_data_upload.html', {})
 
@@ -111,6 +87,16 @@ def welcome(request):
 
 def login(request):
     return render(request, 'login.html', {})
+
+def dashboard(request):
+    return render(request, 'dashboard.html', {})
+
+
+def notice(request):
+    return render(request, 'notice.html', {})
+
+def data_test(request):
+    return HttpResponse('데이터를 호출했습니다.')
 
 def connect(request):
     if request.method == "POST":
