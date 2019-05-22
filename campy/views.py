@@ -95,8 +95,8 @@ def dashboard(request):
 def notice(request):
     return render(request, 'notice.html', {})
 
-def data_test(request):
-    return HttpResponse('데이터를 호출했습니다.')
+def test_data(request):
+    return HttpResponse('true')
 
 def connect(request):
     if request.method == "POST":

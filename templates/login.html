@@ -17,7 +17,7 @@
       <div class="login-box">
       
         <div class="login-logo">
-          <h1>SEJONG University</h1>
+          <h1>대학생활 플랫폼</h1>
           <h2>Campy</h2>
         </div><!-- /.login-logo -->
 
@@ -56,16 +56,13 @@
       function logging(params) {
         $.ajax({
           type:"POST",
-          url:"",
-          data : {name : "홍길동"},
-          dataType : "json",
-          
+          url:"http://127.0.0.1:8000/test-data/",
+          data : {},
           success: function(data){
-            data = 'true'
             alert(data)
           },
           error: function(xhr, status, error) {
-            alert(error);
+            // alert(error);
           }
 
         });
