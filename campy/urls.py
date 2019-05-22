@@ -24,7 +24,7 @@ urlpatterns = [
     path('dashboard/', views.dashboard),
     path('graduation-diagnosis/', views.graduation_diagnosis),
     path('notice/', views.notice),
-    path('datatest/', views.data_test),
+    path('test-data/', views.test_data),
 
     path('department-manage/', views.department_manage),
     path('subject-manage/', views.subject_manage),
