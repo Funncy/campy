@@ -1,6 +1,6 @@
 {% load static %}
 {% include "include/header.html" %}
-  
+
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
@@ -51,7 +51,7 @@
 
               <div class="row">
                 <div class="col-md-12">
-                  <button class="btn" style="width:100%">과목 조회하기</button>
+                  <button class="btn" style="width:100%" onclick="test()">과목 조회하기</button>
                 </div>
               </div>
             </div><!--/.card body-->
@@ -139,5 +139,25 @@
       </div><!--row-->
     </section>
   </div><!-- /.content-wrapper -->
-
+  
+  <script>
+    function read_year() {
+      $.ajax({
+        type:"POST",
+        url:"data-test",
+        data : {name : "홍길동"},
+        dataType : "text",
+        async: false,
+        success: function(xml)
+        {
+          console.log(xml);
+          alert(xml);
+        },
+        error: function(xhr, status, error) 
+        {
+          alert(error);
+        }	
+      });
+    }
+  </script>
 {% include "include/footer.html" %}

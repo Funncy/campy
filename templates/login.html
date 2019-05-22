@@ -1,17 +1,6 @@
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title> Campy | login </title>
-  
-  <script src="{% static 'dist/jquery/3.4.1/jquery.min.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/dist/css/adminlte.css' %}">
-  
-</head>
-
-  <body class="hold-transition login-page">
+{% include "include/header.html" %}
+  <!-- <body class="hold-transition login-page"></body> -->
     <div id='body'>
 
       <div class="login-box">
@@ -55,19 +44,22 @@
     <script>
       function logging(params) {
         $.ajax({
-          type:"POST",
-          url:"http://127.0.0.1:8000/test-data/",
+          type : "POST",
+          url : domain_name+'/data-test',
           data : {},
-          success: function(data){
-            alert(data)
+          success : function(data){
+            if(data=='true')
+            {
+              window.location.href = domain_name+'/index';
+            }
           },
-          error: function(xhr, status, error) {
+          error : function(xhr, status, error) {
             // alert(error);
           }
-
         });
       }
     </script>
 
-  </body>
+</div>
+</body>
 </html>

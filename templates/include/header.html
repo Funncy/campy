@@ -2,140 +2,174 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 3 | Dashboard</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{% static 'dist/font-awesome/4.7.0/css/font-awesome.css' %}">
-  <link rel="stylesheet" href="{% static 'dist/ionicons/2.0.1/css/ionicons.min.css' %}">
-  <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/dist/css/adminlte.css' %}">
-  <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/iCheck/flat/blue.css' %}">
-  <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/morris/morris.css' %}">
-  <link rel="stylesheet" href="{% static 'dist/jquery-plugins/jvectormap/2.0.3/jquery-jvectormap.css' %}">
-  <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/datepicker/datepicker3.css' %}">
-  <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/datepicker/1.3.15/daterangepicker-bs3.css' %}">
-  <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'dist/font-awesome/4.7.0/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/ionicons/2.0.1/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/dist/css/adminlte.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/iCheck/flat/blue.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/morris/morris.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/jquery-plugins/jvectormap/2.0.3/jquery-jvectormap.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/datepicker/datepicker3.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/datepicker/1.3.15/daterangepicker-bs3.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">  
 
-  <script src="{% static 'dist/jquery/3.4.1/jquery.min.js' %}"></script>
-  <script src="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/jQueryUI/jquery-ui.min.js' %}"></script>
-  <script src="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/dist/js/adminlte.min.js' %}"></script>
-  <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
-  <script src="{% static 'dist/js/demo.js' %}"></script>
-  <script src="{% static 'js/campy-common.js' %}"></script>
-</head>
+    <script src="{% static 'dist/jquery/3.4.1/jquery.min.js' %}"></script>
+    <script src="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/jQueryUI/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/dist/js/adminlte.min.js' %}"></script>
+    <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
+    <script src="{% static 'dist/js/demo.js' %}"></script>
+    <script src="{% static 'js/campy-common.js' %}"></script>
+    
+    <!-- 장고 csrf ajax 통신용 스크립트-->
+    <script>
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = jQuery.trim(cookies[i]);
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+        function csrfSafeMethod(method) {
+          // these HTTP methods do not require CSRF protection
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $(document).ready(function() {
+          var csrftoken = getCookie('csrftoken');
+          $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              }
+            }
+          });
+        });
+    </script><!-- 장고 csrf ajax 통신용 스크립트-->
+  </head>
 
-<body class="hold-transition sidebar-mini" background="blue">
-    <div class="wrapper">
-
-        <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
-         <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
-            </li>
-          </ul>      
-          <div class="text-center">세종대학교</div>
-        </nav>
+  <body class="hold-transition sidebar-mini" background="blue">
       
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-          <a href="/" class="brand-link" style="text-align: center">
-            <span class="brand-text font-weight-light">CAMPY</span><br>
-          </a>
-          <div class="sidebar">
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-              <div class="info">
-                <a href="/login" class="d-block">(로그인 전)로그인</a>
-                <a href="#" class="d-block">(로그인 후)학생 홍길동 학번</a>
+
+      <div class="wrapper">
+          <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+              </li>
+            </ul>      
+            <div class="text-center">**대학교</div>
+          </nav>
+        
+          <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <a href="/" class="brand-link" style="text-align: center">
+              <span class="brand-text font-weight-light">CAMPY</span><br>
+            </a>
+            <div class="sidebar">
+              <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="info">
+                  <a href="/login" class="d-block">(로그인 전)로그인</a>
+                  <a href="#" class="d-block">(로그인 후)학생 홍길동 학번</a>
+                </div>
               </div>
+              
+              <nav><!-- Sidebar Menu -->
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                  
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fa fa-th"></i>
+                      <p>
+                        관리자
+                      </p>
+                      <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </span> 
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="/department-manage" class="nav-link">
+                            <i class="fa fa-circle-o nav-icon"></i>
+                            <p>학과 관리</p>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="/subject-manage" class="nav-link">
+                            <i class="fa fa-circle-o nav-icon"></i>
+                            <p>과목 관리</p>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="/subject-groups-set" class="nav-link">
+                            <i class="fa fa-circle-o nav-icon"></i>
+                            <p>과목그룹 설정</p>
+                          </a>
+                        </li>                      
+                        <li class="nav-item">
+                          <a href="/graduation-requirements-set" class="nav-link">
+                            <i class="fa fa-circle-o nav-icon"></i>
+                            <p>졸업 요건 설정</p>
+                          </a>
+                        </li>
+                    </ul>
+                      
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a href="/my-schedule" class="nav-link">
+                      <i class="nav-icon fa fa-th"></i>
+                      <p>
+                        나의 시간표
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/graduation-diagnosis" class="nav-link">
+                      <i class="nav-icon fa fa-th"></i>
+                      <p>
+                        졸업진단
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fa fa-th"></i>
+                      <p>
+                        수강설계
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fa fa-th"></i>
+                      <p>
+                        자주 묻는 질문
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fa fa-th"></i>
+                      <p>
+                        시스템 오류 신고
+                      </p>
+                    </a>
+                  </li>
+                </ul> 
+              </nav>
+              
             </div>
             
-            <nav><!-- Sidebar Menu -->
-               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-th"></i>
-                    <p>
-                      관리자
-                    </p>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span> 
-                  </a>
-                  <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="/department-manage" class="nav-link">
-                          <i class="fa fa-circle-o nav-icon"></i>
-                          <p>학과 관리</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="/subject-manage" class="nav-link">
-                          <i class="fa fa-circle-o nav-icon"></i>
-                          <p>과목 관리</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="/subject-groups-set" class="nav-link">
-                          <i class="fa fa-circle-o nav-icon"></i>
-                          <p>과목그룹 설정</p>
-                        </a>
-                      </li>                      
-                      <li class="nav-item">
-                        <a href="/graduation-requirements-set" class="nav-link">
-                          <i class="fa fa-circle-o nav-icon"></i>
-                          <p>졸업 요건 설정</p>
-                        </a>
-                      </li>
-                  </ul>
-                    
-                </li>
-                
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-th"></i>
-                    <p>
-                      나의 시간표
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="/graduation-diagnosis" class="nav-link">
-                    <i class="nav-icon fa fa-th"></i>
-                    <p>
-                      졸업진단
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-th"></i>
-                    <p>
-                      수강설계
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-th"></i>
-                    <p>
-                      자주 묻는 질문
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-th"></i>
-                    <p>
-                      시스템 오류 신고
-                    </p>
-                  </a>
-                </li>
-              </ul> 
-            </nav>
-            
-          </div>
-          
-        </aside>
+          </aside>
