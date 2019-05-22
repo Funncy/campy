@@ -1,10 +1,119 @@
 {% load static %}
 {% include "include/header.html" %}
   
-  <div class="content-wrapper">
+<div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        과목 그룹 설정
+        <small>Graduation Subject Group Settings</small>
+      </h1>
+    </section>
+    <section class="content container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-warning card-outline">
+            <div class="card-header">
+              <h3 class="card-title">STEP 1: 과목 그룹 검색</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              </div>
+            </div><!--/.card header-->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="year">입학년도</label>
+                    <select class="form-control">
+                      <option>전체</option>
+                    </select>
+                  </div>
+                </div><!--/.col-->
+                <div class="col-md-8">
+                    <div class="form-group">
+                      <label for="major">학과</label>
+                      <select class="form-control">
+                        <option>전체</option>
+                      </select>
+                    </div>
+                  </div><!--/.col-->
+              </div><!--row-->
 
-    과목그룹 설정
-    
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn" style="width:100%">과목 그룹 조회하기</button>
+                </div>
+              </div>
+            </div><!--/.card body-->
+          </div><!--/.card outline-->
+
+          <div class="card card-danger card-outline"><!--/.step2 card outline-->
+            <div class="card-header">
+              <h3 class="card-title">STEP 2: 과목 확인 및 설정</h3>
+              <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>입학년도</label>
+                    <span class="form-control">스텝1 입학년도 입력되어야함
+                    </span>
+                  </div>
+                  </div><!--/.col-->
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <label>학과</label>
+                      <span class="form-control">스텝1 학과 입력되어야함
+                      </span>
+                    </div>
+                  </div><!--/.col-->
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn" style="width:100%">그룹 재검색</button>
+                </div>
+              </div>
+              <hr>
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body table-responsive p-0">
+                      <table class="table table-bordered">
+                        <tbody>
+                          <tr style="text-align: center">
+                            <th style="width: 10%">그룹 번호</th>
+                            <th style="width: 75%">과목 그룹 이름</th>
+                            <th style="width: 15%">관리</th>
+                          </tr>
+                          <tr style="font-size: 15px; text-align: center; align-content: center">
+                            <td>1</td>
+                            <td>과목그룹이름이 들어갑니다.</td>
+                            <td>
+                              <button class="btn btn-danger" style="font-size: 10px">삭제</button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:center">
+                              <button class="btn btn-primary" style="font-size: 10px">새 그룹 생성</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div><!--/.card body-->
+                  </div><!--/.card-->
+                </div><!--/.col card-->
+              </div><!--/.row-->
+            </div><!--/.card body-->
+          </div><!--/.step2 card outline-->
+        </div><!--/.col content-->
+      </div><!--/.row-->
+    </section><!--/.content container-->
   </div><!-- /.content-wrapper -->
 
 {% include "include/footer.html" %}

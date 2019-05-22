@@ -2,9 +2,142 @@
 {% include "include/header.html" %}
   
   <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        과목 관리
+        <small>Subject Settings</small>
+      </h1>
+    </section>
+    <section class="content container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-warning card-outline">
+            <div class="card-header">
+              <h3 class="card-title">STEP 1: 과목 검색</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              </div>
+            </div><!--/.card header-->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="subject">개설 과목</label>
+                    <select class="form-control">
+                      <option>과목 선택</option>
+                    </select>
+                  </div>
+                </div><!--/.col-->
+              </div><!--/.row-->
 
-    공지사항
-    
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="year">과목 그룹: 입학년도</label>
+                    <select class="form-control">
+                      <option>전체</option>
+                    </select>
+                  </div>
+                </div><!--/.col-->
+                <div class="col-md-8">
+                    <div class="form-group">
+                      <label for="major">과목 그룹: 학과</label>
+                      <select class="form-control">
+                        <option>전체</option>
+                      </select>
+                    </div>
+                  </div><!--/.col-->
+              </div><!--row-->
+
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn" style="width:100%">과목 조회하기</button>
+                </div>
+              </div>
+            </div><!--/.card body-->
+          </div><!--/.card outline-->
+
+          <div class="card card-danger card-outline">
+            <div class="card-header">
+              <h3 class="card-title">STEP 2: 과목 확인 및 설정</h3>
+              <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>개설 과목</label>
+                    <span class="form-control">스텝1 과목 입력되어야함
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>과목 그룹: 입학년도</label>
+                    <span class="form-control">스텝1 입학년도 입력되어야함
+                    </span>
+                  </div>
+                  </div><!--/.col-->
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <label>과목 그룹: 학과</label>
+                      <span class="form-control">스텝1 학과 입력되어야함
+                      </span>
+                    </div>
+                  </div><!--/.col-->
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn" style="width:100%">과목 재검색</button>
+                </div>
+              </div>
+              <hr>
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body table-responsive p-0">
+                      <table class="table table-bordered">
+                        <tbody>
+                          <tr style="text-align: center">
+                            <th style="width: 10%">그룹 번호</th>
+                            <th style="width: 65%">과목 그룹 이름</th>
+                            <th style="width: 10%">이수 구분</th>
+                            <th style="width: 15%">관리</th>
+                          </tr>
+                          <tr style="font-size: 15px; text-align: center; align-content: center">
+                            <td>1</td>
+                            <td>과목그룹이름이 들어갑니다.</td>
+                            <td>선택</td>
+                            <td>
+                              <button class="btn btn-danger" style="font-size: 10px">관리</button>
+                              <button class="btn btn-warning" style="font-size: 10px">대체</button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:center">
+                              <button class="btn btn-primary" style="font-size: 10px">새 그룹 지정</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div><!--/.card body-->
+                  </div><!--/.card-->
+                </div><!--/.col-->
+              </div><!--/.row-->
+            </div>
+          </div>
+        </div><!--col-->
+      </div><!--row-->
+    </section>
   </div><!-- /.content-wrapper -->
 
 {% include "include/footer.html" %}
