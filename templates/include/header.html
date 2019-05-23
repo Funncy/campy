@@ -22,6 +22,9 @@
     <!-- <link rel="stylesheet" href="{% static 'dist/bootstrap/4.3.1/css/bootstrap.min.css' %}"> -->
     <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/bootstrap-select/1.13.9/dist/css/bootstrap-select.min.css' %}">
 
+
+    <link rel="stylesheet" href="{% static 'css/campy-bootstrap-plugin.css' %}">
+
     <script src="{% static 'dist/jquery/3.4.1/jquery.min.js' %}"></script>
     <script src="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/jQueryUI/jquery-ui.min.js' %}"></script>
     <script src="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -64,6 +67,7 @@
           });
         });
     </script><!-- 장고 csrf ajax 통신용 스크립트-->
+
   </head>
 
   <body class="hold-transition sidebar-mini" background="blue">
@@ -94,50 +98,20 @@
               <nav><!-- Sidebar Menu -->
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                   
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="nav-icon fa fa-th"></i>
-                      <p>
-                        관리자
-                      </p>
-                      <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
-                      </span> 
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                          <a href="/subject-manage" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>과목 관리</p>
-                          </a>
-                        </li>  
-                        <li class="nav-item">
-                          <a href="/department-manage" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>학과 관리</p>
-                          </a>
-                        </li>                 
-                        <li class="nav-item">
-                          <a href="/graduation-requirements-set" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>졸업 요건 설정</p>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="/university-setting" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>대학교 설정</p>
-                          </a>
-                        </li>   
-                    </ul>
-                      
-                  </li>
                   
                   <li class="nav-item">
                     <a href="/my-schedule" class="nav-link">
                       <i class="nav-icon fa fa-th"></i>
                       <p>
                         나의 시간표
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fa fa-th"></i>
+                      <p>
+                        수강설계
                       </p>
                     </a>
                   </li>
@@ -153,14 +127,6 @@
                     <a href="#" class="nav-link">
                       <i class="nav-icon fa fa-th"></i>
                       <p>
-                        수강설계
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="nav-icon fa fa-th"></i>
-                      <p>
                         자주 묻는 질문
                       </p>
                     </a>
@@ -169,10 +135,49 @@
                     <a href="#" class="nav-link">
                       <i class="nav-icon fa fa-th"></i>
                       <p>
-                        시스템 오류 신고
+                        문의사항
                       </p>
                     </a>
                   </li>
+                  
+                  <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-th"></i>
+                        <p>
+                          관리자
+                        </p>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span> 
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                            <a href="/subject-manage" class="nav-link">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p>과목 관리</p>
+                            </a>
+                          </li>  
+                          <li class="nav-item">
+                            <a href="/department-manage" class="nav-link">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p>학과 관리</p>
+                            </a>
+                          </li>                 
+                          <li class="nav-item">
+                            <a href="/graduation-requirements-set" class="nav-link">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p>졸업 요건 설정</p>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="/university-setting" class="nav-link">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p>대학교 설정</p>
+                            </a>
+                          </li>   
+                      </ul>
+                        
+                    </li>
                 </ul> 
               </nav>
             </div>

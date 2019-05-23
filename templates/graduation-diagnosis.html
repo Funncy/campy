@@ -1,14 +1,13 @@
 {% load static %}
 {% include "include/header.html" %}
 <div class="content-wrapper">
-
   <div class="content-header">
       <h1>자신에 대한 졸업진단을 합니다.</h1>
   </div>
   <div class="row">
-    <div class="col-md-6">
-        <select class="selectpicker col-md-12" data-live-search="true" id = "subject-list">
-            <option>학교 검색</option>
+    <div class="card col-md-12">
+        <select class="selectpicker col-md-6" data-live-search="true" id = "university-list">
+            <option value="null">학교 선택필요</option>
         </select>
     </div>
   </div>
@@ -68,15 +67,17 @@
                   </div>
               </div>
             </div>
+
+            
+            <div class="col-md-12">
+                <button class="btn btn-warning col-md-12 text-center"><small>수동입력 및 임시저장</small></button>
+            </div>
             
           </div> 
           <div class="card-footer">
             <div class="row">
-              <div class="col-md-10">
-                  오류사항이 있어요! 해결해주세요.
-              </div>
-              <div class="col-md-2">
-                  <button class="btn btn-warning col-md-12 text-center"><small>피드백</small></button>
+              <div class="col-md-12">
+                  <button class="btn col-md-12 text-center"><small>오류사항이 있어요! 해결 문의하기.</small></button>
               </div>
             </div>
           </div>
@@ -92,6 +93,17 @@
 
 </div>
   <script>
+    $( document ).ready(function() {
+      console.log( "ready!" );
+      create_universityList();
+    });
 
-  
+    function create_universityList() {
+      domId='#university-list'
+
+      $(domId).append('<option>세종대학교</option>');
+      $(domId).append('<option>건국대학교</option>');
+      $(domId).append('<option>안산대학교</option>');
+
+    }
   </script>
