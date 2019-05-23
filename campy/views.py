@@ -5,16 +5,21 @@ from django.shortcuts import render, redirect
 def index(request):
     return render(request, 'index.html', {})
 
+    
+def campy_info(request):
+    return render(request, 'campy-info.html', {})
+
 def department_manage(request):
     return render(request, 'department-manage.html', {})
 
+def my_schedule(request):
+    return render(request, 'my-schedule.html', {})
 
 def subject_manage(request):
     return render(request, 'subject-manage.html', {})
 
 def subject_groups_set(request):
     return render(request, 'subject-groups-set.html', {})
-
 
 def graduation_requirements_set(request):
     return render(request, 'graduation-requirements-set.html', {})
@@ -90,7 +95,6 @@ def login(request):
 
 def dashboard(request):
     return render(request, 'dashboard.html', {})
-
 
 def notice(request):
     return render(request, 'notice.html', {})

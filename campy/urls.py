@@ -19,16 +19,25 @@ from . import views
 
 urlpatterns = [
 
-    path('', views.index),
+    
+    
+    # ui list
+    path('', views.campy_info),
     path('login/', views.login),
     path('dashboard/', views.dashboard),
     path('graduation-diagnosis/', views.graduation_diagnosis),
     path('notice/', views.notice),
-    path('test-data/', views.test_data),
-
     path('department-manage/', views.department_manage),
     path('subject-manage/', views.subject_manage),
     path('subject-groups-set/', views.subject_groups_set),
     path('graduation-requirements-set/', views.graduation_requirements_set),
+    path('my-schedule/', views.my_schedule),
 
+    # data list
+    path('data-test', views.test_data),
+    path('subject-manage/data-test', views.test_data),
+
+    # redirect list
+    path('index', views.campy_info),
+    
 ]
