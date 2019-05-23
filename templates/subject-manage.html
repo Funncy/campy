@@ -1,145 +1,81 @@
 {% load static %}
 {% include "include/header.html" %}
+<div class="content-wrapper">
+    <div class="content-header">
+      <h1>교과목을 관리 할 수 있습니다.</h1>
+    </div>
+<div class="row">
 
-  <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-        과목 관리
-        <small>Subject Settings</small>
-      </h1>
-    </section>
-    <section class="content container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card card-warning card-outline">
-            <div class="card-header">
-              <h3 class="card-title">STEP 1: 과목 검색</h3>
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              </div>
-            </div><!--/.card header-->
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="subject">개설 과목</label>
-                    <select class="form-control">
-                      <option>과목 선택</option>
-                    </select>
-                  </div>
-                </div><!--/.col-->
-              </div><!--/.row-->
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <select  class="selectpicker col-md-12" data-live-search="true" id = "university-list">
+          <option>학교 전체</option>
+        </select>
+      </div>
 
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="year">과목 그룹: 입학년도</label>
-                    <select class="form-control">
-                      <option>전체</option>
-                    </select>
-                  </div>
-                </div><!--/.col-->
-                <div class="col-md-8">
-                    <div class="form-group">
-                      <label for="major">과목 그룹: 학과</label>
-                      <select class="form-control">
-                        <option>전체</option>
-                      </select>
-                    </div>
-                  </div><!--/.col-->
-              </div><!--row-->
+    <div class="col-md-2">
+      <select  class="selectpicker col-md-12" data-live-search="true" id = "year-list">
+        <option>년도 전체</option>
+      </select>
+    </div>
 
-              <div class="row">
-                <div class="col-md-12">
-                  <button class="btn" style="width:100%" onclick="test()">과목 조회하기</button>
-                </div>
-              </div>
-            </div><!--/.card body-->
-          </div><!--/.card outline-->
+    <div class="col-md-2">
+      <select  class="selectpicker col-md-12" data-live-search="true"" id = "department-list">
+        <option>학과 전체</option>
+      </select>
+    </div>
+    
+    <div class="col-md-2">
+      <select class="selectpicker col-md-12" data-live-search="true" id = "subject-list">
+        <option>교과목 전체</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      
+    </div>
+    <div class="col-md-2">
+      <button class="btn col-md-12">조회</button>
+    </div>
+</div>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>과목</th>
+                  <th>년도</th>
+                  <th>학과</th>
+                  <th>이수그룹</th>
+                  <th>필수과목</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                </tr>
+                <tr>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                </tr>
+                <tr>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                </tr>
+              </tbody>
+            </table>
 
-          <div class="card card-danger card-outline">
-            <div class="card-header">
-              <h3 class="card-title">STEP 2: 과목 확인 및 설정</h3>
-              <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label>개설 과목</label>
-                    <span class="form-control">스텝1 과목 입력되어야함
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>과목 그룹: 입학년도</label>
-                    <span class="form-control">스텝1 입학년도 입력되어야함
-                    </span>
-                  </div>
-                  </div><!--/.col-->
-                  <div class="col-md-8">
-                    <div class="form-group">
-                      <label>과목 그룹: 학과</label>
-                      <span class="form-control">스텝1 학과 입력되어야함
-                      </span>
-                    </div>
-                  </div><!--/.col-->
-              </div>
 
-              <div class="row">
-                <div class="col-md-12">
-                  <button class="btn" style="width:100%">과목 재검색</button>
-                </div>
-              </div>
-              <hr>
-              
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-body table-responsive p-0">
-                      <table class="table table-bordered">
-                        <tbody>
-                          <tr style="text-align: center">
-                            <th style="width: 10%">그룹 번호</th>
-                            <th style="width: 65%">과목 그룹 이름</th>
-                            <th style="width: 10%">이수 구분</th>
-                            <th style="width: 15%">관리</th>
-                          </tr>
-                          <tr style="font-size: 15px; text-align: center; align-content: center">
-                            <td>1</td>
-                            <td>과목그룹이름이 들어갑니다.</td>
-                            <td>선택</td>
-                            <td>
-                              <button class="btn btn-danger" style="font-size: 10px">관리</button>
-                              <button class="btn btn-warning" style="font-size: 10px">대체</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td style="text-align:center">
-                              <button class="btn btn-primary" style="font-size: 10px">새 그룹 지정</button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div><!--/.card body-->
-                  </div><!--/.card-->
-                </div><!--/.col-->
-              </div><!--/.row-->
-            </div>
-          </div>
-        </div><!--col-->
-      </div><!--row-->
-    </section>
-  </div><!-- /.content-wrapper -->
-  
+  </div>
+</div>
   <script>
     function read_year() {
       $.ajax({
@@ -161,460 +97,138 @@
     }
   </script>
 
+  <script>
+  
+  $( document ).ready(function() {
+    console.log( "ready!" );
+    create_subjectList();
+    create_yearList();
+    create_departmentList();
+  });
+
+  function create_subjectList() {
+    domId='#subject-list'
+
+    $(domId).append('<option>국어</option>');
+    $(domId).append('<option>영어</option>');
+    $(domId).append('<option>수학</option>');
+    $(domId).append('<option>사회</option>');
+
+  }
+
+  function create_yearList() {
+    domId='#year-list'
     
-  <script type="text/javascript">
-    var subject = $('#subject');
-    var year = $('#year');
-    var major = $('#major');
-    var group_list = $('#group_list');
+    $(domId).append('<option>2019</option>');
+    $(domId).append('<option>2018</option>');
+    $(domId).append('<option>2017</option>');
+    $(domId).append('<option>2016</option>');
 
-    var modal_year = $('#modal_year');
-    var modal_major = $('#modal_major');
+  }
 
-    $('.select2').select2();
+  
+  function create_departmentList() {
+    domId='#department-list'
+    
+    $(domId).append('<option>영어과</option>');
+    $(domId).append('<option>무용과</option>');
+    $(domId).append('<option>경영과</option>');
+    $(domId).append('<option>컴퓨터과</option>');
 
-    $('#modal-create').on('shown.bs.modal', function () {
-        $('#modal-read-body').scrollTop(0);
+  }
+
+
+
+  $('#search').click(function () {
+
+        // if(subject.find('option:selected').val() === '0')
+        // {
+        //     iziToast.show({
+        //         title: '알림',
+        //         message: info01 + alert05,
+        //         theme: 'light',
+        //         color: 'red',
+        //         position: 'topRight',
+        //         timeout: 3000
+        //     });
+
+        //     return;
+        // }
+
+        // $('#search').prop('disabled', 'disabled');
+        // $('#search-check').css("display", '');
+
+        // $.ajax({
+        //     url: '/subject/search',
+        //     type: 'get',
+        //     data: { 'subject' : subject.val(),
+        //         'year': year.val(),
+        //         'department': major.val() },
+        //     success: function (result) {
+        //         if (result['result'] === 'success') {
+        //             $('#searched_subject').text($('#subject').find('option:selected').text());
+        //             $('#searched_year').text($('#year').find('option:selected').text());
+        //             $('#searched_major').text($('#major').find('option:selected').text());
+        //             $('#modal_searched_subject').text($('#subject').find('option:selected').text());
+        //             $('#group_list').empty();
+
+        //             group_list.empty();
+
+        //             for (var key in result['groups']) {
+        //                 if (result['groups'].hasOwnProperty(key)) {
+        //                     var essential = "선택";
+
+        //                     if (result['groups'][key]['systemSubjectGroupSubjectMappings'][0]['essential'] === 1) {
+        //                         essential = "필수";
+        //                     }
+
+        //                     group_list.append('<tr><td class="hidden-xs">' + result['groups'][key]['no']
+        //                         + '</td><td>' + result['groups'][key]['name'] + '</td>'
+        //                         + '<td>' + essential + '</td><td class="hidden-xs"><button type="button" class="btn btn-warning btn-xs" disabled>대체</button> <button type="button" class="btn btn-danger btn-xs" onclick="remove(' + result['groups'][key]['no'] + ')">해제</button></td></tr>')
+        //                 }
+        //             }
+
+        //             group_list.append('<tr class="hidden-xs"><td></td><td></td><td></td><td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-create">새 그룹 지정</button></td></tr>');
+
+        //             $('#search-subject').trigger('click');
+        //             $('#result-wait').css('display', 'none');
+        //             $('#result-subject').trigger('click')
+        //         } else {
+        //             iziToast.show({
+        //                 title: '알림',
+        //                 message: info01 + alert02,
+        //                 theme: 'light',
+        //                 color: 'red',
+        //                 position: 'topRight',
+        //                 timeout: 3000
+        //             });
+
+        //             $('#searched_subject').text('-');
+        //             $('#searched_year').text('-');
+        //             $('#searched_major').text('-');
+
+        //             $('#search-check').css('display', 'none');
+        //             $('#search').prop('disabled', '')
+        //         }
+        //     },
+        //     error: function () {
+        //         iziToast.show({
+        //             title: '알림',
+        //             message: info01 + alert00,
+        //             theme: 'light',
+        //             color: 'red',
+        //             position: 'topRight',
+        //             timeout: 3000
+        //         });
+
+        //         $('#searched_subject').text('-');
+        //         $('#searched_year').text('-');
+        //         $('#searched_major').text('-');
+
+        //         $('#search-check').css('display', 'none');
+        //         $('#search').prop('disabled', '')
+        //     }
+        // })
     });
-
-    year.change(function () {
-        if(year.find('option:selected').val() === '0') {
-            major.empty();
-            major.append('<option value="0" selected="selected">전체</option>');
-
-            return;
-        }
-
-        major.prop('disabled', 'disabled');
-
-        $.ajax({
-            url: '/group/search/department',
-            type: 'get',
-            data: { 'year' : year.val() },
-            success: function (result) {
-                if (result['result'] === 'success') {
-                    major.empty();
-
-                    if (!result['count']) {
-                        major.append('<option value="0" selected="selected">전체</option>');
-
-                        iziToast.show({
-                            title: '알림',
-                            message: info01 + alert03,
-                            theme: 'light',
-                            color: 'red',
-                            position: 'topRight',
-                            timeout: 3000
-                        })
-                    } else {
-                        major.append('<option value="0" selected="selected">전체</option>');
-
-                        for (var key in result['departments']) {
-                            if (result['departments'].hasOwnProperty(key)) {
-                                major.append('<option value="' + result['departments'][key]['no'] + '">' + result['departments'][key]['name'] + '</option>')
-                            }
-                        }
-
-                        major.prop('disabled', '')
-                    }
-                } else {
-                    iziToast.show({
-                        title: '알림',
-                        message: info01 + alert02,
-                        theme: 'light',
-                        color: 'red',
-                        position: 'topRight',
-                        timeout: 3000
-                    })
-                }
-            },
-            error: function () {
-                iziToast.show({
-                    title: '알림',
-                    message: info01 + alert00,
-                    theme: 'light',
-                    color: 'red',
-                    position: 'topRight',
-                    timeout: 3000
-                })
-            }
-        })
-    });
-
-    modal_year.change(function () {
-        if(modal_year.find('option:selected').val() === '0') {
-            modal_major.empty();
-            modal_major.append('<option value="0" selected="selected">모든 학과</option>');
-            modal_major.prop('disabled', 'disabled');
-
-            return;
-        }
-
-        modal_major.prop('disabled', 'disabled');
-
-        $.ajax({
-            url: '/group/search/department',
-            type: 'get',
-            data: { 'year' : modal_year.val() },
-            success: function (result) {
-                if (result['result'] === 'success') {
-                    modal_major.empty();
-
-                    if (!result['count']) {
-                        modal_major.append('<option value="0" selected="selected">없음</option>');
-
-                        iziToast.show({
-                            title: '알림',
-                            message: info01 + alert03,
-                            theme: 'light',
-                            color: 'red',
-                            position: 'topRight',
-                            timeout: 3000
-                        })
-                    } else {
-                        modal_major.append('<option value="0">모든 학과</option>');
-
-                        for (var key in result['departments']) {
-                            if (result['departments'].hasOwnProperty(key)) {
-                                modal_major.append('<option value="' + result['departments'][key]['no'] + '">' + result['departments'][key]['name'] + '</option>')
-                            }
-                        }
-
-                        modal_major.prop('disabled', '')
-                    }
-                } else {
-                    iziToast.show({
-                        title: '알림',
-                        message: info01 + alert02,
-                        theme: 'light',
-                        color: 'red',
-                        position: 'topRight',
-                        timeout: 3000
-                    })
-                }
-            },
-            error: function () {
-                iziToast.show({
-                    title: '알림',
-                    message: info01 + alert00,
-                    theme: 'light',
-                    color: 'red',
-                    position: 'topRight',
-                    timeout: 3000
-                })
-            }
-        })
-    });
-
-    $('#search').click(function () {
-        if(subject.find('option:selected').val() === '0') {
-            iziToast.show({
-                title: '알림',
-                message: info01 + alert05,
-                theme: 'light',
-                color: 'red',
-                position: 'topRight',
-                timeout: 3000
-            });
-
-            return;
-        }
-
-        $('#search').prop('disabled', 'disabled');
-        $('#search-check').css("display", '');
-
-        $.ajax({
-            url: '/subject/search',
-            type: 'get',
-            data: { 'subject' : subject.val(),
-                'year': year.val(),
-                'department': major.val() },
-            success: function (result) {
-                if (result['result'] === 'success') {
-                    $('#searched_subject').text($('#subject').find('option:selected').text());
-                    $('#searched_year').text($('#year').find('option:selected').text());
-                    $('#searched_major').text($('#major').find('option:selected').text());
-                    $('#modal_searched_subject').text($('#subject').find('option:selected').text());
-                    $('#group_list').empty();
-
-                    group_list.empty();
-
-                    for (var key in result['groups']) {
-                        if (result['groups'].hasOwnProperty(key)) {
-                            var essential = "선택";
-
-                            if (result['groups'][key]['systemSubjectGroupSubjectMappings'][0]['essential'] === 1) {
-                                essential = "필수";
-                            }
-
-                            group_list.append('<tr><td class="hidden-xs">' + result['groups'][key]['no']
-                                + '</td><td>' + result['groups'][key]['name'] + '</td>'
-                                + '<td>' + essential + '</td><td class="hidden-xs"><button type="button" class="btn btn-warning btn-xs" disabled>대체</button> <button type="button" class="btn btn-danger btn-xs" onclick="remove(' + result['groups'][key]['no'] + ')">해제</button></td></tr>')
-                        }
-                    }
-
-                    group_list.append('<tr class="hidden-xs"><td></td><td></td><td></td><td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-create">새 그룹 지정</button></td></tr>');
-
-                    $('#search-subject').trigger('click');
-                    $('#result-wait').css('display', 'none');
-                    $('#result-subject').trigger('click')
-                } else {
-                    iziToast.show({
-                        title: '알림',
-                        message: info01 + alert02,
-                        theme: 'light',
-                        color: 'red',
-                        position: 'topRight',
-                        timeout: 3000
-                    });
-
-                    $('#searched_subject').text('-');
-                    $('#searched_year').text('-');
-                    $('#searched_major').text('-');
-
-                    $('#search-check').css('display', 'none');
-                    $('#search').prop('disabled', '')
-                }
-            },
-            error: function () {
-                iziToast.show({
-                    title: '알림',
-                    message: info01 + alert00,
-                    theme: 'light',
-                    color: 'red',
-                    position: 'topRight',
-                    timeout: 3000
-                });
-
-                $('#searched_subject').text('-');
-                $('#searched_year').text('-');
-                $('#searched_major').text('-');
-
-                $('#search-check').css('display', 'none');
-                $('#search').prop('disabled', '')
-            }
-        })
-    });
-
-    $('#modal_create').click(function() {
-        var selected_major_list = [];
-        var selected_group_list = [];
-
-        if ($('#modal_major :selected').length > 0){
-            $('#modal_major :selected').each(function(i, selected) {
-                selected_major_list[i] = $(selected).val();
-            });
-        } else {
-            iziToast.show({
-                title: '알림',
-                message: info01 + alert05,
-                theme: 'light',
-                color: 'red',
-                position: 'topRight',
-                timeout: 3000
-            });
-
-            return;
-        }
-
-        if ($('#modal_subject_group :selected').length > 0){
-            $('#modal_subject_group :selected').each(function(i, selected) {
-                selected_group_list[i] = $(selected).val();
-            });
-        } else {
-            iziToast.show({
-                title: '알림',
-                message: info01 + alert05,
-                theme: 'light',
-                color: 'red',
-                position: 'topRight',
-                timeout: 3000
-            });
-
-            return;
-        }
-
-        $.ajax({
-            url: '/subject/command/create',
-            type: 'post',
-            data: { 'subject' : subject.val(),
-                'year' : modal_year.val(),
-                'departments' : JSON.stringify(selected_major_list),
-                'groups': JSON.stringify(selected_group_list),
-                'essential': $('#modal_essential').val() },
-            success: function (result) {
-                if (result['result'] === 'success') {
-                    iziToast.show({
-                        title: '알림',
-                        message: info00,
-                        theme: 'light',
-                        color: 'green',
-                        position: 'topRight',
-                        timeout: 1500,
-                        onOpened: function () {
-                            reload() }
-                    });
-                } else {
-                    iziToast.show({
-                        title: '알림',
-                        message: info01 + alert00,
-                        theme: 'light',
-                        color: 'red',
-                        position: 'topRight',
-                        timeout: 3000
-                    });
-                }
-            },
-            error: function () {
-                iziToast.show({
-                    title: '알림',
-                    message: info01 + alert00,
-                    theme: 'light',
-                    color: 'red',
-                    position: 'topRight',
-                    timeout: 3000
-                });
-            }
-        })
-    });
-
-    $(document).ready(function () {
-        $('#searchList').on('keyup', function () {
-            var value = $(this).val().toLowerCase();
-            $('#subject-option-list').find('tr').filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        })
-    });
-
-    $('#result-close').click(function() {
-        $('#search').prop('disabled', '');
-        $('#search-check').css('display', 'none');
-
-        $('#search-subject').trigger('click');
-        $('#result-wait').css('display', '');
-        $('#result-subject').trigger('click')
-    });
-
-    function remove(groupNo) {
-        $.ajax({
-            url: '/subject/command/remove',
-            type: 'get',
-            data: { 'subject' : subject.val(),
-                'group': groupNo },
-            success: function (result) {
-                if (result['result'] === 'success') {
-                    iziToast.show({
-                        title: '알림',
-                        message: info00,
-                        theme: 'light',
-                        color: 'green',
-                        position: 'topRight',
-                        timeout: 1500,
-                        onOpened: function () {
-                            reload() }
-                    });
-                } else {
-                    iziToast.show({
-                        title: '알림',
-                        message: info01 + alert00,
-                        theme: 'light',
-                        color: 'red',
-                        position: 'topRight',
-                        timeout: 3000
-                    });
-
-                    $('#searched_subject').text('-');
-                    $('#searched_year').text('-');
-                    $('#searched_major').text('-');
-
-                    $('#search-check').css('display', 'none');
-                    $('#search').prop('disabled', '')
-                }
-            },
-            error: function () {
-                iziToast.show({
-                    title: '알림',
-                    message: info01 + alert00,
-                    theme: 'light',
-                    color: 'red',
-                    position: 'topRight',
-                    timeout: 3000
-                });
-
-                $('#searched_subject').text('-');
-                $('#searched_year').text('-');
-                $('#searched_major').text('-');
-
-                $('#search-check').css('display', 'none');
-                $('#search').prop('disabled', '')
-            }
-        })
-    }
-
-    function reload() {
-        $.ajax({
-            url: '/subject/search',
-            type: 'get',
-            data: { 'subject' : subject.val(),
-                'year': year.val(),
-                'department': major.val() },
-            success: function (result) {
-                if (result['result'] === 'success') {
-                    $('#searched_subject').text($('#subject').find('option:selected').text());
-                    $('#searched_year').text($('#year').find('option:selected').text());
-                    $('#searched_major').text($('#major').find('option:selected').text());
-                    $('#modal_searched_subject').text($('#subject').find('option:selected').text());
-                    $('#group_list').empty();
-
-                    group_list.empty();
-
-                    for (var key in result['groups']) {
-                        if (result['groups'].hasOwnProperty(key)) {
-                            var essential = "선택";
-
-                            if (result['groups'][key]['systemSubjectGroupSubjectMappings'][0]['essential'] === 1) {
-                                essential = "필수";
-                            }
-
-                            group_list.append('<tr><td class="hidden-xs">' + result['groups'][key]['no']
-                                + '</td><td>' + result['groups'][key]['name'] + '</td>'
-                                + '<td>' + essential + '</td><td class="hidden-xs"><button type="button" class="btn btn-warning btn-xs" disabled>대체</button> <button type="button" class="btn btn-danger btn-xs" onclick="remove(' + result['groups'][key]['no'] + ')">해제</button></td></tr>')
-                        }
-                    }
-
-                    group_list.append('<tr class="hidden-xs"><td></td><td></td><td></td><td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-create">새 그룹 지정</button></td></tr>');
-                } else {
-                    iziToast.show({
-                        title: '알림',
-                        message: info01 + alert02,
-                        theme: 'light',
-                        color: 'red',
-                        position: 'topRight',
-                        timeout: 3000
-                    });
-
-                    $('#searched_subject').text('-');
-                    $('#searched_year').text('-');
-                    $('#searched_major').text('-');
-                }
-            },
-            error: function () {
-                iziToast.show({
-                    title: '알림',
-                    message: info01 + alert00,
-                    theme: 'light',
-                    color: 'red',
-                    position: 'topRight',
-                    timeout: 3000
-                });
-
-                $('#searched_subject').text('-');
-                $('#searched_year').text('-');
-                $('#searched_major').text('-');
-            }
-        })
-    }
 
   </script>
-{% include "include/footer.html" %}
