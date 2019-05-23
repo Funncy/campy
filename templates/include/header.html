@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/iCheck/flat/blue.css' %}">
     <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/morris/morris.css' %}">
     <link rel="stylesheet" href="{% static 'dist/jquery-plugins/jvectormap/2.0.3/jquery-jvectormap.css' %}">
-    <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/datepicker/datepicker3.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/datepicker/daterangepicker-bs3.css' %}">
     <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/datepicker/1.3.15/daterangepicker-bs3.css' %}">
     <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">  
 
@@ -23,7 +23,8 @@
     <script src="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'dist/bootstrap-plugins/AdminLTE/3.0.0/alpha.2/dist/js/adminlte.min.js' %}"></script>
     <script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
-    <script src="{% static 'dist/js/demo.js' %}"></script>
+    <!-- <script src="{% static 'dist/js/demo.js' %}"></script> -->
+
     <script src="{% static 'js/campy-common.js' %}"></script>
     
     <!-- 장고 csrf ajax 통신용 스크립트-->
@@ -100,29 +101,29 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                          <a href="/department-manage" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>학과 관리</p>
-                          </a>
-                        </li>
-                        <li class="nav-item">
                           <a href="/subject-manage" class="nav-link">
                             <i class="fa fa-circle-o nav-icon"></i>
                             <p>과목 관리</p>
                           </a>
-                        </li>
+                        </li>  
                         <li class="nav-item">
-                          <a href="/subject-groups-set" class="nav-link">
+                          <a href="/department-manage" class="nav-link">
                             <i class="fa fa-circle-o nav-icon"></i>
-                            <p>과목그룹 설정</p>
+                            <p>학과 관리</p>
                           </a>
-                        </li>                      
+                        </li>                 
                         <li class="nav-item">
                           <a href="/graduation-requirements-set" class="nav-link">
                             <i class="fa fa-circle-o nav-icon"></i>
                             <p>졸업 요건 설정</p>
                           </a>
                         </li>
+                        <li class="nav-item">
+                          <a href="/university-setting" class="nav-link">
+                            <i class="fa fa-circle-o nav-icon"></i>
+                            <p>대학교 설정</p>
+                          </a>
+                        </li>   
                     </ul>
                       
                   </li>
@@ -169,7 +170,5 @@
                   </li>
                 </ul> 
               </nav>
-              
             </div>
-            
           </aside>

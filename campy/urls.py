@@ -19,8 +19,6 @@ from . import views
 
 urlpatterns = [
 
-    
-    
     # ui list
     path('', views.campy_info),
     path('login/', views.login),
@@ -32,6 +30,7 @@ urlpatterns = [
     path('subject-groups-set/', views.subject_groups_set),
     path('graduation-requirements-set/', views.graduation_requirements_set),
     path('my-schedule/', views.my_schedule),
+    path('university-setting', views.university_setting),
 
     # data list
     path('data-test', views.test_data),
@@ -39,5 +38,9 @@ urlpatterns = [
 
     # redirect list
     path('index', views.campy_info),
+
+
+
+    
     
 ]

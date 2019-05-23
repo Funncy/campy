@@ -12,6 +12,10 @@ def campy_info(request):
 def department_manage(request):
     return render(request, 'department-manage.html', {})
 
+def university_setting(request):
+    return render(request, 'university-setting.html', {})
+
+
 def my_schedule(request):
     return render(request, 'my-schedule.html', {})
 
