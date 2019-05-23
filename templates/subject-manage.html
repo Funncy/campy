@@ -160,4 +160,461 @@
       });
     }
   </script>
+
+    
+  <script type="text/javascript">
+    var subject = $('#subject');
+    var year = $('#year');
+    var major = $('#major');
+    var group_list = $('#group_list');
+
+    var modal_year = $('#modal_year');
+    var modal_major = $('#modal_major');
+
+    $('.select2').select2();
+
+    $('#modal-create').on('shown.bs.modal', function () {
+        $('#modal-read-body').scrollTop(0);
+    });
+
+    year.change(function () {
+        if(year.find('option:selected').val() === '0') {
+            major.empty();
+            major.append('<option value="0" selected="selected">전체</option>');
+
+            return;
+        }
+
+        major.prop('disabled', 'disabled');
+
+        $.ajax({
+            url: '/group/search/department',
+            type: 'get',
+            data: { 'year' : year.val() },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    major.empty();
+
+                    if (!result['count']) {
+                        major.append('<option value="0" selected="selected">전체</option>');
+
+                        iziToast.show({
+                            title: '알림',
+                            message: info01 + alert03,
+                            theme: 'light',
+                            color: 'red',
+                            position: 'topRight',
+                            timeout: 3000
+                        })
+                    } else {
+                        major.append('<option value="0" selected="selected">전체</option>');
+
+                        for (var key in result['departments']) {
+                            if (result['departments'].hasOwnProperty(key)) {
+                                major.append('<option value="' + result['departments'][key]['no'] + '">' + result['departments'][key]['name'] + '</option>')
+                            }
+                        }
+
+                        major.prop('disabled', '')
+                    }
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    })
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                })
+            }
+        })
+    });
+
+    modal_year.change(function () {
+        if(modal_year.find('option:selected').val() === '0') {
+            modal_major.empty();
+            modal_major.append('<option value="0" selected="selected">모든 학과</option>');
+            modal_major.prop('disabled', 'disabled');
+
+            return;
+        }
+
+        modal_major.prop('disabled', 'disabled');
+
+        $.ajax({
+            url: '/group/search/department',
+            type: 'get',
+            data: { 'year' : modal_year.val() },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    modal_major.empty();
+
+                    if (!result['count']) {
+                        modal_major.append('<option value="0" selected="selected">없음</option>');
+
+                        iziToast.show({
+                            title: '알림',
+                            message: info01 + alert03,
+                            theme: 'light',
+                            color: 'red',
+                            position: 'topRight',
+                            timeout: 3000
+                        })
+                    } else {
+                        modal_major.append('<option value="0">모든 학과</option>');
+
+                        for (var key in result['departments']) {
+                            if (result['departments'].hasOwnProperty(key)) {
+                                modal_major.append('<option value="' + result['departments'][key]['no'] + '">' + result['departments'][key]['name'] + '</option>')
+                            }
+                        }
+
+                        modal_major.prop('disabled', '')
+                    }
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    })
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                })
+            }
+        })
+    });
+
+    $('#search').click(function () {
+        if(subject.find('option:selected').val() === '0') {
+            iziToast.show({
+                title: '알림',
+                message: info01 + alert05,
+                theme: 'light',
+                color: 'red',
+                position: 'topRight',
+                timeout: 3000
+            });
+
+            return;
+        }
+
+        $('#search').prop('disabled', 'disabled');
+        $('#search-check').css("display", '');
+
+        $.ajax({
+            url: '/subject/search',
+            type: 'get',
+            data: { 'subject' : subject.val(),
+                'year': year.val(),
+                'department': major.val() },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    $('#searched_subject').text($('#subject').find('option:selected').text());
+                    $('#searched_year').text($('#year').find('option:selected').text());
+                    $('#searched_major').text($('#major').find('option:selected').text());
+                    $('#modal_searched_subject').text($('#subject').find('option:selected').text());
+                    $('#group_list').empty();
+
+                    group_list.empty();
+
+                    for (var key in result['groups']) {
+                        if (result['groups'].hasOwnProperty(key)) {
+                            var essential = "선택";
+
+                            if (result['groups'][key]['systemSubjectGroupSubjectMappings'][0]['essential'] === 1) {
+                                essential = "필수";
+                            }
+
+                            group_list.append('<tr><td class="hidden-xs">' + result['groups'][key]['no']
+                                + '</td><td>' + result['groups'][key]['name'] + '</td>'
+                                + '<td>' + essential + '</td><td class="hidden-xs"><button type="button" class="btn btn-warning btn-xs" disabled>대체</button> <button type="button" class="btn btn-danger btn-xs" onclick="remove(' + result['groups'][key]['no'] + ')">해제</button></td></tr>')
+                        }
+                    }
+
+                    group_list.append('<tr class="hidden-xs"><td></td><td></td><td></td><td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-create">새 그룹 지정</button></td></tr>');
+
+                    $('#search-subject').trigger('click');
+                    $('#result-wait').css('display', 'none');
+                    $('#result-subject').trigger('click')
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    });
+
+                    $('#searched_subject').text('-');
+                    $('#searched_year').text('-');
+                    $('#searched_major').text('-');
+
+                    $('#search-check').css('display', 'none');
+                    $('#search').prop('disabled', '')
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+
+                $('#searched_subject').text('-');
+                $('#searched_year').text('-');
+                $('#searched_major').text('-');
+
+                $('#search-check').css('display', 'none');
+                $('#search').prop('disabled', '')
+            }
+        })
+    });
+
+    $('#modal_create').click(function() {
+        var selected_major_list = [];
+        var selected_group_list = [];
+
+        if ($('#modal_major :selected').length > 0){
+            $('#modal_major :selected').each(function(i, selected) {
+                selected_major_list[i] = $(selected).val();
+            });
+        } else {
+            iziToast.show({
+                title: '알림',
+                message: info01 + alert05,
+                theme: 'light',
+                color: 'red',
+                position: 'topRight',
+                timeout: 3000
+            });
+
+            return;
+        }
+
+        if ($('#modal_subject_group :selected').length > 0){
+            $('#modal_subject_group :selected').each(function(i, selected) {
+                selected_group_list[i] = $(selected).val();
+            });
+        } else {
+            iziToast.show({
+                title: '알림',
+                message: info01 + alert05,
+                theme: 'light',
+                color: 'red',
+                position: 'topRight',
+                timeout: 3000
+            });
+
+            return;
+        }
+
+        $.ajax({
+            url: '/subject/command/create',
+            type: 'post',
+            data: { 'subject' : subject.val(),
+                'year' : modal_year.val(),
+                'departments' : JSON.stringify(selected_major_list),
+                'groups': JSON.stringify(selected_group_list),
+                'essential': $('#modal_essential').val() },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    iziToast.show({
+                        title: '알림',
+                        message: info00,
+                        theme: 'light',
+                        color: 'green',
+                        position: 'topRight',
+                        timeout: 1500,
+                        onOpened: function () {
+                            reload() }
+                    });
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert00,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    });
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+            }
+        })
+    });
+
+    $(document).ready(function () {
+        $('#searchList').on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $('#subject-option-list').find('tr').filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        })
+    });
+
+    $('#result-close').click(function() {
+        $('#search').prop('disabled', '');
+        $('#search-check').css('display', 'none');
+
+        $('#search-subject').trigger('click');
+        $('#result-wait').css('display', '');
+        $('#result-subject').trigger('click')
+    });
+
+    function remove(groupNo) {
+        $.ajax({
+            url: '/subject/command/remove',
+            type: 'get',
+            data: { 'subject' : subject.val(),
+                'group': groupNo },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    iziToast.show({
+                        title: '알림',
+                        message: info00,
+                        theme: 'light',
+                        color: 'green',
+                        position: 'topRight',
+                        timeout: 1500,
+                        onOpened: function () {
+                            reload() }
+                    });
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert00,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    });
+
+                    $('#searched_subject').text('-');
+                    $('#searched_year').text('-');
+                    $('#searched_major').text('-');
+
+                    $('#search-check').css('display', 'none');
+                    $('#search').prop('disabled', '')
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+
+                $('#searched_subject').text('-');
+                $('#searched_year').text('-');
+                $('#searched_major').text('-');
+
+                $('#search-check').css('display', 'none');
+                $('#search').prop('disabled', '')
+            }
+        })
+    }
+
+    function reload() {
+        $.ajax({
+            url: '/subject/search',
+            type: 'get',
+            data: { 'subject' : subject.val(),
+                'year': year.val(),
+                'department': major.val() },
+            success: function (result) {
+                if (result['result'] === 'success') {
+                    $('#searched_subject').text($('#subject').find('option:selected').text());
+                    $('#searched_year').text($('#year').find('option:selected').text());
+                    $('#searched_major').text($('#major').find('option:selected').text());
+                    $('#modal_searched_subject').text($('#subject').find('option:selected').text());
+                    $('#group_list').empty();
+
+                    group_list.empty();
+
+                    for (var key in result['groups']) {
+                        if (result['groups'].hasOwnProperty(key)) {
+                            var essential = "선택";
+
+                            if (result['groups'][key]['systemSubjectGroupSubjectMappings'][0]['essential'] === 1) {
+                                essential = "필수";
+                            }
+
+                            group_list.append('<tr><td class="hidden-xs">' + result['groups'][key]['no']
+                                + '</td><td>' + result['groups'][key]['name'] + '</td>'
+                                + '<td>' + essential + '</td><td class="hidden-xs"><button type="button" class="btn btn-warning btn-xs" disabled>대체</button> <button type="button" class="btn btn-danger btn-xs" onclick="remove(' + result['groups'][key]['no'] + ')">해제</button></td></tr>')
+                        }
+                    }
+
+                    group_list.append('<tr class="hidden-xs"><td></td><td></td><td></td><td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-create">새 그룹 지정</button></td></tr>');
+                } else {
+                    iziToast.show({
+                        title: '알림',
+                        message: info01 + alert02,
+                        theme: 'light',
+                        color: 'red',
+                        position: 'topRight',
+                        timeout: 3000
+                    });
+
+                    $('#searched_subject').text('-');
+                    $('#searched_year').text('-');
+                    $('#searched_major').text('-');
+                }
+            },
+            error: function () {
+                iziToast.show({
+                    title: '알림',
+                    message: info01 + alert00,
+                    theme: 'light',
+                    color: 'red',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+
+                $('#searched_subject').text('-');
+                $('#searched_year').text('-');
+                $('#searched_major').text('-');
+            }
+        })
+    }
+
+  </script>
 {% include "include/footer.html" %}
