@@ -12,7 +12,6 @@ class CollegeInfo(models.Model):
 
     # 대학 이름
     # 단과대학 이름
-    # 학과 이름
     university_name = models.CharField(max_length=20)
     college_name = models.CharField(max_length=20)
 
@@ -33,7 +32,9 @@ class SubjectInfo(models.Model):
     # 단과대학 이름
     # 학과 이름
     # 교과목 이름
+    # 이수구분
     university_name = models.CharField(max_length=20)
     college_name = models.CharField(max_length=20)
     department_name = models.CharField(max_length=20)
     subject_name = models.CharField(max_length=20)
+    complete_division = models.CharField(max_length=20)
