@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +39,7 @@
     <p class="login-box-msg">서비스를 이용하시려면 로그인하여 주십시오.</p>
     <div class="social-auth-links text-center">
       <p>
-      <a href="#" class="btn btn-block btn-lg" style="background-color:#4867aa; color: white; border-radius: 5px;"><img src="{% static 'img/icon/facebook_login.png' %}" width="25px" class="pull-left"> <span style="font-size: 15px">페이스북으로 로그인</span></a></p>
+      <a href="{% provider_login_url 'facebook' %}" class="btn btn-block btn-lg" style="background-color:#4867aa; color: white; border-radius: 5px;"><img src="{% static 'img/icon/facebook_login.png' %}" width="25px" class="pull-left"> <span style="font-size: 15px">페이스북으로 로그인</span></a></p>
       <p><a href="#" class="btn btn-block btn-lg btn-google" style="color: white; border-radius: 5px;"><i class="fa fa-google-plus pull-left"></i> <span style="font-size: 15px">구글계정으로 로그인</span></a></p>
       <p><a href="#" class="btn btn-block btn-lg" style="background-color:rgb(250, 250, 0); color: black; border-radius: 5px;"><img src="{% static 'img/icon/kakao_login.png' %}" width="25px" class="pull-left"> <span style="font-size: 15px">카카오계정으로 로그인</span></a></p>
     </div>
