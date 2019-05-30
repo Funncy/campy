@@ -43,9 +43,9 @@ INSTALLED_APPS = [
 	'app_course_design',
 	'app_graduation_diagnosis',
 	'app_subject_management',
+    'app_common_data',
     'app_data_conversion',
     
-	
 ]
 
 MIDDLEWARE = [

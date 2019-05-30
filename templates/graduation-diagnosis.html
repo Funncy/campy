@@ -1,131 +1,110 @@
 {% load static %}
 {% include "include/header.html" %}
-
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        졸업 진단
-        <small>Gradution Management</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> 졸업 진단</a></li>
-      </ol>
-    </section>
+  <div class="content-header">
+      <h1>자신에 대한 졸업진단을 합니다.</h1>
+  </div>
+  <div class="row">
+    <div class="card col-md-12">
+        <select class="selectpicker col-md-6" data-live-search="true" id = "university-list">
+            <option value="null">학교 선택필요</option>
+        </select>
+    </div>
+  </div>
+  <div class="row">
+      <div class="card col-md-6">
+          <div class="card-header"><h2>졸업진단</h2></div>
+          <div class="card-body">
+            
+            <div class="card container col-md-6 text-center">
+              아직 졸업이 불가능 합니다.
+            </div>
+            
+            <div class="card">
+              <div>
+                <small>10과목 중 6과목 이상 수료해야 합니다.</small>
+              </div>
+              <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                    40% Complete (success)
+                  </div>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div>
+                <small>10과목 중 6과목 이상 수료해야 합니다.</small>
+              </div>
+              <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                   style="width:40%">
+                    40% Complete (success)
+                  </div>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div>
+                <small>10과목 중 6과목 이상 수료해야 합니다.</small>
+              </div>
+              <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                    40% Complete (success)
+                  </div>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div>
+                <small>10과목 중 6과목 이상 수료해야 합니다.</small>
+              </div>
+              <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                    40% Complete (success)
+                  </div>
+              </div>
+            </div>
 
-    <!-- Main content -->
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h4><b>졸업 진단</h4></b>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                              <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>학번</label>
-                                    <span class="form-control" style="width:100%; border-radius: 5px">자기학번입력됨</span>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                    <div class="form-group">
-                                            <label>소속학과</label>
-                                            <span class="form-control" style="width:100%; border-radius: 5px">자기소속학과입력됨</span>
-                                        </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="progress-group">
-                                    <span class="progress-text">2015_컴퓨터 공학과 총합 학점</span>
-                                    <span class="progress-number"><b>141</b> / 130</span>
-                                    <div class="progress sm active">
-                                        <dspaniv class="progress-bar progress-bar-striped" style="width:100%"></dspaniv>
-                                    </div>
-                                </div>
-                                <div class="progress-group">
-                                    <span class="progress-text">2015 중핵필수 과목</span>
-                                    <span class="progress-number"><b>141</b> / 130</span>
-                                    <div class="progress sm active">
-                                        <dspaniv class="progress-bar progress-bar-striped" style="width:100%"></dspaniv>
-                                    </div>
-                                </div>
-                                <div class="progress-group">
-                                    <span class="progress-text">2015 중핵필수선택 학점</span>
-                                    <span class="progress-number"><b>141</b> / 130</span>
-                                    <div class="progress sm active">
-                                        <dspaniv class="progress-bar progress-bar-striped" style="width:100%"></dspaniv>
-                                    </div>
-                                </div>
-                                <div class="progress-group">
-                                    <span class="progress-text">2015 중핵필수선택 영역</span>
-                                    <span class="progress-number"><b>141</b> / 130</span>
-                                    <div class="progress sm active">
-                                        <dspaniv class="progress-bar progress-bar-striped" style="width:100%"></dspaniv>
-                                    </div>
-                                </div>
-                                <div class="progress-group">
-                                    <span class="progress-text">2015 전공기초교양 학점</span>
-                                    <span class="progress-number"><b>141</b> / 130</span>
-                                    <div class="progress sm active">
-                                        <dspaniv class="progress-bar progress-bar-striped" style="width:100%"></dspaniv>
-                                    </div>
-                                </div>
-                                <div class="progress-group">
-                                    <span class="progress-text">2015 전공필수 학점</span>
-                                    <span class="progress-number"><b>141</b> / 130</span>
-                                    <div class="progress sm active">
-                                        <dspaniv class="progress-bar progress-bar-striped" style="width:100%"></dspaniv>
-                                    </div>
-                                </div>
-                                <div class="progress-group">
-                                        <span class="progress-text">2015 전공총합 학점</span>
-                                        <span class="progress-number"><b>141</b> / 130</span>
-                                        <div class="progress sm active">
-                                            <dspaniv class="progress-bar progress-bar-striped" style="width:100%"></dspaniv>
-                                        </div>
-                                </div>
-                                <hr>
-                                <div class="content-footer"><i class="fa fa-warning"></i>졸업 진단에 문제가 있다면 <a href="#"><b>시스템 오류 신고</b></a>를 이용해주세요.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
+            <div class="col-md-12">
+                <button class="btn btn-warning col-md-12 text-center"><small>수동입력 및 임시저장</small></button>
             </div>
-            <div class="col-md-6 pull-right">
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <h4><b>학교 유의사항</h4></b>
-                    </div>
-                    <div class="box-body">
-                        내용물 삽입.
-                    </div>
-                </div>
-                <div class="box box-primary">
-                    <div class="box-header">
-                            <h4><b>학과 유의사항</h4></b>
-                    </div>
-                    <div class="box-body">
-                        내용물 삽입.
-                    </div>
-                </div>
+            
+          </div> 
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-md-12">
+                  <button class="btn col-md-12 text-center"><small>오류사항이 있어요! 해결 문의하기.</small></button>
+              </div>
             </div>
+          </div>
+          
         </div>
+        <div class="card col-md-6">
+            <div class="card-header"><h2>학교별 주의사항 공지</h2></div>
+            <div class="card-body">Content</div> 
+            <div class="card-footer">Footer</div>
+          </div>
 
-      <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
-
-    </section>
-    <!-- /.content -->
   </div>
 
-{% include "include/footer.html" %}
+</div>
+  <script>
+    $( document ).ready(function() {
+      console.log( "ready!" );
+      create_universityList();
+    });
+
+    function create_universityList() {
+      domId='#university-list'
+
+      $(domId).append('<option>세종대학교</option>');
+      $(domId).append('<option>건국대학교</option>');
+      $(domId).append('<option>안산대학교</option>');
+
+    }
+  </script>
