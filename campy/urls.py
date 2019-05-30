@@ -39,8 +39,4 @@ urlpatterns = [
     # redirect list
     path('index', views.campy_info),
 
-
-
-    
-    
 ]
