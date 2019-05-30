@@ -40,6 +40,6 @@ class SubjectInfo(models.Model):
     subject_code = models.CharField(max_length=20)
     subject_name = models.CharField(max_length=20)
     subject_complete_division = models.CharField(max_length=20)
-    #subject_area = models.CharField(max_length=20)  #수정
-    #subject_credit = models.CharField(max_length=20)
-    #subject_assessment_Methods = models.CharField(max_length=20)
+    subject_area = models.CharField(max_length=20)  #수정
+    subject_credit = models.CharField(max_length=20)
+    subject_assessment_Methods = models.CharField(max_length=20)

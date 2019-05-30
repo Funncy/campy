@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-'''
+
 class archving_history(models.Model):
 
     # 유저아이디
@@ -22,4 +22,3 @@ class archving_history(models.Model):
     history_subject_area = models.CharField(max_length=20)
     history_subject_credit = models.CharField(max_length=20)
     history_subject_assessment_Methods = models.CharField(max_length=20)
-'''
