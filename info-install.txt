@@ -8,3 +8,4 @@ pip install psycopg2==2.8.2 #postgresql
 pip install openpyxl
 pip install djangorestframework==3.9.2
 pip install requests==2.21.0
+pip install django-allauth
