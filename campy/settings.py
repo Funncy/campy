@@ -43,7 +43,9 @@ INSTALLED_APPS = [
 	'app_course_design',
 	'app_graduation_diagnosis',
 	'app_subject_management',
+    'app_common_data',
     'app_data_conversion',
+<<<<<<< HEAD
 
 
     'django.contrib.sites',  # allauth
@@ -52,6 +54,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+=======
+    
+>>>>>>> 2f679e11f7d1cfef129bb82466204d1ebc054cd9
 ]
 
 MIDDLEWARE = [

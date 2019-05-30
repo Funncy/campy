@@ -38,11 +38,3 @@ class DataDumpo(models.Model):
     관심과목등록수 = models.CharField(max_length=50)
     외국인전용 = models.CharField(max_length=50)
     내국인전용 = models.CharField(max_length=50)
-
-
-# 테스트
-class test(models.Model):
-
-    가 = models.CharField(max_length=50)
-    나 = models.CharField(max_length=50)
-    다 = models.CharField(max_length=50)
