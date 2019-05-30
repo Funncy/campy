@@ -4,8 +4,6 @@ from django.contrib.auth.models import AbstractUser, UserManager
 # 계정관리
 # Create your models here.
 
-<<<<<<< HEAD
-=======
 # 사용자정보
 class UserInfo(AbstractUser):
 
@@ -24,7 +22,6 @@ class UserInfo(AbstractUser):
     user_contact_number = models.CharField(max_length=20, null=True)
     user_privilege = models.CharField(max_length=20, null=True)
     user_university_name = models.CharField(max_length=20)
->>>>>>> 2f679e11f7d1cfef129bb82466204d1ebc054cd9
 
 # 학생정보
 class StudentInfo(models.Model):
