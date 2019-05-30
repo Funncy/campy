@@ -1,25 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 
 # 계정관리
 # Create your models here.
 
-# 사용자정보
-class UserInfo(AbstractUser):
-
-    # 사용자 ID
-    # 사용자 패스워드
-    # 사용자 이름
-    # 사용자 이메일
-    # 사용자 연락번호
-    # 사용자 권한
-
-    #user_id = models.CharField(max_length=20)
-    #user_password = models.CharField(max_length=20)
-    #user_name = models.CharField(max_length=20)
-    #user_email = models.CharField(max_length=20)
-    user_contact_number = models.CharField(max_length=20, null=True)
-    user_privilege = models.CharField(max_length=20, null=True)
 
 # 학생정보
 class StudentInfo(models.Model):
