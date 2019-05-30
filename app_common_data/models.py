@@ -29,12 +29,17 @@ class DepartmentInfo(models.Model):
 class SubjectInfo(models.Model):
 
     # 대학 이름
-    # 단과대학 이름
-    # 학과 이름
+    # 교과목 코드
     # 교과목 이름
-    # 이수구분
+    # 교과목 이수구분
+    # 교과목 영역
+    # 교과목 학점
+    # 교과목 평가 방법
+
     university_name = models.CharField(max_length=20)
-    college_name = models.CharField(max_length=20)
-    department_name = models.CharField(max_length=20)
+    subject_code = models.CharField(max_length=20)
     subject_name = models.CharField(max_length=20)
-    complete_division = models.CharField(max_length=20)
+    subject_complete_division = models.CharField(max_length=20)
+    #subject_area = models.CharField(max_length=20)  #수정
+    #subject_credit = models.CharField(max_length=20)
+    #subject_assessment_Methods = models.CharField(max_length=20)
