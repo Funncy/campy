@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-
+# 보관기록
 class archving_history(models.Model):
 
     # 유저아이디

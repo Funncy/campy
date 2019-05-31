@@ -31,6 +31,7 @@ class StudentInfo(models.Model):
     # 학생 입학 연도
     # 학생 전공 구분
     # 학생 전공 이름
+    # 학생 대학 이름
     # 학생 단과대학 이름
 
     user_id = models.CharField(max_length=20)
