@@ -35,7 +35,7 @@ class StudentInfo(models.Model):
 
     user_id = models.CharField(max_length=20)
     student_name = models.CharField(max_length=20)
-    student_number = models.CharField(max_length=20)
+    # student_number = models.CharField(max_length=20)
     student_admission_year = models.CharField(max_length=20)
     student_major_division = models.CharField(max_length=20)
     student_major_name = models.CharField(max_length=20)

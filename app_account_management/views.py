@@ -10,7 +10,6 @@ from allauth.socialaccount.models import SocialAccount
 
 @login_required
 def join(request):
-    print(request.user.id)
 
     if request.method == 'GET':
         #StudentInfo가 없을시 최초 로그인
@@ -21,5 +20,4 @@ def join(request):
 
         #Studentinfo가 있을경우 메인화면으로 이동
         return redirect(reverse('index'))
-    print('POST')
     return
