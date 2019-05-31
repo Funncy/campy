@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 
 	'app_account_management',
 	'app_archiving_history',
@@ -104,7 +105,7 @@ DATABASES = {
          'ENGINE': 'django.db.backends.mysql',
          'NAME': 'campy', # CREATE DATABASE campy default CHARACTER SET UTF8;
          'USER': 'root',
-         'PASSWORD': 'rootpassword',
+         'PASSWORD': 'applemac',
          'HOST': '127.0.0.1',
          'PORT': '3306',
     }

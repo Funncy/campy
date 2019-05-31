@@ -15,6 +15,9 @@ def department_manage(request):
 def university_setting(request):
     return render(request, 'university-setting.html', {})
 
+def join(request):
+    return render(request, 'join.html', {})
+
 
 def my_schedule(request):
     return render(request, 'my-schedule.html', {})
@@ -31,10 +34,10 @@ def graduation_requirements_set(request):
 def graduation_diagnosis(request):
     return render(request, 'graduation-diagnosis.html', {})
 
-def history(requset):
+def history(request):
     return render(request, 'history.html', {})
 
-def register(requset):
+def register(request):
     return render(request, 'register.html', {})
 
 def test(request):

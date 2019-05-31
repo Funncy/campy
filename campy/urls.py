@@ -6,9 +6,12 @@ urlpatterns = [
 
     # ui list
     path('admin/', admin.site.urls),
-    path('', views.campy_info),
+    path('', views.campy_info, name='index'),
     path('login/', views.login),
     path('accounts/', include('allauth.urls')),
+    path('history/', views.history),
+    path('join/', include('app_account_management.urls')),
+    path('common/', include('app_common_data.urls')),
 ]
 
 ''' path('', views.campy_info),

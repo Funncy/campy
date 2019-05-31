@@ -21,6 +21,7 @@ class DepartmentInfo(models.Model):
     # 대학 이름
     # 단과대학 이름
     # 학과 이름
+    university = models.ForeignKey(UniversityInfo, on_delete=models.CASCADE)
     university_name = models.CharField(max_length=20)
     college_name = models.CharField(max_length=20)
     department_name = models.CharField(max_length=20)

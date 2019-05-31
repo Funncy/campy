@@ -20,22 +20,14 @@
             <div class="row">
                     <div class="form-group">
                             <label>대학교</label>
-                            <select class="form-control select2" style="width:100%">
-                                <option selected="selected">2</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
+                            <select id="universitys" class="form-control select2" style="width:100%">
                             </select>
                         </div>
             </div>
             <div class="row">
                     <div class="form-group">
                             <label>전공</label>
-                            <select class="form-control select2" style="width:100%">
-                                <option selected="selected">2</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
+                            <select id="departments" class="form-control select2" style="width:100%">
                             </select>
                         </div>
             </div>
@@ -65,5 +57,54 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+
+    var universitys;
+
+    $(document).ready(function(){
+        $.ajax({
+            url: '/common/universitys/',
+            type: 'get',
+            processData: false,
+            contentType: false,
+            data: {},
+            success: function (result) {
+
+                for(var key in result){
+                    $("#universitys").append("<option value='"+result[key].id+"'>"+result[key].university_name+"</option>");
+                }
+
+            },
+            error: function () {
+                alert('error2')
+            }
+        })
+
+    });
+
+    $('#universitys').change(function() {
+        var university_id = $(this).val();
+        $.ajax({
+            url: '/common/departments/',
+            type: 'get',
+            processData: false,
+            contentType: false,
+            data: { 'university' : university_id },
+            success: function (result) {
+                alert(result[0].college_name)
+                for(var key in result){
+                    $("#departments").append("<option value='"+result[key].id+"'>"+result[key].college_name+":"+result[key].department_name+"</option>");
+                }
+
+            },
+            error: function () {
+                alert('error2')
+            }
+        })
+
+    })
+
+</script>
 
 {% include "include/footer.html" %}

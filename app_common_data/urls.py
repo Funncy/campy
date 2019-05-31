@@ -3,9 +3,10 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register(r'', views.UniversityViewset)
+router.register(r'universitys', views.UniversityViewset)
+router.register(r'departments', views.DepartmentViewset)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
-    path('universitys/', include(router.urls)),
+    path('', include(router.urls)),
 ]
