@@ -17,7 +17,6 @@ class DepartmentViewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         university = self.request.query_params.get('university')
-        print(university)
         return DepartmentInfo.objects.filter(university=university)
 
 

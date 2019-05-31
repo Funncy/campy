@@ -34,11 +34,7 @@
             <div class="row">
                     <div class="form-group">
                             <label>입학년도</label>
-                            <select class="form-control select2" style="width:100%">
-                                <option selected="selected">2</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
+                            <select id="admission_year" class="form-control select2" style="width:100%">
                             </select>
                         </div>
             </div>
@@ -46,7 +42,7 @@
                 <span>가입과 동시에 개인정보 제공에 동의하게 됩니다.</span>
             </div>
             <div class="row" style="text-align: center"><br>
-                <button class="btn btn-primary" style="width: 100%">회원가입 완료</button>
+                <button id="submit" class="btn btn-primary" style="width: 100%">회원가입 완료</button>
             </div>
         </div>
       <!--------------------------
@@ -63,6 +59,12 @@
     var universitys;
 
     $(document).ready(function(){
+
+        var current_year = new Date().getFullYear() + 1;
+        for(var year=1950; year <= current_year ; current_year--) {
+            $('#admission_year').append("<option value='"+current_year+"'>"+current_year+" 학번"+"</option>")
+        }
+
         $.ajax({
             url: '/common/universitys/',
             type: 'get',
@@ -80,19 +82,16 @@
                 alert('error2')
             }
         })
-
-    });
-
-    $('#universitys').change(function() {
-        var university_id = $(this).val();
         $.ajax({
-            url: '/common/departments/',
+            url: '/common/departments/?university=1',
             type: 'get',
             processData: false,
             contentType: false,
-            data: { 'university' : university_id },
+            data: { },
+            dataType : "json",
+            contentType : "application/json",
             success: function (result) {
-                alert(result[0].college_name)
+                $("#departments").empty()
                 for(var key in result){
                     $("#departments").append("<option value='"+result[key].id+"'>"+result[key].college_name+":"+result[key].department_name+"</option>");
                 }
@@ -103,6 +102,46 @@
             }
         })
 
+    });
+
+    $('#universitys').change(function() {
+        var university_id = $(this).val();
+        $.ajax({
+            url: '/common/departments/',
+            type: 'get',
+            data: { 'university' : university_id },
+            dataType : "json",
+            contentType : "application/json",
+            success: function (result) {
+                $("#departments").empty()
+                for(var key in result){
+                    $("#departments").append("<option value='"+result[key].id+"'>"+result[key].college_name+":"+result[key].department_name+"</option>");
+                }
+
+            },
+            error: function () {
+                alert('error2')
+            }
+        })
+
+    })
+
+    $('#submit').click(function(){
+        $.ajax({
+            url : '/account/student/',
+            type: 'post',
+            data : {
+                university : $('#universitys').val(),
+                department : $('#departments').val(),
+                admission_year : $('#admission_year').val()
+            },
+            success: function(result) {
+                alert('success')
+            },
+            error: function () {
+                alert('error2')
+            }
+        })
     })
 
 </script>
