@@ -1,0 +1,287 @@
+[33mcommit d82a78e78f76c3ac5c79e8f9fedd218831d1c474[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: funncy <gywns41@naver.com>
+Date:   Fri May 31 19:25:43 2019 +0900
+
+    join 기능 완성 - 최초로그인시 studentInfo데이터 입력
+
+[33mcommit 160cb51cf78f27df1d4816692e64c6e05de7dfbd[m
+Merge: 6d3e393 ffbf3ef
+Author: funncy <gywns41@naver.com>
+Date:   Fri May 31 16:47:54 2019 +0900
+
+    Merge branch 'master' of https://github.com/Funncy/campy
+
+[33mcommit 6d3e3933d5d1aa438ce9a4edf1cefa8b8c7a20b7[m
+Author: funncy <gywns41@naver.com>
+Date:   Fri May 31 16:47:37 2019 +0900
+
+    StudentInfo 수정 - studentnumber 주석
+
+[33mcommit ffbf3efe7d73f781ff362cffccd17a22fe04f46d[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Fri May 31 15:46:18 2019 +0900
+
+    '코드청소'
+
+[33mcommit 4808702c5e0a756a3884967a7787e5fa1b9d38de[m
+Merge: f2ea1bc ddd732c
+Author: funncy <gywns41@naver.com>
+Date:   Fri May 31 14:33:59 2019 +0900
+
+    migration 변경
+
+[33mcommit f2ea1bc895948f1ba79779284a0bdad34181c78d[m
+Author: funncy <gywns41@naver.com>
+Date:   Fri May 31 14:31:30 2019 +0900
+
+    migration 삭제
+
+[33mcommit 546d942e7540e038f35fc76bca05f54eddf5525e[m
+Author: funncy <gywns41@naver.com>
+Date:   Fri May 31 14:30:13 2019 +0900
+
+    join 기능 제작 중
+
+[33mcommit ddd732c25bdb6e3db22e01462481b4322ffb316b[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Fri May 31 14:17:29 2019 +0900
+
+    마이그래이트고침
+
+[33mcommit 830e603e1a67079091c46f812e06d40fb167e6dd[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Fri May 31 14:00:54 2019 +0900
+
+    유저모델변경
+
+[33mcommit 2bebb8661daadc379ac4fbfd0a11e94e6b7cdbb7[m
+Author: funncy <gywns41@naver.com>
+Date:   Fri May 31 00:33:01 2019 +0900
+
+    common University REST viewset 완성
+
+[33mcommit 12c5a90d6995572d705fb0c04de018bdb44d4aa9[m
+Author: funncy <gywns41@naver.com>
+Date:   Fri May 31 00:32:07 2019 +0900
+
+    join.html 최초로그인 시 진입 기능
+
+[33mcommit 41990f4b1a98ef672399e9da62092af11f6ceaa1[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 19:55:52 2019 +0900
+
+    model 추가
+
+[33mcommit 3e0b4396b0b8b07204c0bfff93a4f9c9c3f66c53[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 19:50:47 2019 +0900
+
+    회원가입 정보 입력창 추가
+
+[33mcommit f694683c10c4aafac8cdde1a986b7bc99c9f2f59[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 19:44:46 2019 +0900
+
+    ERD 수정 권고
+
+[33mcommit 4a303dd3ac87f8748610b65ba1a10955e0bfc696[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 19:10:23 2019 +0900
+
+    Added 수강이력 화면
+
+[33mcommit bcc20eb85515be93760e6d42d72457bfb3ce4bb2[m
+Merge: 96e2e97 6c51678
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 18:30:54 2019 +0900
+
+    merge
+
+[33mcommit 96e2e978ff66a6b5cc198d496066c95edb554ad5[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 18:28:20 2019 +0900
+
+    db 초기화
+
+[33mcommit 6c516785b9eeec41f41b684bddbd22c929050eac[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 30 18:20:26 2019 +0900
+
+    added-코드수정
+
+[33mcommit 105a32b17b29f37a60ffeb6cdfb881bc1f7f0693[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 17:19:15 2019 +0900
+
+    페이스북 연동 로그인 login.html
+
+[33mcommit 477a19e549f99b841d3d032e7d62230ce4360401[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 17:00:59 2019 +0900
+
+    Deleted UserInfo - 기본 장고 유저모델 사용으로 변경
+
+[33mcommit d4cf69d9ac0e86e8b8969d7bcb30a8da75089c82[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 16:59:32 2019 +0900
+
+    stash 문구 삭제
+
+[33mcommit c9aa14d58b37e1216b75182b91c5c40d7e0cb2c6[m
+Merge: 1de5d8d 2f679e1
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 16:58:31 2019 +0900
+
+    merge
+
+[33mcommit 1de5d8db15050745bbabc6bf242f7b21498c8e69[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 16:51:05 2019 +0900
+
+    Implemented 소셜 로그인 연동 - facebook
+
+[33mcommit 2f679e11f7d1cfef129bb82466204d1ebc054cd9[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 30 16:48:47 2019 +0900
+
+    '데이터붓는모델test테이블삭제'
+
+[33mcommit f8c3f4852fd26d038d9a337af4009f60c20250b3[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 30 16:09:05 2019 +0900
+
+    Modified-이수구분추가
+
+[33mcommit 6e35b9d43bd72dcddefb4be4c9148a24f8de30c0[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 30 15:53:11 2019 +0900
+
+    공통데이터입력
+
+[33mcommit f5260cbe77796ca4b26c4e4ced674d8ebfb64b75[m
+Merge: 72c05c5 2463a69
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 30 14:30:13 2019 +0900
+
+    Merge branch 'master' of https://github.com/Funncy/campy
+
+[33mcommit 72c05c52c6c04fe87592f8d53c2a331e904a9f5a[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 30 14:28:48 2019 +0900
+
+    'added-코드클린하게수정'
+
+[33mcommit 2463a695e45387c2343c8be12fb369a398fa90b9[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 13:19:44 2019 +0900
+
+    Modifed login.html facebook,kakao 연동 로그인 이미지 경로 수정
+
+[33mcommit 43046deeba44c250de2198a5ffb48b32fd9dead2[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 13:16:45 2019 +0900
+
+    Modifed 화면 수정
+
+[33mcommit 52e7f434f1f228e0bc7cc7531d8957462ded62f2[m
+Author: funncy <gywns41@naver.com>
+Date:   Thu May 30 13:03:08 2019 +0900
+
+    Modifed 해더 adminLTE3 -> adminLTE2 변경
+
+[33mcommit 77649133debf94fc41f30153671fdb361ff89183[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 23 23:48:39 2019 +0900
+
+    '졸업진단화면디자인수정'
+
+[33mcommit e10595a82ce1fc5189c3c0fc50889a25e192123e[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 23 21:17:10 2019 +0900
+
+    'added-졸업진단초안'
+
+[33mcommit c332ac162a5a4b45bcf56d675a5e9512a17eb4a9[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 23 16:14:38 2019 +0900
+
+    '소스코드미세변경'
+
+[33mcommit 021ba9456637351cc8f96ab1f6de2c9bf09c35f0[m
+Merge: 161620b 6055dec
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 23 16:09:34 2019 +0900
+
+    'added-대학교설정화면추가'
+
+[33mcommit 161620b54d45c6b5a3a0d03fdb3b906b70c74589[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Thu May 23 16:04:41 2019 +0900
+
+    'added-대학교설정'
+
+[33mcommit 6055dec21aeb347c1dca6e16b1e592401e6caf2d[m
+Merge: 35bcee4 8578ec5
+Author: funncy <gywns6222@gmail.com>
+Date:   Thu May 23 13:25:59 2019 +0900
+
+    오류신고추가
+
+[33mcommit 35bcee4ac33e409d76cb421aea7bb5b0183fc7c4[m
+Author: funncy <gywns6222@gmail.com>
+Date:   Thu May 23 13:17:32 2019 +0900
+
+    commit 오류신고추가
+
+[33mcommit 8578ec552549d6d0b2c5baaa476a4a32f28bee42[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Wed May 22 20:22:55 2019 +0900
+
+    'Modified-로그인레이아웃설정'
+
+[33mcommit 29ce636ce16a95836e2a4445a391800f07c955b4[m
+Merge: e662e94 9df4f48
+Author: funncy <gywns6222@gmail.com>
+Date:   Wed May 22 16:25:31 2019 +0900
+
+    Merge branch 'master' of https://github.com/Funncy/campy
+
+[33mcommit e662e949eb066b253b98392d513ada5369cd31be[m
+Author: funncy <gywns6222@gmail.com>
+Date:   Wed May 22 16:23:46 2019 +0900
+
+    'Fixed-과목그룹설정,과목관리초안'
+
+[33mcommit 9df4f48e42d5a614db1a90e9aa9c7d3207cb9094[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Wed May 22 16:06:07 2019 +0900
+
+    'Added-부트스트랩4'
+
+[33mcommit 7eec9a3a47533e0d4fe89a4d4059c844af585400[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Wed May 22 15:54:00 2019 +0900
+
+    'Added-캠피전용js추가'
+
+[33mcommit 71dcd307b02b1747467b4c7743a0b89506b4ed9f[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Tue May 21 17:09:54 2019 +0900
+
+    'Added솔루션전용js추가'
+
+[33mcommit 0ef2f41b9e91222015e6f9c2a567679c51131add[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Tue May 21 13:19:56 2019 +0900
+
+    Modified ui patch
+
+[33mcommit 6c20bf644c2c0ae0e1c07dace9e213175e555a96[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Tue May 21 13:13:59 2019 +0900
+
+    Modified ui menu patch
+
+[33mcommit cdc7154de7e97dd4c103eafbd1b5d4e09f8285e6[m
+Author: yoerl <jokerbook365@gmail.com>
+Date:   Tue May 21

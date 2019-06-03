@@ -44,7 +44,8 @@ for AssessmentResultData in AssessmentResult_list:
                     no = re.search('(no=).*?(,)',Department).group()
                     Departyear = re.search('(year=).*?(,)',Department).group()
                     name = re.search('(name=).*?(\))',Department).group()
-                   
+
+                    
                     ExcelData_list = RuleResultData.replace('ExcelData','&&&&&&ExcelData').split('&&&&&&')
                     for idx,ExcelData in enumerate(ExcelData_list):
                         if(0<idx):
