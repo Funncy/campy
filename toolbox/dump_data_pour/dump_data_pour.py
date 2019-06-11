@@ -2,9 +2,10 @@ from openpyxl import load_workbook
 
 alldata = ''
 seq = 0
-Route = 'C:/'
+Route = 'C:/git-campy/toolbox/dump_data_pour/data_excel/'
 filename = ''
-filename_arr = ['2013-1_20130424.xlsx','2014-1_140422.xlsx','2014-2_141021.xlsx','2015-1_150422.xlsx','2015-2_151020.xlsx','2016-1_160414.xlsx','2016-2_161007.xlsx','2017-1_170706.xlsx','2017-2_171011.xlsx','2018-1_180404.xlsx','2018-2_181113.xlsx']
+# filename_arr = ['2013-1_20130424.xlsx','2014-1_140422.xlsx','2014-2_141021.xlsx','2015-1_150422.xlsx','2015-2_151020.xlsx','2016-1_160414.xlsx','2016-2_161007.xlsx','2017-1_170706.xlsx','2017-2_171011.xlsx','2018-1_180404.xlsx','2018-2_181113.xlsx']
+filename_arr = ['2018-2_181113.xlsx']
 # filename_arr = ['2014-2_141021.xlsx']
 
 
@@ -45,3 +46,7 @@ for i in range(0,len(filename_arr)) :
 
 wfile = open("c:/alldata.csv",'w', encoding='UTF-8')
 wfile.writelines(alldata)
+
+# csv 파일 디비인력 쿼리
+# LOAD DATA LOCAL INFILE 'C:/alldata.csv'
+# INTO TABLE campy.app_data_conversion_datadumpo FIELDS TERMINATED BY ',';
