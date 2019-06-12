@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'campy.wsgi.application'
 DATABASES = {
     'default': {
          'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'campy', # CREATE DATABASE campy default CHARACTER SET UTF8;
+         'NAME': 'campy', # CREATE DATABASE campy default CHARACTER SET UTF8; # DROP DATABASE campy
          'USER': 'root',
          'PASSWORD': 'rootpassword',
          'HOST': '127.0.0.1',
