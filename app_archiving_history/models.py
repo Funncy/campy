@@ -1,13 +1,14 @@
 from django.db import models
+from app_common_data.models import SubjectInfo
 
 # Create your models here.
 
 # 보관기록
-class archving_history(models.Model):
+class archieving_history(models.Model):
 
     # 유저아이디
     # 교과목 코드
-    # 강의 코드
+    # 강의 코드 (잠시 보류)
     # 교과목 이름
     # 교과목 이수구분
     # 교과목 영역
@@ -18,7 +19,7 @@ class archving_history(models.Model):
     # 이수 학기
 
     history_user_id = models.CharField(max_length=20)
-    history_subject_code = models.CharField(max_length=20)
+    history_subject_code = models.ForeignKey(SubjectInfo, on_delete=models.CASCADE)
     history_lecture_code = models.CharField(max_length=20)
     history_subject_name = models.CharField(max_length=20)
     history_subject_complete_division = models.CharField(max_length=20)

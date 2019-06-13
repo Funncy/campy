@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from .models import UniversityInfo, CollegeInfo, DepartmentInfo, SubjectInfo
 from django.http import HttpResponse, JsonResponse
-from .serializers import UniversitySerializer, DepartmentSerializer
+from .serializers import UniversitySerializer, DepartmentSerializer, SubjectSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
 
 # Create your views here.
+
+class SubjectsViewset(viewsets.ModelViewSet):
+    queryset = SubjectInfo.objects.all()
+    serializer_class = SubjectSerializer
 
 class UniversityViewset(viewsets.ModelViewSet):
     queryset = UniversityInfo.objects.all()
