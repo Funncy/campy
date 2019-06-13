@@ -68,8 +68,6 @@
         $.ajax({
             url: '/common/universitys/',
             type: 'get',
-            processData: false,
-            contentType: false,
             data: {},
             success: function (result) {
 
@@ -82,11 +80,10 @@
                 alert('error2')
             }
         })
+
         $.ajax({
             url: '/common/departments/?university=1',
             type: 'get',
-            processData: false,
-            contentType: false,
             data: { },
             dataType : "json",
             contentType : "application/json",
@@ -105,7 +102,9 @@
     });
 
     $('#universitys').change(function() {
+
         var university_id = $(this).val();
+
         $.ajax({
             url: '/common/departments/',
             type: 'get',
@@ -113,7 +112,9 @@
             dataType : "json",
             contentType : "application/json",
             success: function (result) {
+
                 $("#departments").empty()
+
                 for(var key in result){
                     $("#departments").append("<option value='"+result[key].id+"'>"+result[key].college_name+":"+result[key].department_name+"</option>");
                 }
