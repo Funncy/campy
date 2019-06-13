@@ -12,7 +12,10 @@ class archving_history(models.Model):
     # 교과목 이수구분
     # 교과목 영역
     # 교과목 학점
-    # 교과목 평가 방법
+    # 교과목 평가 방법 (잠시 보류)
+    # 학생 성적
+    # 이수 학년
+    # 이수 학기
 
     history_user_id = models.CharField(max_length=20)
     history_subject_code = models.CharField(max_length=20)
@@ -22,3 +25,6 @@ class archving_history(models.Model):
     history_subject_area = models.CharField(max_length=20)
     history_subject_credit = models.CharField(max_length=20)
     history_subject_assessment_Methods = models.CharField(max_length=20)
+    history_student_grade = models.CharField(max_length=20)
+    history_grade_year = models.CharField(max_length=20)
+    history_semester = models.CharField(max_length=20)
