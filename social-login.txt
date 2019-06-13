@@ -1,0 +1,7 @@
+0. 슈퍼 유저 계정 생성 후 admin 창 접속
+1. 먼저 admin 관리 화면에서 sites 데이터 수정
+2. sites 내부에 example.com -> 127.0.0.1:8000 으로 수정 ( 나의 주소 )
+3. social application table들어가서 추가
+4. facebook 으로 추가
+5. 공개키  비공개 키 입력 (facebook 개발자 사이트)
+
