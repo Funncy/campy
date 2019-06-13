@@ -12,6 +12,7 @@ urlpatterns = [
     path('history/', views.history),
     path('join/', include('app_account_management.urls')),
     path('common/', include('app_common_data.urls')),
+    path('history/', include('app_archiving_history.urls')),
 ]
 
 ''' path('', views.campy_info),
