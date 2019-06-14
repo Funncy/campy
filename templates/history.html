@@ -2,7 +2,7 @@
 {% include "include/header.html" %}
 
 
- <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -26,25 +26,34 @@
                     <table class="table table-bordered table-striped table-hover text-center">
                         <thead>
                             <tr>
-                                <th style="width: 80px">과목 이름</th>
-                                <th>이수 구분</th>
-                                <th style="width: 80px">학점</th>
-                                <th style="width: 80px">영역</th>
-                                <th style="width: 100px">관리</th>
+                                <th style="width: 250px">과목 이름</th>
+                                <th style="width: 80px">이수 구분</th>
+                                <th style="width: 50px">이수 학년</th>
+                                <th style="width: 50px">이수 학기</th>
+                                <th style="width: 50px">학생 성적</th>
+                                <th style="width: 50px">교과목 영역</th>
+                                <th style="width: 50px">교과목 학점</th>
+                                <th style="width: 20px">관리</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
+                                <td>컴퓨터의 이해</td>
+                                <td>이수구분</td>
+                                <td>1학년</td>
+                                <td>1학기</td>
+                                <td>A</td>
+                                <td>전공필수</td>
+                                <td>2학점</td>
                                 <td>
-                                    <button class="btn btn-xs btn-warning">수정</button>
-                                    <button class="btn btn-xs btn-danger">삭제</button>
+                                  <button class="btn btn-xs btn-warning">수정</button>
+                                  <button class="btn btn-xs btn-danger">삭제</button>
                                 </td>
                             </tr>
                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -62,9 +71,75 @@
       <div class="modal fade" id="Mo_plus" role="dialog" style="display: none">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header">모달 제목</div>
-            <div class="modal-body">모달 본문</div>
-            <div class="modal-footer">모달 푸터</div>
+            <div class="modal-header">
+              <h4 class="header"><b>새로운 과목을 추가합니다.</b></h4>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label>이수 학년</label>
+                          <select class="form-control">
+                              <option>1</option>
+                              <option>1</option>
+                              <option>1</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label>이수 학기</label>
+                          <select class="form-control">
+                              <option>1</option>
+                              <option>1</option>
+                              <option>1</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label>이수 구분</label>
+                          <select class="form-control" id="subject_division">
+                              <option>1</option>
+                              <option>1</option>
+                              <option>1</option>
+                          </select>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label>과목 이름</label>
+                          <select class="form-control" id="subject_name">
+                          </select>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label>나의 성적</label>
+                          <select class="form-control">
+                              <option>1</option>
+                              <option>1</option>
+                              <option>1</option>
+                          </select>
+                      </div>
+                  </div>
+                </div>
+              </div>
+                <i class="fa fa-warning"></i>새로운 졸업 요건을 추가할 때에는 이미 존재하는 졸업 요건에 유의하시기 바랍니다.
+            </div>
+            <div class="modal-footer">
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                  <button class="btn btn-primary pull-right">추가하기</button>
+                </div>
+            </div>
+            </div>
           </div>
         </div>
       </div>
@@ -76,6 +151,37 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+<script>
+
+
+    $(document).ready(function(){
+
+        $.ajax({
+            url: '/common/api/subjects/',
+            type: 'get',
+            data: {},
+            success: function (result) {
+
+                $("#subject_name").empty()
+                $("#subject_division").empty()
+
+                for(var key in result){
+                    $("#subject_name").append("<option value='"+result[key].id+"'>"+result[key].subject_name+"</option>");
+                    $("#subject_division").append("<option value='"+result[key].id+"'>"+result[key].subject_complete_division+"</option>");
+                }
+
+            },
+            error: function () {
+                alert('error2')
+            }
+        })
+
+    })
+
+
+
+</script>
       
 
 {% include "include/footer.html" %}
