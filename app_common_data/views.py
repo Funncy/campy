@@ -23,6 +23,14 @@ class DepartmentViewset(viewsets.ModelViewSet):
         university = self.request.query_params.get('university')
         return DepartmentInfo.objects.filter(university=university)
 
+class DivisionViewset(viewsets.ModelViewSet):
+    queryset = SubjectInfo.objects.all()
+    serializer_class = SubjectSerializer
+
+    def get_queryset(self):
+        subject_id = self.request.query_params.get('subject_id')
+        return SubjectInfo.objects.filter(id=subject_id)
+
 
 def get_all_UniversityInfo(request):
     if request.method == 'POST':
