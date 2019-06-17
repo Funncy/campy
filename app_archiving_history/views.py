@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from app_common_data.models import SubjectInfo
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -38,16 +40,11 @@ class HistoryViewset(viewsets.ModelViewSet):
 
 
     def create(self, request, *args, **kwargs):
-        #외부 데이터 post 데이터에 연결 하기
-        #copy로 데이터 복사해와서 처리
-        post_user = request.data.copy()
-        # self에는 ajax로 보낸 request post data가 안담김... 일반 request에 담겨있
-        # post_user = self.request.POST.dict().copy()
-        # post_user.update({"history_user_id": request.user.id})
-        post_user.update({"history_user_id": request.user.id})
-        #수정한 post데이터 넣기 request 말고
-        serializer = self.get_serializer(data=post_user)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        #serializer 초기화
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            #추가적인 외래키 요소들 연결하기 (id값으로)
+            serializer.save(history_subject_code_id = 1, history_user_id = request.user.id)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)
