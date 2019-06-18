@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UniversityInfo, DepartmentInfo, SubjectInfo
+from .models import UniversityInfo, DepartmentInfo, SubjectInfo, CompletionDivision
 
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,4 +15,9 @@ class DepartmentSerializer(serializers.ModelSerializer):
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubjectInfo
+        fields = ('__all__')
+
+class CompletionDivisionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompletionDivision
         fields = ('__all__')

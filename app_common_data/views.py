@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .models import UniversityInfo, CollegeInfo, DepartmentInfo, SubjectInfo
+from .models import UniversityInfo, CollegeInfo, DepartmentInfo, SubjectInfo, CompletionDivision
 from django.http import HttpResponse, JsonResponse
-from .serializers import UniversitySerializer, DepartmentSerializer, SubjectSerializer
+from .serializers import UniversitySerializer, DepartmentSerializer, SubjectSerializer, CompletionDivisionSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
 
@@ -22,6 +22,14 @@ class DepartmentViewset(viewsets.ModelViewSet):
     def get_queryset(self):
         university = self.request.query_params.get('university')
         return DepartmentInfo.objects.filter(university=university)
+
+class CompletionDivisionViewset(viewsets.ModelViewSet):
+    queryset = CompletionDivision.objects.all()
+    serializer_class = CompletionDivisionSerializer
+
+    def get_queryset(self):
+        university = self.request.query_params.get('university')
+        return CompletionDivision.objects.filter(university=university)
 
 class DivisionViewset(viewsets.ModelViewSet):
     queryset = SubjectInfo.objects.all()

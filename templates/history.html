@@ -168,7 +168,7 @@
 
                 for(var key in result){
                     $("#subject_name").append("<option value='"+result[key].id+"'>"+result[key].subject_name+"</option>");
-                    $("#subject_division").append("<option value='"+result[key].id+"'>"+result[key].subject_complete_division+"</option>");
+                    $("#subject_division").append("<option value='"+result[key].id+"'>"+result[key].subject_completion_division+"</option>");
                 }
 
             },
@@ -177,6 +177,28 @@
             }
         })
 
+        $.ajax({
+            url: '/common/api/division/',
+            type: 'get',
+            data: { 'university' : 1 },
+            success: function (result) {
+
+                $("#subject_division").empty()
+
+                for(var key in result){
+                    $("#subject_division").append("<option value='"+result[key].id+"'>"+result[key].division_name+"</option>");
+                }
+
+            },
+            error: function () {
+                alert('error2')
+            }
+        })
+
+    })
+
+    $("#subject_name").change(function(){
+        alert($("#subject_name option:checked").text())
     })
 
 
