@@ -11,11 +11,6 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
-#화면 렌더링
-@login_required
-def history(request):
-    return render(request, 'history.html', {})
-
 class HistoryViewset(viewsets.ModelViewSet):
 
     permission_classes = (IsAuthenticated,)

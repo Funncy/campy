@@ -2,25 +2,56 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
+
+## 실 사용 list
+
 def index(request):
     return render(request, 'index.html', {})
 
-    
+# 최초 화면
 def campy_info(request):
     return render(request, 'campy-info.html', {})
 
+# 로그인 화면
+def login(request):
+    return render(request, 'login.html', {})
+
+# 로그아웃 화면
+def logout(request):
+    return render(request, 'index.html', {})
+
+# 최초 로그인시 계정 정보 입력
+def join(request):
+    return render(request, 'join.html', {})
+
+# 졸업 진단 화면
+def graduation_diagnosis(request):
+    return render(request, 'graduation-diagnosis.html', {})
+
+# 커뮤니티 화면
+def community(request):
+    return render(request, 'community.html', {})
+
+# 수강 설계 화면
+def my_schedule(request):
+    return render(request, 'my-schedule.html', {})
+
+# 개인정보 화면
+def mypage(request):
+    return render(request, 'mypage.html', {})
+
+# 개인 수강 이력 화면
+def history(request):
+    return render(request, 'history.html', {})
+
+
+## 예비 list
+'''
 def department_manage(request):
     return render(request, 'department-manage.html', {})
 
 def university_setting(request):
     return render(request, 'university-setting.html', {})
-
-def join(request):
-    return render(request, 'join.html', {})
-
-
-def my_schedule(request):
-    return render(request, 'my-schedule.html', {})
 
 def subject_manage(request):
     return render(request, 'subject-manage.html', {})
@@ -30,12 +61,6 @@ def subject_groups_set(request):
 
 def graduation_requirements_set(request):
     return render(request, 'graduation-requirements-set.html', {})
-
-def graduation_diagnosis(request):
-    return render(request, 'graduation-diagnosis.html', {})
-
-def history(request):
-    return render(request, 'history.html', {})
 
 def register(request):
     return render(request, 'register.html', {})
@@ -67,8 +92,6 @@ def assessment(request):
 def judge_list(request):
     return render(request, 'judge_list.html', {})
 
-def mypage(request):
-    return render(request, 'mypage.html', {})
 
 def notice(request):
     return render(request, 'notice.html', {})
@@ -122,9 +145,6 @@ def connect(request):
             return HttpResponse('로그인 실패. 다시 시도 해보세요.')
     return HttpResponse()
 
-def logout(request):
-    return render(request, 'index.html', {})
-
 def urls(request,url_info):
     # print(url_info)
     # url 분석
@@ -138,4 +158,4 @@ def urls(request,url_info):
     if url_info == '':
         screen_file = 'index'
     return render(request, screen_file+".html", {})
-
+'''

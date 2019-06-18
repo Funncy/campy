@@ -7,6 +7,5 @@ router = DefaultRouter()
 router.register(r'subjects', views.HistoryViewset)
 
 urlpatterns = [
-    path('', views.history),
     path('api/', include(router.urls)),
 ]

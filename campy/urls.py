@@ -4,12 +4,20 @@ from . import views
 
 urlpatterns = [
 
-    # ui list
+    # admin list
     path('admin/', admin.site.urls),
-    path('', views.campy_info, name='index'),
     path('login/', views.login),
     path('accounts/', include('allauth.urls')),
-    path('history/', views.history),
+
+    # ui list
+    path('', views.campy_info, name='index'),
+    path('history/', views.history, name='history'),
+    path('myschedule/', views.my_schedule, name='my_schedule'),
+    path('graduation/', views.graduation_diagnosis, name='graduation'),
+    path('community/', views.community, name='community'),
+    path('mypage/', views.mypage, name='mypage'),
+
+    # api list
     path('join/', include('app_account_management.urls')),
     path('common/', include('app_common_data.urls')),
     path('history/', include('app_archiving_history.urls')),
