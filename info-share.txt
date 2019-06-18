@@ -1,3 +1,7 @@
+DROP DATABASE campy;
+CREATE DATABASE campy default CHARACTER SET UTF8;
+ 
+ 
  python manage.py makemigrations <app-name>
  python manage.py migrate <app-name>
  python manage.py showmigrations <app-name>
