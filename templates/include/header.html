@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Starter</title>
+    <title>CAMPY</title>
 
       <!-- daterange picker -->
       <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker-bs3.css' %}">
@@ -94,7 +94,11 @@
                             <img src="{% static 'img/icon/person-placeholder.jpg'  %}" class="user-image" alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">
-                                {{ user }} 님
+                                {% if user.is_staff %}
+                                    관리자 님
+                                {% else %}
+                                    {{ user.first_name }}{{ user.last_name }} 님
+                                {% endif %}
                             </span>
                         </a>
                         <ul class="dropdown-menu">
@@ -103,8 +107,20 @@
                                 <img src="{% static 'img/icon/person-placeholder.jpg'  %}" class="img-circle" alt="User Image">
 
                                 <p>
-                                    {{ user.name }}
-                                    <small>{{user}} / {{user.id}}</small>
+
+                                    {% if student %}
+                                        {% for student_info in student %}
+                                             <p>{{ user.first_name }}{{ user.last_name }}
+                                                <small>{{ student_info.student_university_name }} / {{ student_info.student_major_name }}</small>
+                                             </p>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% if user.is_staff %}
+                                            관리자 님
+                                        {% else %}
+                                            대학을 설정해주세요.
+                                        {% endif %}
+                                    {% endif %}
                                 </p>
                             </li>
                             <li class="user-footer">
@@ -145,13 +161,27 @@
                 </div>
                 <div class="pull-left info">
                     {% if user.is_authenticated %}
-                    <p>{{ user.get_username }} 님</p>
-                    <!-- Status -->
-                    <a href="{% url 'mypage' %}">{{user}} / {{user.id}}</a>
+                        {% if user.is_staff %}
+                            <p>관리자 님</p>
+                        {% else %}
+                             <p>{{ user.first_name }}{{ user.last_name }} 님</p>
+                        {% endif %}
+                        <!-- Status -->
+                        {% if student %}
+                            {% for student_info in student %}
+                                <a href="{% url 'mypage' %}">{{ student_info.student_university_name }} / {{ student_info.student_major_name }}</a>
+                            {% endfor %}
+                        {% else %}
+                            {% if user.is_staff %}
+                                 <a href="{% url 'mypage' %}">관리자</a>
+                            {% else %}
+                                <a href="{% url 'mypage' %}"> 대학을 설정해주세요. </a>
+                            {% endif %}
+                        {% endif %}
                     {% else %}
-                    <p>손님</p>
-                    <!-- Status -->
-                    <a href="{% url 'login' %}">로그인이 필요합니다</a>
+                        <p>손님</p>
+                        <!-- Status -->
+                        <a href="{% url 'login' %}">로그인이 필요합니다</a>
                     {% endif %}
                 </div>
             </div>

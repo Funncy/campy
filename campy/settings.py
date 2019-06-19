@@ -158,6 +158,8 @@ ACCOUNT_LOGOUT_ON_GET = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
 ACCOUNT_ADAPTER = "campy.adapter.MyLoginAccountAdapter"
 SOCIALACCOUNT_ADAPTER = 'campy.adapter.MySocialAccountAdapter'
+LOGIN_URL = '/login/'
+
 
 SITE_ID = 1
 

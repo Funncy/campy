@@ -168,7 +168,9 @@
     $('#submit').click(function(){
 
         if( ($('#departments').val() === $('#multiple_departments').val()) || ($('#departments').val() === $('#sub_departments').val())){
-            if(($('#sub_departments').val() === $('#multiple_departments').val()) && ($('#sub_departments').val()!=0) )
+            alert('학과를 중복 선택하셨습니다')
+            return
+        }else if((($('#sub_departments').val() === $('#multiple_departments').val()) && ($('#sub_departments').val()!=0) )){
             alert('학과를 중복 선택하셨습니다')
             return
         }
