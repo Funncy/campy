@@ -82,27 +82,56 @@
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-            <li class="user user-menu">
-              {% if user.is_authenticated %}
-                  <a href="{% url 'mypage' %}">
-                  <img src="{% static 'img/icon/person-placeholder.jpg'  %}" class="user-image" alt="User Image">
-                  <span class="hidden-xs">{{ user.get_username }}</span>
-                  </a>
-              {% else %}
-                  <a href="{% url 'login' %}">
-                  <i class="fa fa-key"></i>
-                  <span class="hidden-xs">로그인</span>
-                  </a>
-              {% endif %}
-            <li>
-                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-            </li>
-            </li>
+    <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account Menu -->
+                    {% if user.is_authenticated %}
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!-- The user image in the navbar-->
+                            <img src="{% static 'img/icon/person-placeholder.jpg'  %}" class="user-image" alt="User Image">
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                            <span class="hidden-xs">
+                                {{ user }} 님
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-header">
+                                <img src="{% static 'img/icon/person-placeholder.jpg'  %}" class="img-circle" alt="User Image">
 
-        </ul>
-      </div>
+                                <p>
+                                    {{ user.name }}
+                                    <small>{{user}} / {{user.id}}</small>
+                                </p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="{% url 'mypage' %}" class="btn btn-default btn-flat">마이페이지</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="{% url 'logout' %}" class="btn btn-default btn-flat">로그아웃</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="/user/login">
+                            <!-- The user image in the navbar-->
+                            <i class="fa fa-key"></i>
+                            <span class="hidden-xs">로그인</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
     </nav>
   </header>
   <aside class="main-sidebar">
