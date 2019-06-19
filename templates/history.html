@@ -23,7 +23,7 @@
           <div class="box-body">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-bordered table-striped table-hover text-center">
+                    <table class="table table-bordered table-striped table-hover text-center" >
                         <thead>
                             <tr>
                                 <th style="width: 250px">과목 이름</th>
@@ -36,7 +36,7 @@
                                 <th style="width: 20px">관리</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="subject_list">
                             <tr>
                                 <td>컴퓨터의 이해</td>
                                 <td>이수구분</td>
@@ -80,20 +80,22 @@
                   <div class="col-md-3">
                       <div class="form-group">
                           <label>이수 학년</label>
-                          <select class="form-control">
-                              <option>1</option>
-                              <option>1</option>
-                              <option>1</option>
+                          <select class="form-control" id="year">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
                           </select>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="form-group">
                           <label>이수 학기</label>
-                          <select class="form-control">
-                              <option>1</option>
-                              <option>1</option>
-                              <option>1</option>
+                          <select class="form-control" id="semester">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">여름학기(계절)</option>
+                              <option value="4">겨울학기(계절)</option>
                           </select>
                       </div>
                   </div>
@@ -121,7 +123,7 @@
                   <div class="col-md-6">
                       <div class="form-group">
                           <label>나의 성적</label>
-                          <select class="form-control">
+                          <select id="grades" class="form-control">
                               <option>1</option>
                               <option>1</option>
                               <option>1</option>
@@ -136,7 +138,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
-                  <button class="btn btn-primary pull-right">추가하기</button>
+                  <button class="btn btn-primary pull-right" id="subject_submit">추가하기</button>
                 </div>
             </div>
             </div>
@@ -158,9 +160,41 @@
     $(document).ready(function(){
 
         $.ajax({
+            url: '/history/api/subjects/',
+            type: 'get',
+            data: { },
+            success: function (result) {
+
+                $("#subject_list").empty()
+
+                for(var key in result){
+                    $("#subject_list").append(
+                        "<tr><td>"+result[key].history_subject_name+"</td><td>"+result[key].history_subject_complete_division+
+                        "</td><td>"+result[key].history_grade_year+"</td><td>"+result[key].history_semester+
+                        "</td><td>"+result[key].history_student_grade+"</td><td>"+"영역"+"</td><td>"+"학점"+
+                        "<td><button class=\"btn btn-xs btn-warning\">수정</button><button class=\"btn btn-xs btn-danger\">삭제</button></td></tr>"
+                    )
+                }
+                $("#subject_list").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>" +
+                    "<button class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#Mo_plus\" >추가</button>\n" +
+                    "</td></tr>")
+
+
+            },
+            error: function () {
+                alert('error2')
+            }
+        })
+
+
+        $.ajax({
             url: '/common/api/subjects/',
             type: 'get',
-            data: {},
+            data: { 'university' : {% if student %}
+                    {% for student_info in student %}
+                     "{{ student_info.student_university_name }}"
+                     {% endfor %}
+                {% endif %} },
             success: function (result) {
 
                 $("#subject_name").empty()
@@ -180,7 +214,13 @@
         $.ajax({
             url: '/common/api/division/',
             type: 'get',
-            data: { 'university' : 1 },
+            data: { 'university' :
+                {% if student %}
+                    {% for student_info in student %}
+                     "{{ student_info.student_university_name }}"
+                     {% endfor %}
+                {% endif %}
+            },
             success: function (result) {
 
                 $("#subject_division").empty()
@@ -195,13 +235,103 @@
             }
         })
 
+        $.ajax({
+            url: '/common/api/universitys/',
+            type: 'get',
+            data: { 'university' : {% if student %}
+                    {% for student_info in student %}
+                     "{{ student_info.student_university_name }}"
+                     {% endfor %}
+                {% endif %} },
+            success: function (result) {
+                for(var key in result){
+                    set_grades(result[key].university_max_grade)
+                }
+            },
+            error: function () {
+                alert('error5')
+            }
+        })
+
     })
 
     $("#subject_name").change(function(){
-        alert($("#subject_name option:checked").text())
+        $.ajax({
+            url: '/common/api/subject/',
+            type: 'get',
+            data: { 'university' : {% if student %}
+                    {% for student_info in student %}
+                     "{{ student_info.student_university_name }}"
+                     {% endfor %}, 'subject' : $("#subject_name option:selected").text()
+                {% endif %} },
+            success: function (result) {
+                var division_name = result[0].subject_completion_division
+                $("#subject_division option:contains("+division_name+")").prop("selected", true)
+                },
+            error: function () {
+                alert('error2')
+            }
+        })
     })
 
+    $("#subject_submit").click(function(){
+        $.ajax({
+            url: '/history/api/subjects/',
+            type: 'post',
+            data: {
+                'university' : {% if student %}{% for student_info in student %}
+                     "{{ student_info.student_university_name }}"
+                     {% endfor %}{% endif %},
+                'history_lecture_code' : 1,
+                'history_subject_name' : $("#subject_name option:selected").text(),
+                'history_subject_complete_division' : $("#subject_division option:selected").text(),
+                'history_student_grade' : $("#grades option:selected").text(),
+                'history_grade_year' : $("#year option:selected").text(),
+                'history_semester' : $("#semester option:selected").text()
+            },
+            success: function (result) {
+                },
+            error: function () {
+                alert('error2')
+            }
+        })
+    })
 
+    function set_grades(grade){
+        $("#grades").empty()
+
+        // 4.5 만점 (A+, A0, B+ ~)
+        if(grade == '4.5') {
+            $("#grades").append("<option value='A+'>A+</option>")
+            $("#grades").append("<option value='A0'>A0</option>")
+            $("#grades").append("<option value='B+'>A+</option>")
+            $("#grades").append("<option value='B0'>B0</option>")
+            $("#grades").append("<option value='C+'>C+</option>")
+            $("#grades").append("<option value='C0'>C0</option>")
+            $("#grades").append("<option value='D+'>D+</option>")
+            $("#grades").append("<option value='D0'>D0</option>")
+        }else if(grade == '4.3') {
+            // 4.3 만점 (A+, A0, A0, B+ ~)
+            $("#grades").append("<option value='A+'>A+</option>")
+            $("#grades").append("<option value='A0'>A0</option>")
+            $("#grades").append("<option value='A-'>A-</option>")
+            $("#grades").append("<option value='B+'>A+</option>")
+            $("#grades").append("<option value='B0'>B0</option>")
+            $("#grades").append("<option value='B-'>B-</option>")
+            $("#grades").append("<option value='C+'>C+</option>")
+            $("#grades").append("<option value='C0'>C0</option>")
+            $("#grades").append("<option value='C-'>C-</option>")
+            $("#grades").append("<option value='D+'>D+</option>")
+            $("#grades").append("<option value='D0'>D0</option>")
+            $("#grades").append("<option value='D-'>D-</option>")
+        }else if(grade == '4.0') {
+            // 4.0 만점 (A+, B, C ~)
+            $("#grades").append("<option value='A+'>A+</option>")
+            $("#grades").append("<option value='B'>A</option>")
+            $("#grades").append("<option value='C'>C</option>")
+            $("#grades").append("<option value='D'>D</option>")
+        }
+    }
 
 </script>
       
