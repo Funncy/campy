@@ -112,14 +112,14 @@
                                     <a href="{% url 'mypage' %}" class="btn btn-default btn-flat">마이페이지</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{% url 'logout' %}" class="btn btn-default btn-flat">로그아웃</a>
+                                    <a href="{% url 'account_logout' %}" class="btn btn-default btn-flat">로그아웃</a>
                                 </div>
                             </li>
                         </ul>
                     </li>
                     {% else %}
                     <li>
-                        <a href="/user/login">
+                        <a href="{% url 'login' %}">
                             <!-- The user image in the navbar-->
                             <i class="fa fa-key"></i>
                             <span class="hidden-xs">로그인</span>

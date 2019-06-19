@@ -153,6 +153,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'staticfiles'),
 ]
 
+LOGIN_REDIRECT_URL = '/join/'
+ACCOUNT_LOGOUT_ON_GET = True
+
 
 SITE_ID = 1
 

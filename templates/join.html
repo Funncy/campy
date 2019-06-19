@@ -27,7 +27,7 @@
                         <div class="row">
                     <div class="form-group">
                         <label>주 전공</label>
-                        <select class="form-control select2" style="width:100%"  id="major_subject">
+                        <select id="departments" class="form-control select2" style="width:100%" >
                             <option>주 전공을 선택해주세요.</option>
                         </select>
                     </div>
@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="form-group">
                     <label>복수 전공</label>
-                    <select class="form-control select2" style="width:100%"  id="major_subject">
+                    <select id="multiple_departments" class="form-control select2" style="width:100%" >
                         <option>복수 전공을 선택해주세요.</option>
                     </select>
                 </div>
@@ -43,7 +43,7 @@
             <div class="row">
                 <div class="form-group">
                     <label>부 전공</label>
-                    <select class="form-control select2" style="width:100%"  id="major_subject">
+                    <select id="sub_departments" class="form-control select2" style="width:100%" >
                         <option>부 전공을 선택해주세요.</option>
                     </select>
                 </div>
@@ -83,7 +83,7 @@
         }
 
         $.ajax({
-            url: '/common/universitys/',
+            url: '/common/api/universitys/',
             type: 'get',
             data: {},
             success: function (result) {
@@ -99,15 +99,25 @@
         })
 
         $.ajax({
-            url: '/common/departments/?university=1',
+            url: '/common/api/departments/',
             type: 'get',
-            data: { },
+            data: { 'university' : 1 },
             dataType : "json",
             contentType : "application/json",
             success: function (result) {
+
                 $("#departments").empty()
+                $("#multiple_departments").empty()
+                $("#sub_departments").empty()
+
+                //부전공 복수전공 초기값 설정
+                $("#multiple_departments").append("<option value='0'>없음</option>");
+                $("#sub_departments").append("<option value='0'>없음</option>");
+
                 for(var key in result){
                     $("#departments").append("<option value='"+result[key].id+"'>"+result[key].college_name+":"+result[key].department_name+"</option>");
+                    $("#multiple_departments").append("<option value='"+result[key].id+"'>"+result[key].college_name+":"+result[key].department_name+"</option>");
+                    $("#sub_departments").append("<option value='"+result[key].id+"'>"+result[key].college_name+":"+result[key].department_name+"</option>");
                 }
 
             },
@@ -118,12 +128,14 @@
 
     });
 
-    $('#universitys').change(function() {
+
+    //대학 수정시 학과 변동
+   $('#universitys').change(function() {
 
         var university_id = $(this).val();
 
         $.ajax({
-            url: '/common/departments/',
+            url: '/common/api/departments/',
             type: 'get',
             data: { 'university' : university_id },
             dataType : "json",
@@ -131,9 +143,18 @@
             success: function (result) {
 
                 $("#departments").empty()
+                $("#multiple_departments").empty()
+                $("#sub_departments").empty()
+
+                //부전공 복수전공 초기값 설정
+                $("#multiple_departments").append("<option value='0'>없음</option>");
+                $("#sub_departments").append("<option value='0'>없음</option>");
+
 
                 for(var key in result){
                     $("#departments").append("<option value='"+result[key].id+"'>"+result[key].college_name+":"+result[key].department_name+"</option>");
+                    $("#multiple_departments").append("<option value='"+result[key].id+"'>"+result[key].college_name+":"+result[key].department_name+"</option>");
+                    $("#sub_departments").append("<option value='"+result[key].id+"'>"+result[key].college_name+":"+result[key].department_name+"</option>");
                 }
 
             },
@@ -145,12 +166,21 @@
     })
 
     $('#submit').click(function(){
+
+        if( ($('#departments').val() === $('#multiple_departments').val()) || ($('#departments').val() === $('#sub_departments').val())){
+            if(($('#sub_departments').val() === $('#multiple_departments').val()) && ($('#sub_departments').val()!=0) )
+            alert('학과를 중복 선택하셨습니다')
+            return
+        }
+
         $.ajax({
             url : '/account/student/',
             type: 'post',
             data : {
                 university : $('#universitys').val(),
                 department : $('#departments').val(),
+                multiple_department : $('#multiple_departments').val(),
+                sub_department : $('#sub_departments').val(),
                 admission_year : $('#admission_year').val()
             },
             success: function(result) {

@@ -26,23 +26,23 @@ def join(request):
 
 # 졸업 진단 화면
 def graduation_diagnosis(request):
-    return render(request, 'graduation-diagnosis.html', {})
+    return render(request, 'graduation-diagnosis.html', {'graduationActive': 1, })
 
 # 커뮤니티 화면
 def community(request):
-    return render(request, 'community.html', {})
+    return render(request, 'community.html', {'communityActive': 1, })
 
 # 수강 설계 화면
 def course(request):
-    return render(request, 'course-design.html', {})
+    return render(request, 'course-design.html', {'courseActive': 1, })
 
 # 개인정보 화면
 def mypage(request):
-    return render(request, 'mypage.html', {})
+    return render(request, 'mypage.html', {'mypageActive': 1, })
 
 # 개인 수강 이력 화면
 def history(request):
-    return render(request, 'history.html', {})
+    return render(request, 'history.html', {'historyActive': 1, })
 
 
 ## 예비 list
@@ -119,9 +119,6 @@ def subject(request):
 
 def welcome(request):
     return render(request, 'welcome.html', {})
-
-def login(request):
-    return render(request, 'login.html', {})
 
 def dashboard(request):
     return render(request, 'dashboard.html', {})
