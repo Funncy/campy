@@ -33,8 +33,8 @@ def community(request):
     return render(request, 'community.html', {})
 
 # 수강 설계 화면
-def my_schedule(request):
-    return render(request, 'my-schedule.html', {})
+def course(request):
+    return render(request, 'course-design.html', {})
 
 # 개인정보 화면
 def mypage(request):

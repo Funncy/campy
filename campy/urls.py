@@ -12,7 +12,7 @@ urlpatterns = [
     # ui list
     path('', views.campy_info, name='index'),
     path('history/', views.history, name='history'),
-    path('myschedule/', views.my_schedule, name='my_schedule'),
+    path('course/', views.course, name='course'),
     path('graduation/', views.graduation_diagnosis, name='graduation'),
     path('community/', views.community, name='community'),
     path('mypage/', views.mypage, name='mypage'),
