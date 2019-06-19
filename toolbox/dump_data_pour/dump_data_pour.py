@@ -38,15 +38,23 @@ for i in range(0,len(filename_arr)) :
             #  시간표
             if i == 16:
                 print(str(sheet.cell(rownum,i).value))
-                # timetable = str(sheet.cell(rownum,i).value)
+                timetable = str(sheet.cell(rownum,i).value)
 
 
-                # rex = re.compile("([0-9][0-9]:[0-9][0-9])")
+                rex = re.compile("([0-9][0-9]:[0-9][0-9])")
                 
+
+                timelist1 = rex.findall(timetable)
+                print(timelist1)
+
+                rex2 = re.compile("([0-9][0-9]:[0-9][0-9]).*?([0-9][0-9]:[0-9][0-9])")
+                print(timetable)
+                timelist2 = rex2.findall(timetable)
+                print(timelist2)
+
                 # timetable = timetable.replace('~',' ')
                 # print(timetable)
-                # timetable = re.sub(rex, '!\\1@', timetable) 
-                
+                # timetable = re.sub(rex, 'T', timetable) 
                 
                 # timetable = timetable.replace('월','!월@')
                 # timetable = timetable.replace('화','!화@')
