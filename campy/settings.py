@@ -105,7 +105,7 @@ DATABASES = {
          'ENGINE': 'django.db.backends.mysql',
          'NAME': 'campy', # CREATE DATABASE campy default CHARACTER SET UTF8; # DROP DATABASE campy
          'USER': 'root',
-         'PASSWORD': 'rootpassword',
+         'PASSWORD': 'applemac',
          'HOST': '127.0.0.1',
          'PORT': '3306',
     }
@@ -155,7 +155,9 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = '/join/'
 ACCOUNT_LOGOUT_ON_GET = True
-
+SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_ADAPTER = "campy.adapter.MyLoginAccountAdapter"
+SOCIALACCOUNT_ADAPTER = 'campy.adapter.MySocialAccountAdapter'
 
 SITE_ID = 1
 

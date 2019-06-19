@@ -1,0 +1,175 @@
+{% extends "account/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+
+      <!-- daterange picker -->
+      <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker-bs3.css' %}">
+      <!-- bootstrap datepicker -->
+      <link rel="stylesheet" href="{% static 'plugins/datepicker/datepicker3.css' %}">
+      <!-- Bootstrap Color Picker -->
+      <link rel="stylesheet" href="{% static 'plugins/colorpicker/bootstrap-colorpicker.min.css' %}">
+      <!-- Bootstrap time Picker -->
+      <link rel="stylesheet" href="{% static 'plugins/timepicker/bootstrap-timepicker.min.css' %}">
+      <!-- Select2 -->
+      <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="{% static 'dist/bootstrap/3.3.2/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/font-awesome/4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/ionicons/2.0.1/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/2.4.10/dist/css/AdminLTE.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/bootstrap-plugins/AdminLTE/2.4.10/dist/css/skins/skin-blue.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+      <!-- Select2 -->
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'dist/jquery/3.4.1/jquery.min.js' %}"></script>
+    <script src="{% static 'dist/bootstrap/3.3.2/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'dist/bootstrap-plugins/AdminLTE/2.4.10/dist/js/adminlte.min.js' %}"></script>
+
+      <!-- 장고 csrf ajax 통신용 스크립트-->
+      <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+                }
+              }
+            }
+            return cookieValue;
+          }
+          function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+          }
+          $(document).ready(function() {
+            var csrftoken = getCookie('csrftoken');
+            $.ajaxSetup({
+              beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+              }
+            });
+          });
+      </script><!-- 장고 csrf ajax 통신용 스크립트-->
+  </head>
+
+
+<body class="hold-transition skin-blue sidebar-mini">
+
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="{% url 'index' %}" class="logo">
+      <span class="logo-mini"><b>CAM</b></span>
+      <span class="logo-lg"><b>CAMPY</b></span>
+    </a>
+
+    <nav class="navbar navbar-static-top" role="navigation">
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+    <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account Menu -->
+                    {% if user.is_authenticated %}
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!-- The user image in the navbar-->
+                            <img src="{% static 'img/icon/person-placeholder.jpg'  %}" class="user-image" alt="User Image">
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                            <span class="hidden-xs">
+                                {{ user }} 님
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-header">
+                                <img src="{% static 'img/icon/person-placeholder.jpg'  %}" class="img-circle" alt="User Image">
+
+                                <p>
+                                    {{ user.name }}
+                                    <small>{{user}} / {{user.id}}</small>
+                                </p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="{% url 'mypage' %}" class="btn btn-default btn-flat">마이페이지</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="{% url 'account_logout' %}" class="btn btn-default btn-flat">로그아웃</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">
+                            <!-- The user image in the navbar-->
+                            <i class="fa fa-key"></i>
+                            <span class="hidden-xs">로그인</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+    </nav>
+  </header>
+  <aside class="main-sidebar">
+
+    <section class="sidebar">
+
+     <!-- Sidebar user panel (optional) -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="{% static 'img/icon/person-placeholder.jpg' %}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    {% if user.is_authenticated %}
+                    <p>{{ user.get_username }} 님</p>
+                    <!-- Status -->
+                    <a href="{% url 'mypage' %}">{{user}} / {{user.id}}</a>
+                    {% else %}
+                    <p>손님</p>
+                    <!-- Status -->
+                    <a href="{% url 'login' %}">로그인이 필요합니다</a>
+                    {% endif %}
+                </div>
+            </div>
+
+      <form action="#" method="get" class="sidebar-form">
+
+      </form>
+
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header"><i class="fa fa-university"></i> 대학 생활</li>
+        <li class="{% if courseActive %}active{% endif %}"><a href="{% url 'course' %}"><i class="fa fa-calendar"></i> <span>수강설계</span></a></li>
+        <li class="{% if graduationActive %}active{% endif %}"><a href="{% url 'graduation' %}"><i class="fa fa-graduation-cap"></i> <span>졸업진단</span></a></li>
+        <li class="{% if communityActive %}active{% endif %}"><a href="{% url 'community' %}"><i class="fa  fa-comments-o"></i> <span>커뮤니티</span></a></li>
+          <li class="header"><i class="fa fa-user"></i> 내 정보</li>
+          <li class="{% if historyActive %}active{% endif %}"><a href="{% url 'history' %}"><i class="fa fa-file-text-o"></i> <span>수강 이력 관리</span></a></li>
+          <li class="{% if mypageActive %}active{% endif %}"><a href="{% url 'mypage' %}"><i class="fa fa-cog"></i> <span>내 정보 관리</span></a></li>
+      </ul>
+    </section>
+
+  </aside>
