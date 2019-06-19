@@ -35,11 +35,22 @@ class HistoryViewset(viewsets.ModelViewSet):
 
 
     def create(self, request, *args, **kwargs):
-        #serializer 초기화
-        serializer = self.get_serializer(data=request.data)
+        # request 데이터 dict 복사
+        data = request.data.dict().copy()
 
+        # subject_name 으로 subject 정보 가져오기
+        subject = SubjectInfo.objects.get(university_name=data['university'], subject_name=data['history_subject_name'])
+        # data에 과목데이터 추가
+        data['history_subject_code'] = subject.__dict__['id']
+        data['history_subject_area'] = subject.__dict__['subject_area'] + '영역'
+        data['history_subject_credit'] = subject.__dict__['subject_credit']
+        data['history_subject_assessment_Methods'] = 'test'
+
+        print(data)
+        # 수정된 데이터 삽입
+        serializer = self.get_serializer(data=data)
         if serializer.is_valid():
             #추가적인 외래키 요소들 연결하기 (id값으로)
-            serializer.save(history_subject_code_id = 1, history_user_id = request.user.id)
+            serializer.save(history_user_id = request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)

@@ -11,9 +11,22 @@ class SubjectsViewset(viewsets.ModelViewSet):
     queryset = SubjectInfo.objects.all()
     serializer_class = SubjectSerializer
 
+class SubjectViewset(viewsets.ModelViewSet):
+    queryset = SubjectInfo.objects.all()
+    serializer_class = SubjectSerializer
+
+    def get_queryset(self):
+        university = self.request.query_params.get('university')
+        subject = self.request.query_params.get('subject')
+        return SubjectInfo.objects.filter(university_name=university, subject_name=subject)
+
 class UniversityViewset(viewsets.ModelViewSet):
     queryset = UniversityInfo.objects.all()
     serializer_class = UniversitySerializer
+
+    def get_queryset(self):
+        university = self.request.query_params.get('university')
+        return UniversityInfo.objects.filter(university_name=university)
 
 class DepartmentViewset(viewsets.ModelViewSet):
     queryset = DepartmentInfo.objects.all()
@@ -21,7 +34,7 @@ class DepartmentViewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         university = self.request.query_params.get('university')
-        return DepartmentInfo.objects.filter(university=university)
+        return DepartmentInfo.objects.filter(university_name=university)
 
 class CompletionDivisionViewset(viewsets.ModelViewSet):
     queryset = CompletionDivision.objects.all()
@@ -29,7 +42,7 @@ class CompletionDivisionViewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         university = self.request.query_params.get('university')
-        return CompletionDivision.objects.filter(university=university)
+        return CompletionDivision.objects.filter(university_name=university)
 
 class DivisionViewset(viewsets.ModelViewSet):
     queryset = SubjectInfo.objects.all()
