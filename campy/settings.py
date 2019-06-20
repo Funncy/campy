@@ -43,9 +43,9 @@ INSTALLED_APPS = [
 	'app_archiving_history',
 	'app_course_design',
 	'app_graduation_diagnosis',
-	'app_subject_management',
     'app_common_data',
     'app_data_conversion',
+    'app_university_data',
 
 
     'django.contrib.sites',  # allauth

@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from app_account_management.models import StudentInfo
-
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 ## 실 사용 list
 
@@ -77,6 +78,22 @@ def history(request):
         'historyActive': 1,
     }
     return render(request, 'history.html', context)
+
+@login_required
+def join(request):
+
+    if request.method == 'GET':
+        #StudentInfo가 없을시 최초 로그인
+        if request.user.is_staff is True:
+            return redirect(reverse('index'))
+        try:
+            student_info = StudentInfo.objects.filter(user_id=request.user.id)
+        except StudentInfo.DoesNotExist:
+            return render(request, 'join.html', {})
+
+        #Studentinfo가 있을경우 메인화면으로 이동
+        return redirect(reverse('index'))
+    return
 
 
 ## 예비 list

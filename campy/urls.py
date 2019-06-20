@@ -22,8 +22,11 @@ urlpatterns = [
     path('join/', include('app_account_management.urls')),
     path('common/', include('app_common_data.urls')),
     path('history/', include('app_archiving_history.urls')),
-    path('account/', include('app_account_management.urls'))
+    path('account/', include('app_account_management.urls')),
+    path('university/', include('app_university_data.urls')),
 ]
+
+
 
 ''' path('', views.campy_info),
     path('login/', views.login),
