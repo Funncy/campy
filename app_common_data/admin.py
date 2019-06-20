@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import UniversityInfo, DepartmentInfo, CollegeInfo
+from .models import MetaDatainfo
 
 # Register your models here.
 
-admin.site.register(UniversityInfo)
-admin.site.register(DepartmentInfo)
+admin.site.register(MetaDatainfo)
