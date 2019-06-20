@@ -14,7 +14,7 @@ filename_arr = ['2013-1_20130424.xlsx','2014-1_140422.xlsx','2014-2_141021.xlsx'
 
 
 
-print(len(filename_arr))
+print(str(len(filename_arr))+'개 파일선택')
 
 # 파일 수 만큼 반복
 for file_cnt in range(0,len(filename_arr)) :
@@ -33,7 +33,7 @@ for file_cnt in range(0,len(filename_arr)) :
         rownum = rownum + 1
         rowdata = 'data_seq'
         
-        # print('=================   row   =================')
+        # =================  1 row   =================
         for i in range(1,37):
             #  시간표
             if i == 16 :
@@ -75,20 +75,26 @@ for file_cnt in range(0,len(filename_arr)) :
 
             if i == 36:
                 rowdata = rowdata + str('\n')
-            
+        # =================   1 row   =================
         
+
+        
+        # =================   시간표 맵핑   =================
         temp = ''
         for z in range(0,week_rownum):
             temp = temp + rowdata.replace('TIME',",".join(numpy.array(time_result_list).reshape(-1,3)[z])).replace('data_seq',str(data_seq))
             data_seq = data_seq + 1
-        
-        # print(temp)
-
         alldata = alldata + temp
+        # print(temp)
+        # =================   시간표 맵핑   =================
         
-        # 마지막 줄 확인
+
+
+
+        # =================   파일 종료지점 체크   =================
         if sheet.cell(rownum+1,1).value==None:
             rowend = True
+        # =================   파일 종료지점 체크   =================
 
 
 wfile = open("c:/alldata.csv",'w', encoding='UTF-8')
