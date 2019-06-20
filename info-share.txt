@@ -1,4 +1,4 @@
-DROP DATABASE campy;
+﻿DROP DATABASE campy;
 CREATE DATABASE campy default CHARACTER SET UTF8;
  
  
@@ -6,6 +6,11 @@ CREATE DATABASE campy default CHARACTER SET UTF8;
  python manage.py migrate <app-name>
  python manage.py showmigrations <app-name>
  python manage.py sqlmigrate <app-name> <migration-name>
+
+
+
+장고어드민계정생성
+python manage.py createsuperuser
 
 show variables like 'c%';
 
