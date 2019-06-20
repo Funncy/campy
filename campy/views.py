@@ -7,15 +7,19 @@ from django.urls import reverse
 
 ## 실 사용 list
 
+def get_student_data(request):
+    student = StudentInfo.objects.filter(pk=request.user.id, student_major_division='주전공')
+    context = {
+        'student': student,
+    }
+    return context
+
 def index(request):
     return render(request, 'index.html', {})
 
 # 최초 화면
 def campy_info(request):
-    student = StudentInfo.objects.filter(pk=request.user.id, student_major_division='주전공')
-    context = {
-        'student' : student,
-    }
+    context = get_student_data(request)
     return render(request, 'campy-info.html', context)
 
 # 로그인 화면

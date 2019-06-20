@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from .models import StudentInfo
-from app_common_data.models import UniversityInfo, DepartmentInfo
+from app_common_data.models import MetaDatainfo
 from allauth.socialaccount.models import SocialAccount
 
 # Create your views here.
@@ -24,7 +24,7 @@ def join(request):
         #Studentinfo가 있을경우 메인화면으로 이동
         return redirect(reverse('index'))
     return
-
+'''
 @login_required
 def Student(request):
     if request.method == 'POST':
@@ -75,3 +75,4 @@ def Student(request):
             studentInfo.save()
         return HttpResponse()
     return HttpResponse()
+'''
