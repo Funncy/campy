@@ -6,9 +6,10 @@ alldata = ''
 data_seq = 0
 Route = 'C:/git-campy/toolbox/dump_data_pour/data_excel/'
 filename = ''
-# filename_arr = ['2013-1_20130424.xlsx','2014-1_140422.xlsx','2014-2_141021.xlsx','2015-1_150422.xlsx','2015-2_151020.xlsx','2016-1_160414.xlsx','2016-2_161007.xlsx','2017-1_170706.xlsx','2017-2_171011.xlsx','2018-1_180404.xlsx','2018-2_181113.xlsx']
+filename_arr = ['2013-1_20130424.xlsx','2014-1_140422.xlsx','2014-2_141021.xlsx','2015-1_150422.xlsx','2015-2_151020.xlsx','2016-1_160414.xlsx','2016-2_161007.xlsx','2017-1_170706.xlsx','2017-2_171011.xlsx','2018-1_180404.xlsx','2018-2_181113.xlsx']
+# filename_arr = ['2014-2_141021.xlsx']
 # filename_arr = ['test.xlsx']
-filename_arr = ['test.xlsx']
+# filename_arr = ['test.xlsx']
 
 
 
@@ -38,7 +39,7 @@ for file_cnt in range(0,len(filename_arr)) :
             if i == 16 :
                 rowdata = rowdata + ','+'TIME'
 
-                print(str(sheet.cell(rownum,i).value))
+                # print(str(sheet.cell(rownum,i).value))
                 timetable = str(sheet.cell(rownum,i).value)
                 
                 week_days = timetable
@@ -52,8 +53,8 @@ for file_cnt in range(0,len(filename_arr)) :
                 timetable = re.findall(rex, timetable)
                 time_result_list = []
 
-                print(timetable)
-                print(week_days)
+                # print(timetable)
+                # print(week_days)
                 
                 idx = 0
                 week_rownum = 0
@@ -67,7 +68,7 @@ for file_cnt in range(0,len(filename_arr)) :
                         time_result_list.append(timetable[1+idx])
                         week_rownum = week_rownum + 1
                 
-                print(week_rownum)
+                # print(week_rownum)
 
             else :
                 rowdata = rowdata + ','+str(sheet.cell(rownum,i).value)
@@ -76,16 +77,13 @@ for file_cnt in range(0,len(filename_arr)) :
                 rowdata = rowdata + str('\n')
             
         
-        # print(numpy.array(time_result_list).reshape(-1,3))
-
         temp = ''
         for z in range(0,week_rownum):
             temp = temp + rowdata.replace('TIME',",".join(numpy.array(time_result_list).reshape(-1,3)[z])).replace('data_seq',str(data_seq))
             data_seq = data_seq + 1
         
-        print(temp)
+        # print(temp)
 
-        # alldata = alldata + rowdata
         alldata = alldata + temp
         
         # 마지막 줄 확인
