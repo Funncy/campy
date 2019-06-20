@@ -28,24 +28,6 @@ class DepartmentInfo(models.Model):
     college_name = models.CharField(max_length=20, blank=True)
     department_name = models.CharField(max_length=20)
 
-# 교과목정보
-class SubjectInfo(models.Model):
-
-    # 대학
-    # 대학 이름
-    # 교과목 코드
-    # 교과목 이름
-    # 교과목 이수구분
-    # 교과목 영역
-    # 교과목 학점
-    university = models.ForeignKey(UniversityInfo, on_delete=models.CASCADE)
-    university_name = models.CharField(max_length=20)
-    subject_code = models.CharField(max_length=20)
-    subject_name = models.CharField(max_length=20)
-    subject_completion_division = models.CharField(max_length=20)
-    subject_area = models.CharField(max_length=20, blank=True)
-    subject_credit = models.FloatField()
-
 # 학교별 이수구분
 class CompletionDivision(models.Model):
 
@@ -54,7 +36,7 @@ class CompletionDivision(models.Model):
     # 이수 구분 명
     university = models.ForeignKey(UniversityInfo, on_delete=models.CASCADE)
     university_name = models.CharField(max_length=20)
-    division_name = models.CharField(max_length=20)
+    completion_division_name = models.CharField(max_length=20)
 
 # 학교별 과목영역
 class SubjectDomain(models.Model):
@@ -73,13 +55,13 @@ class MetaDatainfo(models.Model):
     # 메타 데이터 이름
     # 메타 관련 데이터 코드
     # 메타 관련 데이터 이름
-    # 하위 데이터 코드
+    # 상위 데이터 코드
     # 메타 데이터 생성 일자
 
     meta_data_code = models.CharField(max_length=20)
     meta_data_name = models.CharField(max_length=20)
     meta_data_relation_code = models.CharField(max_length=20)
     meta_data_relation_code = models.CharField(max_length=20)
-    subdata_presence_yn = models.CharField(max_length=20)
+    upper_data_presence_yn = models.CharField(max_length=20)
     meta_data_creation_date = models.CharField(max_length=20)
 
