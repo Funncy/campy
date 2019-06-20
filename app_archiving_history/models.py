@@ -1,5 +1,4 @@
 from django.db import models
-from app_common_data.models import SubjectInfo
 from django.contrib.auth.models import User
 # Create your models here.
 
@@ -17,7 +16,7 @@ class archieving_history(models.Model):
     # 이수 학년
     # 이수 학기
     history_user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    history_subject_code = models.ForeignKey(SubjectInfo, on_delete=models.CASCADE)
+    history_subject_code = models.CharField(max_length=20)
     history_lecture_code = models.CharField(max_length=20)
     history_subject_name = models.CharField(max_length=20)
     history_subject_complete_division = models.CharField(max_length=20)
@@ -27,3 +26,4 @@ class archieving_history(models.Model):
     history_student_grade = models.CharField(max_length=20)
     history_grade_year = models.CharField(max_length=20)
     history_semester = models.CharField(max_length=20)
+

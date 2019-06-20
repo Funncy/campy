@@ -61,7 +61,7 @@ class MetaDatainfo(models.Model):
     meta_data_code = models.CharField(max_length=20)
     meta_data_name = models.CharField(max_length=20)
     meta_data_relation_code = models.CharField(max_length=20)
-    meta_data_relation_code = models.CharField(max_length=20)
+    meta_data_relation_name = models.CharField(max_length=20)
     upper_data_presence_yn = models.CharField(max_length=20)
     meta_data_creation_date = models.CharField(max_length=20)
 

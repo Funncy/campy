@@ -6,14 +6,13 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from app_common_data.models import SubjectInfo
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
 class HistoryViewset(viewsets.ModelViewSet):
 
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, )
 
     queryset = archieving_history.objects.all()
     serializer_class = HistorySerializer
@@ -38,6 +37,7 @@ class HistoryViewset(viewsets.ModelViewSet):
         # request 데이터 dict 복사
         data = request.data.dict().copy()
 
+        '''
         # subject_name 으로 subject 정보 가져오기
         subject = SubjectInfo.objects.get(university_name=data['university'], subject_name=data['history_subject_name'])
         # data에 과목데이터 추가
@@ -45,6 +45,7 @@ class HistoryViewset(viewsets.ModelViewSet):
         data['history_subject_area'] = subject.__dict__['subject_area'] + '영역'
         data['history_subject_credit'] = subject.__dict__['subject_credit']
         data['history_subject_assessment_Methods'] = 'test'
+        '''
 
         print(data)
         # 수정된 데이터 삽입
@@ -54,3 +55,4 @@ class HistoryViewset(viewsets.ModelViewSet):
             serializer.save(history_user_id = request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)
+
