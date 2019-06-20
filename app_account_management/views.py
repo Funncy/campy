@@ -17,7 +17,7 @@ def join(request):
         if request.user.is_staff is True:
             return redirect(reverse('index'))
         try:
-            student_info = StudentInfo.objects.filter(user_id=request.user.id)
+            student_info = StudentInfo.objects.get(user_id=request.user.id)
         except StudentInfo.DoesNotExist:
             return render(request, 'join.html', {})
 
