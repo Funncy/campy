@@ -1,12 +1,20 @@
 from django.shortcuts import render
-from .models import UniversityInfo, CollegeInfo, DepartmentInfo, CompletionDivision
+from .models import MetaDatainfo
 from django.http import HttpResponse, JsonResponse
-from .serializers import UniversitySerializer, DepartmentSerializer, CompletionDivisionSerializer
+from .serializers import MetaInfoSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
 
 # Create your views here.
 
+class MetaInfoViewset(viewsets.ModelViewSet):
+    queryset = MetaDatainfo.objects.all()
+    serializer_class = MetaInfoSerializer
+
+    def get_queryset(self):
+        meta_data_code = self.request.query_params.get('meta_data_code')
+        return MetaDatainfo.objects.filter(meta_data_code=meta_data_code)
+'''
 class UniversityViewset(viewsets.ModelViewSet):
     queryset = UniversityInfo.objects.all()
     serializer_class = UniversitySerializer
@@ -39,3 +47,4 @@ def get_all_UniversityInfo(request):
         return JsonResponse()
     return
 
+'''
