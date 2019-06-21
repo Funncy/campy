@@ -5,23 +5,21 @@ from app_account_management.models import StudentInfo
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-# 화면 데이터 가져오는 함수
-def get_context_data(request, activeName):
-    # 학생 정보 및 활성화 메뉴 설정
+## 실 사용 list
+
+def get_student_data(request):
     student = StudentInfo.objects.filter(pk=request.user.id, student_major_division='주전공')
     context = {
         'student': student,
-        activeName : 1
     }
     return context
 
-## 실 사용 list
 def index(request):
     return render(request, 'index.html', {})
 
 # 최초 화면
 def campy_info(request):
-    context = get_context_data(request, 'indexActive')
+    context = get_student_data(request)
     return render(request, 'campy-info.html', context)
 
 # 로그인 화면
@@ -34,32 +32,55 @@ def logout(request):
 
 # 최초 로그인시 계정 정보 입력
 def join(request):
-    context = get_context_data(request, 'joinActive')
-    return render(request, 'join.html', context)
+    student = StudentInfo.objects.filter(pk=request.user.id, student_major_division='주전공')
+    context = {
+        'student': student,
+    }
+    return render(request, 'join.html', {})
 
 # 졸업 진단 화면
 def graduation_diagnosis(request):
-    context = get_context_data(request, 'graduationActive')
+    student = StudentInfo.objects.filter(pk=request.user.id, student_major_division='주전공')
+    context = {
+        'student': student,
+        'graduationActive': 1,
+    }
     return render(request, 'graduation-diagnosis.html', context)
 
 # 커뮤니티 화면
 def community(request):
-    context = get_context_data(request, 'communityActive')
+    student = StudentInfo.objects.filter(pk=request.user.id, student_major_division='주전공')
+    context = {
+        'student': student,
+        'communityActive': 1,
+    }
     return render(request, 'community.html', context)
 
 # 수강 설계 화면
 def course(request):
-    context = get_context_data(request, 'courseActive')
+    student = StudentInfo.objects.filter(pk=request.user.id, student_major_division='주전공')
+    context = {
+        'student': student,
+        'courseActive': 1,
+    }
     return render(request, 'course-design.html', context)
 
 # 개인정보 화면
 def mypage(request):
-    context = get_context_data(request, 'mypageActive')
+    student = StudentInfo.objects.filter(pk=request.user.id, student_major_division='주전공')
+    context = {
+        'student': student,
+        'mypageActive': 1,
+    }
     return render(request, 'mypage.html', context)
 
 # 개인 수강 이력 화면
 def history(request):
-    context = get_context_data(request, 'historyActive')
+    student = StudentInfo.objects.filter(pk=request.user.id, student_major_division='주전공')
+    context = {
+        'student': student,
+        'historyActive': 1,
+    }
     return render(request, 'history.html', context)
 
 @login_required
