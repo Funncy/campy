@@ -4,11 +4,22 @@ import numpy
 
 alldata = ''
 data_seq = 0
-Route = '/Users/hyojun/Desktop/campy/toolbox/dump_data_pour/data_excel/'
+# Route = '/Users/hyojun/Desktop/campy/toolbox/dump_data_pour/data_excel/'
+Route = 'C:/git-campy/toolbox/dump_data_pour/data_excel/'
 filename = ''
-filename_arr = ['2013-1_20130424.xlsx', '2014-1_140422.xlsx', '2014-2_141021.xlsx', '2015-1_150422.xlsx',
-                '2015-2_151020.xlsx', '2016-1_160414.xlsx', '2016-2_161007.xlsx', '2017-1_170706.xlsx',
-                '2017-2_171011.xlsx', '2018-1_180404.xlsx', '2018-2_181113.xlsx']
+filename_arr = [
+'2013-1_20130424.xlsx',
+'2014-1_140422.xlsx',
+'2014-2_141021.xlsx',
+'2015-1_150422.xlsx',
+'2015-2_151020.xlsx',
+'2016-1_160414.xlsx',
+'2016-2_161007.xlsx',
+'2017-1_170706.xlsx',
+'2017-2_171011.xlsx',
+'2018-1_180404.xlsx',
+'2018-2_181113.xlsx'
+]
 # filename_arr = ['2014-2_141021.xlsx']
 # filename_arr = ['test.xlsx']
 # filename_arr = ['test.xlsx']
@@ -41,7 +52,7 @@ for file_cnt in range(0, len(filename_arr)):
                 rowdata = rowdata + ',' + 'TIME'
 
                 # print(str(sheet.cell(rownum,i).value))
-                timetable = str(sheet.cell(rownum, i).value)
+                timetable = str(sheet.cell(rownum, i).value).replace(',',' ')
 
                 week_days = timetable
                 week_days = re.sub('[0-9][0-9]:[0-9][0-9]~[0-9][0-9]:[0-9][0-9]', 'T', week_days)
@@ -88,7 +99,9 @@ for file_cnt in range(0, len(filename_arr)):
             # =================   파일 종료지점 체크   =================
             rowend = True
 
-wfile = open("/Users/hyojun/Desktop/campy/toolbox/dump_data_pour/alldata.csv", 'w', encoding='UTF-8')
+# wfile = open("/Users/hyojun/Desktop/campy/toolbox/dump_data_pour/alldata.csv", 'w', encoding='UTF-8')
+
+wfile = open("C:/alldata.csv", 'w', encoding='UTF-8')
 wfile.writelines(alldata)
 
 # csv 파일 디비인력 쿼리
