@@ -81,7 +81,7 @@ for file_cnt in range(0, len(filename_arr)):
                 # print(week_rownum)
 
             else:
-                rowdata = rowdata + ',' + str(sheet.cell(rownum, i).value)
+                rowdata = rowdata + ',' + str(sheet.cell(rownum, i).value).replace(',',' ')
 
             if i == 36:
                 rowdata = rowdata + str('\n')
