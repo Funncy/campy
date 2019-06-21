@@ -16,7 +16,7 @@ class SubjectInfo(models.Model):
     subject_name = models.CharField(max_length=50)
     subject_completion_division = models.CharField(max_length=50)
     subject_area = models.CharField(max_length=50, blank=True)
-    subject_credit = models.FloatField()
+    subject_credit = models.CharField(max_length=50)
 
 
 # INSERT INTO app_university_data_subjectinfo (university_name,
