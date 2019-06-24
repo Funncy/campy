@@ -17,8 +17,7 @@ class MetaInfoViewset(viewsets.ReadOnlyModelViewSet):
         upper_data_code = self.request.query_params.get('upper_data_code')
         return MetaDatainfo.objects.filter(meta_data_code=meta_data_code, upper_data_code=upper_data_code)
 
-#리펙토링 필요
-class DivisionViewset(viewsets.ReadOnlyModelViewSet):
+class UniversityDataViewset(viewsets.ReadOnlyModelViewSet):
     queryset = MetaDatainfo.objects.all()
     serializer_class = MetaInfoSerializer
 
@@ -26,7 +25,8 @@ class DivisionViewset(viewsets.ReadOnlyModelViewSet):
         # 소속 대학 정보 가져오기
         university = self.request.query_params.get('university')
         university = MetaDatainfo.objects.get(meta_data_relation_name=university, meta_data_code='meta_universityList')
-        return MetaDatainfo.objects.filter(meta_data_code=self.request.query_params.get('meta_data_code'),upper_data_code=university.meta_data_relation_code)
+        return MetaDatainfo.objects.filter(meta_data_code=self.request.query_params.get('meta_data_code'), upper_data_code=university.meta_data_relation_code)
+
 
 #리펙토링 필요
 def set_deparment_and_college(request):
