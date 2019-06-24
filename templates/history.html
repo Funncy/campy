@@ -159,6 +159,7 @@
 
     $(document).ready(function(){
 
+        // 대학 과목 리스트 로드
         $.ajax({
             url: '/data/university/subjects/',
             type: 'get',
@@ -179,19 +180,19 @@
             }
         })
 
-
+        // 대학 이수구분 로드
         $.ajax({
-            url: '/common/api/subjects/',
+            url: '/data/common/university/data/',
             type: 'get',
-            data: { 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %} },
+            data: { 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %},
+                    'meta_data_code' : 'meta_completionDivision'
+            },
             success: function (result) {
 
-                $("#subject_name").empty()
                 $("#subject_division").empty()
 
                 for(var key in result){
-                    $("#subject_name").append("<option value='"+result[key].id+"'>"+result[key].subject_name+"</option>");
-                    $("#subject_division").append("<option value='"+result[key].id+"'>"+result[key].subject_completion_division+"</option>");
+                    $("#subject_division").append("<option value='"+result[key].meta_data_relation_code+"'>"+result[key].meta_data_relation_name+"</option>");
                 }
 
             },
@@ -200,34 +201,16 @@
             }
         })
 
+        // 대학 학점 로드
         $.ajax({
-            url: '/data/common/division/',
+            url: '/data/common/university/data/',
             type: 'get',
             data: { 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %}
+                    'meta_data_code' : 'meta_universityGrade'
             },
             success: function (result) {
-
-                $("#subject_division").empty()
-
                 for(var key in result){
-                    $("#subject_division").append("<option value='"+result[key].id+"'>"+result[key].division_name+"</option>");
-                }
-
-            },
-            error: function () {
-                alert('error2')
-            }
-        })
-
-        $.ajax({
-            url: '/common/api/universitys/',
-            type: 'get',
-            data: { 'university' : {% if student %}
-                     "{{ student.student_university_name }}"
-                {% endif %} },
-            success: function (result) {
-                for(var key in result){
-                    set_grades(result[key].university_max_grade)
+                    set_grades(result[key].meta_data_relation_name)
                 }
             },
             error: function () {
@@ -235,15 +218,19 @@
             }
         })
 
+        // 학생 수강기록 로드
+        //제작 필요
+
     })
 
+    // 과목 변경시 이수구분 default변경
     $("#subject_name").change(function(){
         $.ajax({
-            url: '/common/api/subject/',
+            url: '/data/university/subject/',
             type: 'get',
-            data: { 'university' : {% if student %}
-                     "{{ student.student_university_name }}", 'subject' : $("#subject_name option:selected").text()
-                {% endif %} },
+            data: { 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %},
+                    'subject' : $("#subject_name option:selected").text()
+                  },
             success: function (result) {
                 var division_name = result[0].subject_completion_division
                 $("#subject_division option:contains("+division_name+")").prop("selected", true)
