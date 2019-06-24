@@ -38,19 +38,6 @@
                         </thead>
                         <tbody id="subject_list">
                             <tr>
-                                <td>컴퓨터의 이해</td>
-                                <td>이수구분</td>
-                                <td>1학년</td>
-                                <td>1학기</td>
-                                <td>A</td>
-                                <td>전공필수</td>
-                                <td>2학점</td>
-                                <td>
-                                  <button class="btn btn-xs btn-warning">수정</button>
-                                  <button class="btn btn-xs btn-danger">삭제</button>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -59,7 +46,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Mo_plus" >추가</button>
+                                    <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_subject_add" >추가</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -68,7 +55,7 @@
             </div>
           </div>
       </div>
-      <div class="modal fade" id="Mo_plus" role="dialog" style="display: none">
+      <div class="modal fade" id="modal_subject_add" role="dialog" style="display: none">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -116,7 +103,7 @@
                           <label>과목 이름</label>
                           <select class="form-control select2" id="subject_name" style="width:100%;">
                               {% for subject in subjects %}
-                                  <option>{{ subject.subject_name }}</option>
+                                  <option value="{{ subject.subject_code }}">{{ subject.subject_name }}</option>
                               {% endfor %}
                           </select>
                       </div>
@@ -182,6 +169,7 @@
                 alert('error2')
             }
         })*/
+        history_list_load()
 
         // 대학 이수구분 로드
         $.ajax({
@@ -246,19 +234,22 @@
 
     $("#subject_submit").click(function(){
         $.ajax({
-            url: '/history/api/subjects/',
+            url: '/data/graduation/subject/',
             type: 'post',
             data: {
                 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %},
                 'history_lecture_code' : 1,
-                'history_subject_name' : $("#subject_name option:selected").text(),
+                'history_subject_code' : $("#subject_name").val(),
                 'history_subject_complete_division' : $("#subject_division option:selected").text(),
                 'history_student_grade' : $("#grades option:selected").text(),
                 'history_grade_year' : $("#year option:selected").text(),
-                'history_semester' : $("#semester option:selected").text()
+                'history_semester' : $("#semester option:selected").text(),
+                'history_student_grade' : $("#grades").val()
             },
             success: function (result) {
-                },
+                $("#modal_subject_add").hide()
+                history_list_load()
+            },
             error: function () {
                 alert('error2')
             }
@@ -269,6 +260,7 @@
         $("#grades").empty()
 
         // 4.5 만점 (A+, A0, B+ ~)
+
         if(grade == '4.5') {
             $("#grades").append("<option value='A+'>A+</option>")
             $("#grades").append("<option value='A0'>A0</option>")
@@ -299,6 +291,47 @@
             $("#grades").append("<option value='C'>C</option>")
             $("#grades").append("<option value='D'>D</option>")
         }
+
+        $("#grades").append("<option value='P'>P</option>")
+        $("#grades").append("<option value='NP'>NP</option>")
+    }
+
+    function history_list_load(){
+        $.ajax({
+            url: '/data/graduation/history/',
+            type: 'get',
+            data: { },
+            success: function (result) {
+                // 과목 리스트 초기화
+                $("#subject_list").empty()
+
+
+                for(var key in result){
+                    $("#subject_list").append(
+                        "<tr><td>"+result[key].history_subject_name+"</td><td>"
+                        +result[key].history_subject_complete_division+"</td><td>"
+                        +result[key].history_grade_year+"년"+"</td><td>"
+                        +result[key].history_semester+"학기"+"</td><td>"
+                        +result[key].history_student_grade+"</td><td>"
+                        +result[key].history_subject_area+"</td><td>"
+                        +result[key].history_subject_credit+"학점"+"</td>"
+                        +"<td><button class=\"btn btn-xs btn-warning\">수정</button>"
+                        +"<button class=\"btn btn-xs btn-danger\">삭제</button></td>"
+                        +"</tr>"
+                    )
+                }
+
+                // 삭제 버튼 추가
+                $("#subject_list").append(
+                    "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>"
+                    +"<td><button class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#modal_subject_add\" >추가</button>"
+                    +"</td></tr>"
+                )
+            },
+            error: function () {
+                alert('error2')
+            }
+        })
     }
 
 </script>

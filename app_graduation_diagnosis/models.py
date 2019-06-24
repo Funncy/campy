@@ -16,10 +16,10 @@ class archieving_history(models.Model):
     # 이수 학년
     # 이수 학기
     history_user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    history_subject_code = models.CharField(max_length=20)
-    history_lecture_code = models.CharField(max_length=20)
-    history_subject_name = models.CharField(max_length=20)
-    history_subject_complete_division = models.CharField(max_length=20)
+    history_subject_code = models.CharField(max_length=50)
+    history_lecture_code = models.CharField(max_length=50)
+    history_subject_name = models.CharField(max_length=50)
+    history_subject_complete_division = models.CharField(max_length=50)
     history_subject_area = models.CharField(max_length=20)
     history_subject_credit = models.CharField(max_length=20)
     history_subject_assessment_Methods = models.CharField(max_length=20)

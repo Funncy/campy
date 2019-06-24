@@ -25,6 +25,7 @@ urlpatterns = [
     path('data/history/', include('app_archiving_history.urls')),
     path('data/account/', include('app_account_management.urls')),
     path('data/university/', include('app_university_data.urls')),
+    path('data/graduation/', include('app_graduation_diagnosis.urls')),
 ]
 
 
