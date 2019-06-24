@@ -10,7 +10,12 @@ from allauth.socialaccount.models import SocialAccount
 # Create your views here.
 
 def get_student_by_major(pk):
-    return StudentInfo.objects.filter(pk=pk, student_major_division='주전공')
+    student = None
+    try :
+        student = StudentInfo.objects.get(pk=pk, student_major_division='주전공')
+    except StudentInfo.DoesNotExist:
+        return None
+    return student
 
 @login_required
 def Student(request):
@@ -18,22 +23,17 @@ def Student(request):
         # 데이터 가져오기
         # 대학
         university = request.POST.get('university')
-
+        # 복수전공
+        multiple_department = request.POST.get('multiple_department')
+        multiple_department_college = None
+        # 부전공
+        sub_department = request.POST.get('sub_department')
+        sub_department_college = None
+        # 입학년도
+        admission_year = request.POST.get('admission_year')
         # 주전공
         department = MetaDatainfo.objects.get(meta_data_relation_code=request.POST.get('department'))
         department_college = MetaDatainfo.objects.get(meta_data_relation_code=department.upper_data_code)
-
-        # 부전공
-        multiple_department = request.POST.get('multiple_department')
-        multiple_department_college = None
-
-        # 복수전공
-        sub_department = request.POST.get('sub_department')
-        sub_department_college = None
-
-
-        # 입학년도
-        admission_year = request.POST.get('admission_year')
 
         # 데이터 저장
         # 주전공
