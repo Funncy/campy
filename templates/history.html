@@ -114,7 +114,10 @@
                   <div class="col-md-12">
                       <div class="form-group">
                           <label>과목 이름</label>
-                          <select class="form-control" id="subject_name">
+                          <select class="form-control select2" id="subject_name" style="width:100%;">
+                              {% for subject in subjects %}
+                                  <option>{{ subject.subject_name }}</option>
+                              {% endfor %}
                           </select>
                       </div>
                   </div>
@@ -158,12 +161,12 @@
 
 
     $(document).ready(function(){
-
+    /*
         // 대학 과목 리스트 로드
         $.ajax({
             url: '/data/university/subjects/',
             type: 'get',
-            data: { university : {% if student %}{{ student.student_university_name }}{% else %}''{% endif %}},
+            data: { university : {% if student %}"{{ student.student_university_name }}"{% else %}''{% endif %}},
             success: function (result) {
 
                 $("#subject_name").empty()
@@ -178,7 +181,7 @@
             error: function () {
                 alert('error2')
             }
-        })
+        })*/
 
         // 대학 이수구분 로드
         $.ajax({
@@ -205,7 +208,7 @@
         $.ajax({
             url: '/data/common/university/data/',
             type: 'get',
-            data: { 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %}
+            data: { 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %},
                     'meta_data_code' : 'meta_universityGrade'
             },
             success: function (result) {

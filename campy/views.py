@@ -5,6 +5,7 @@ from app_account_management.models import StudentInfo
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from app_account_management.views import get_student_by_major
+from app_university_data.views import get_all_subject
 
 # 화면 데이터 가져오는 함수
 def get_context_data(request, activeName):
@@ -61,6 +62,8 @@ def mypage(request):
 # 개인 수강 이력 화면
 def history(request):
     context = get_context_data(request, 'historyActive')
+    subjects = get_all_subject(request, context['student'])
+    context['subjects'] = subjects
     return render(request, 'history.html', context)
 
 @login_required

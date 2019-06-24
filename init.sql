@@ -15,6 +15,13 @@ VALUES('meta_universityList', '대학리스트', 'seoulUniversity', '서울대�
 INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
 VALUES('meta_universityList', '대학리스트', 'konkukUniversity', '건국대학교', '' );
 
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_universityGrade', '대학학점', 'sejongUniversityGrade', '4.5', 'sejongUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_universityGrade', '대학학점', 'seoulUniversityGrade', '4.5', 'seoulUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_universityGrade', '대학학점', 'konkukUniversityGrade', '4.5', 'konkukUniversity' );
+
 --단과대학
 
 INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
