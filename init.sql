@@ -25,6 +25,14 @@ INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data
 VALUES('meta_collegeList', '단과대학리스트', 'sejongCollege003', '전자정보통신대학', 'sejongUniversity' );
 INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
 VALUES('meta_collegeList', '단과대학리스트', 'sejongCollege004', '단과대학없음', 'sejongUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_collegeList', '단과대학리스트', 'seoulCollege001', '디자인대학', 'seoulUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_collegeList', '단과대학리스트', 'seoulCollege002', '예체능대학', 'seoulUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_collegeList', '단과대학리스트', 'seoulCollege003', '컴퓨터대학', 'seoulUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_collegeList', '단과대학리스트', 'seoulCollege004', '단과대학없음', 'seoulUniversity' );
 
 INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
 VALUES('meta_departmentList', '학과리스트', 'sejongDepart001', '컴퓨터공학과', 'sejongCollege001' );
@@ -40,6 +48,21 @@ INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data
 VALUES('meta_departmentList', '학과리스트', 'sejongDepart006', '전자과', 'sejongCollege003' );
 INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
 VALUES('meta_departmentList', '학과리스트', 'sejongDepart007', '자유전공학과', 'sejongCollege004' );
+
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_departmentList', '학과리스트', 'seoulDepart001', '컴퓨터공학과', 'seoulCollege003' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_departmentList', '학과리스트', 'seoulDepart002', '소프트웨어학과', 'seoulCollege003' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_departmentList', '학과리스트', 'seoulDepart003', '정보보호학과', 'seoulCollege003' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_departmentList', '학과리스트', 'seoulDepart004', '해킹학과', 'seoulCollege003' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_departmentList', '학과리스트', 'seoulDepart005', '시각디자인학과', 'seoulCollege001' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_departmentList', '학과리스트', 'seoulDepart006', '산업디자인학과', 'seoulCollege001' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_departmentList', '학과리스트', 'seoulDepart007', '체육특기학과', 'seoulCollege002' );
 
 --이수구분
 INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)

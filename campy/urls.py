@@ -17,13 +17,14 @@ urlpatterns = [
     path('graduation/', views.graduation_diagnosis, name='graduation'),
     path('community/', views.community, name='community'),
     path('mypage/', views.mypage, name='mypage'),
+    path('join/', views.join, name='join'),
 
-    # api list
-    path('join/', include('app_account_management.urls')),
-    path('common/', include('app_common_data.urls')),
-    path('history/', include('app_archiving_history.urls')),
-    path('account/', include('app_account_management.urls')),
-    path('university/', include('app_university_data.urls')),
+    # data list
+    path('data/user/', include('app_account_management.urls')),
+    path('data/common/', include('app_common_data.urls')),
+    path('data/history/', include('app_archiving_history.urls')),
+    path('data/account/', include('app_account_management.urls')),
+    path('data/university/', include('app_university_data.urls')),
 ]
 
 

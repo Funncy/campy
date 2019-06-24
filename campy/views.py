@@ -4,11 +4,12 @@ from django.shortcuts import render, redirect
 from app_account_management.models import StudentInfo
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from app_account_management.views import get_student
 
 # 화면 데이터 가져오는 함수
 def get_context_data(request, activeName):
     # 학생 정보 및 활성화 메뉴 설정
-    student = StudentInfo.objects.filter(pk=request.user.id, student_major_division='주전공')
+    student = get_student(request.user.id)
     context = {
         'student': student,
         activeName : 1
@@ -67,8 +68,8 @@ def join(request):
 
     if request.method == 'GET':
         #StudentInfo가 없을시 최초 로그인
-        if request.user.is_staff is True:
-            return redirect(reverse('index'))
+        #if request.user.is_staff is True:
+        #    return redirect(reverse('index'))
         try:
             student_info = StudentInfo.objects.get(user_id=request.user.id)
         except StudentInfo.DoesNotExist:

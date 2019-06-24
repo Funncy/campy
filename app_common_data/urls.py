@@ -7,5 +7,6 @@ router.register(r'metainfo', views.MetaInfoViewset)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
+    path('departments/', views.set_deparment_and_college),
     path('', include(router.urls)),
 ]
