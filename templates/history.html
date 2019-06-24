@@ -160,24 +160,17 @@
     $(document).ready(function(){
 
         $.ajax({
-            url: '/history/api/subjects/',
+            url: '/data/university/subjects/',
             type: 'get',
-            data: { },
+            data: { university : {% if student %}{{ student.student_university_name }}{% else %}''{% endif %}},
             success: function (result) {
 
-                $("#subject_list").empty()
+                $("#subject_name").empty()
+                $("#subject_division").empty()
 
                 for(var key in result){
-                    $("#subject_list").append(
-                        "<tr><td>"+result[key].history_subject_name+"</td><td>"+result[key].history_subject_complete_division+
-                        "</td><td>"+result[key].history_grade_year+"</td><td>"+result[key].history_semester+
-                        "</td><td>"+result[key].history_student_grade+"</td><td>"+"영역"+"</td><td>"+"학점"+
-                        "<td><button class=\"btn btn-xs btn-warning\">수정</button><button class=\"btn btn-xs btn-danger\">삭제</button></td></tr>"
-                    )
+                    $("#subject_name").append("<option value='"+result[key].subject_code+"'>"+result[key].subject_name+"</option>");
                 }
-                $("#subject_list").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>" +
-                    "<button class=\"btn btn-primary btn-xs\" data-toggle=\"modal\" data-target=\"#Mo_plus\" >추가</button>\n" +
-                    "</td></tr>")
 
 
             },
@@ -190,11 +183,7 @@
         $.ajax({
             url: '/common/api/subjects/',
             type: 'get',
-            data: { 'university' : {% if student %}
-                    {% for student_info in student %}
-                     "{{ student_info.student_university_name }}"
-                     {% endfor %}
-                {% endif %} },
+            data: { 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %} },
             success: function (result) {
 
                 $("#subject_name").empty()
@@ -212,14 +201,9 @@
         })
 
         $.ajax({
-            url: '/common/api/division/',
+            url: '/data/common/division/',
             type: 'get',
-            data: { 'university' :
-                {% if student %}
-                    {% for student_info in student %}
-                     "{{ student_info.student_university_name }}"
-                     {% endfor %}
-                {% endif %}
+            data: { 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %}
             },
             success: function (result) {
 
@@ -239,9 +223,7 @@
             url: '/common/api/universitys/',
             type: 'get',
             data: { 'university' : {% if student %}
-                    {% for student_info in student %}
-                     "{{ student_info.student_university_name }}"
-                     {% endfor %}
+                     "{{ student.student_university_name }}"
                 {% endif %} },
             success: function (result) {
                 for(var key in result){
@@ -260,9 +242,7 @@
             url: '/common/api/subject/',
             type: 'get',
             data: { 'university' : {% if student %}
-                    {% for student_info in student %}
-                     "{{ student_info.student_university_name }}"
-                     {% endfor %}, 'subject' : $("#subject_name option:selected").text()
+                     "{{ student.student_university_name }}", 'subject' : $("#subject_name option:selected").text()
                 {% endif %} },
             success: function (result) {
                 var division_name = result[0].subject_completion_division
@@ -279,9 +259,7 @@
             url: '/history/api/subjects/',
             type: 'post',
             data: {
-                'university' : {% if student %}{% for student_info in student %}
-                     "{{ student_info.student_university_name }}"
-                     {% endfor %}{% endif %},
+                'university' : {% if student %}"{{ student.student_university_name }}"{% endif %},
                 'history_lecture_code' : 1,
                 'history_subject_name' : $("#subject_name option:selected").text(),
                 'history_subject_complete_division' : $("#subject_division option:selected").text(),

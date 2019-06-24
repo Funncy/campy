@@ -8,20 +8,31 @@ from django.core import serializers
 
 # Create your views here.
 
-class MetaInfoViewset(viewsets.ModelViewSet):
+class MetaInfoViewset(viewsets.ReadOnlyModelViewSet):
     queryset = MetaDatainfo.objects.all()
     serializer_class = MetaInfoSerializer
 
     def get_queryset(self):
         meta_data_code = self.request.query_params.get('meta_data_code')
-        return MetaDatainfo.objects.filter(meta_data_code=meta_data_code)
-
+        upper_data_code = self.request.query_params.get('upper_data_code')
+        return MetaDatainfo.objects.filter(meta_data_code=meta_data_code, upper_data_code=upper_data_code)
 
 #리펙토링 필요
-def set_deparment_and_college(requset):
+class DivisionViewset(viewsets.ReadOnlyModelViewSet):
+    queryset = MetaDatainfo.objects.all()
+    serializer_class = MetaInfoSerializer
+
+    def get_queryset(self):
+        # 소속 대학 정보 가져오기
+        university = self.request.query_params.get('university')
+        university = MetaDatainfo.objects.get(meta_data_relation_name=university, meta_data_code='meta_universityList')
+        return MetaDatainfo.objects.filter(meta_data_code=self.request.query_params.get('meta_data_code'),upper_data_code=university.meta_data_relation_code)
+
+#리펙토링 필요
+def set_deparment_and_college(request):
     #request데이터 가져오기
     # 상위대학 코드
-    meta_data_code = requset.GET['meta_data_code']
+    meta_data_code = request.GET['meta_data_code']
 
     colleges = MetaDatainfo.objects.filter(upper_data_code=meta_data_code)
 

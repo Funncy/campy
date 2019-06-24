@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
-class SubjectsViewset(viewsets.ModelViewSet):
+class SubjectsViewset(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = SubjectInfo.objects.all()
     serializer_class = SubjectSerializer

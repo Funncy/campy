@@ -109,11 +109,9 @@
                                 <p>
 
                                     {% if student %}
-                                        {% for student_info in student %}
                                              <p>{{ user.first_name }}{{ user.last_name }}
-                                                <small>{{ student_info.student_university_name }} / {{ student_info.student_major_name }}</small>
+                                                <small>{{ student.student_university_name }} / {{ student.student_major_name }}</small>
                                              </p>
-                                        {% endfor %}
                                     {% else %}
                                         {% if user.is_staff %}
                                             관리자 님
@@ -168,9 +166,7 @@
                         {% endif %}
                         <!-- Status -->
                         {% if student %}
-                            {% for student_info in student %}
-                                <a href="{% url 'mypage' %}">{{ student_info.student_university_name }} / {{ student_info.student_major_name }}</a>
-                            {% endfor %}
+                                <a href="{% url 'mypage' %}">{{ student.student_university_name }} / {{ student.student_major_name }}</a>
                         {% else %}
                             {% if user.is_staff %}
                                  <a href="{% url 'mypage' %}">관리자</a>
