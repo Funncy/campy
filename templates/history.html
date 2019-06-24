@@ -55,6 +55,7 @@
             </div>
           </div>
       </div>
+
       <div class="modal fade" id="modal_subject_add" role="dialog" style="display: none">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -122,13 +123,95 @@
                   </div>
                 </div>
               </div>
-                <i class="fa fa-warning"></i>새로운 졸업 요건을 추가할 때에는 이미 존재하는 졸업 요건에 유의하시기 바랍니다.
+                <i class="fa fa-warning"></i> 이수 구분을 잘 선택해주시기 바랍니다.
             </div>
             <div class="modal-footer">
               <div class="row">
                 <div class="col-md-12">
                   <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
                   <button class="btn btn-primary pull-right" id="subject_submit">추가하기</button>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modal_subject_update" role="dialog" style="display: none">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="header"><b>과목 내용을 수정합니다.</b></h4>
+            </div>
+            <div class="modal-body">
+            <div id="update_subject_id" style="visibility:hidden"></div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label>이수 학년</label>
+                          <select class="form-control" id="update_year">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <label>이수 학기</label>
+                          <select class="form-control" id="update_semester">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">여름학기(계절)</option>
+                              <option value="4">겨울학기(계절)</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label>이수 구분</label>
+                          <select class="form-control" id="update_subject_division">
+                              <option>1</option>
+                              <option>1</option>
+                              <option>1</option>
+                          </select>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label>과목 이름</label>
+                          <select class="form-control select2" id="update_subject_name" style="width:100%;">
+                              {% for subject in subjects %}
+                                  <option value="{{ subject.subject_code }}">{{ subject.subject_name }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label>나의 성적</label>
+                          <select id="update_grades" class="form-control">
+                              <option>1</option>
+                              <option>1</option>
+                              <option>1</option>
+                          </select>
+                      </div>
+                  </div>
+                </div>
+              </div>
+                <i class="fa fa-warning"></i> 이수 구분을 잘 선택해주시기 바랍니다.
+            </div>
+            <div class="modal-footer">
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                  <button class="btn btn-primary pull-right" id="update_subject_submit">수정하기</button>
                 </div>
             </div>
             </div>
@@ -181,9 +264,11 @@
             success: function (result) {
 
                 $("#subject_division").empty()
+                $("#update_subject_division").empty()
 
                 for(var key in result){
                     $("#subject_division").append("<option value='"+result[key].meta_data_relation_code+"'>"+result[key].meta_data_relation_name+"</option>");
+                    $("#update_subject_division").append("<option value='"+result[key].meta_data_relation_code+"'>"+result[key].meta_data_relation_name+"</option>");
                 }
 
             },
@@ -201,7 +286,8 @@
             },
             success: function (result) {
                 for(var key in result){
-                    set_grades(result[key].meta_data_relation_name)
+                    set_grades($("#grades"), result[key].meta_data_relation_name)
+                    set_grades($("#update_grades"), result[key].meta_data_relation_name)
                 }
             },
             error: function () {
@@ -256,44 +342,44 @@
         })
     })
 
-    function set_grades(grade){
-        $("#grades").empty()
+    function set_grades(select_box, grade){
+        select_box.empty()
 
         // 4.5 만점 (A+, A0, B+ ~)
 
         if(grade == '4.5') {
-            $("#grades").append("<option value='A+'>A+</option>")
-            $("#grades").append("<option value='A0'>A0</option>")
-            $("#grades").append("<option value='B+'>A+</option>")
-            $("#grades").append("<option value='B0'>B0</option>")
-            $("#grades").append("<option value='C+'>C+</option>")
-            $("#grades").append("<option value='C0'>C0</option>")
-            $("#grades").append("<option value='D+'>D+</option>")
-            $("#grades").append("<option value='D0'>D0</option>")
+            select_box.append("<option value='A+'>A+</option>")
+            select_box.append("<option value='A0'>A0</option>")
+            select_box.append("<option value='B+'>A+</option>")
+            select_box.append("<option value='B0'>B0</option>")
+            select_box.append("<option value='C+'>C+</option>")
+            select_box.append("<option value='C0'>C0</option>")
+            select_box.append("<option value='D+'>D+</option>")
+            select_box.append("<option value='D0'>D0</option>")
         }else if(grade == '4.3') {
             // 4.3 만점 (A+, A0, A0, B+ ~)
-            $("#grades").append("<option value='A+'>A+</option>")
-            $("#grades").append("<option value='A0'>A0</option>")
-            $("#grades").append("<option value='A-'>A-</option>")
-            $("#grades").append("<option value='B+'>A+</option>")
-            $("#grades").append("<option value='B0'>B0</option>")
-            $("#grades").append("<option value='B-'>B-</option>")
-            $("#grades").append("<option value='C+'>C+</option>")
-            $("#grades").append("<option value='C0'>C0</option>")
-            $("#grades").append("<option value='C-'>C-</option>")
-            $("#grades").append("<option value='D+'>D+</option>")
-            $("#grades").append("<option value='D0'>D0</option>")
-            $("#grades").append("<option value='D-'>D-</option>")
+            select_box.append("<option value='A+'>A+</option>")
+            select_box.append("<option value='A0'>A0</option>")
+            select_box.append("<option value='A-'>A-</option>")
+            select_box.append("<option value='B+'>A+</option>")
+            select_box.append("<option value='B0'>B0</option>")
+            select_box.append("<option value='B-'>B-</option>")
+            select_box.append("<option value='C+'>C+</option>")
+            select_box.append("<option value='C0'>C0</option>")
+            select_box.append("<option value='C-'>C-</option>")
+            select_box.append("<option value='D+'>D+</option>")
+            select_box.append("<option value='D0'>D0</option>")
+            select_box.append("<option value='D-'>D-</option>")
         }else if(grade == '4.0') {
             // 4.0 만점 (A+, B, C ~)
-            $("#grades").append("<option value='A+'>A+</option>")
-            $("#grades").append("<option value='B'>A</option>")
-            $("#grades").append("<option value='C'>C</option>")
-            $("#grades").append("<option value='D'>D</option>")
+            select_box.append("<option value='A+'>A+</option>")
+            select_box.append("<option value='B'>A</option>")
+            select_box.append("<option value='C'>C</option>")
+            select_box.append("<option value='D'>D</option>")
         }
 
-        $("#grades").append("<option value='P'>P</option>")
-        $("#grades").append("<option value='NP'>NP</option>")
+        select_box.append("<option value='P'>P</option>")
+        select_box.append("<option value='NP'>NP</option>")
     }
 
     function history_list_load(){
@@ -310,12 +396,16 @@
                     $("#subject_list").append(
                         "<tr><td>"+result[key].history_subject_name+"</td><td>"
                         +result[key].history_subject_complete_division+"</td><td>"
-                        +result[key].history_grade_year+"년"+"</td><td>"
-                        +result[key].history_semester+"학기"+"</td><td>"
+                        +result[key].history_grade_year+"학년"+"</td><td>"
+                        +result[key].history_semester+"</td><td>"
                         +result[key].history_student_grade+"</td><td>"
                         +result[key].history_subject_area+"</td><td>"
                         +result[key].history_subject_credit+"학점"+"</td>"
-                        +"<td><button class=\"btn btn-xs btn-warning\">수정</button>"
+                        +"<td><button class=\"btn btn-xs btn-warning\" data-toggle=\"modal\" data-target=\"#modal_subject_update\" onclick=\"update_subject("
+                        +result[key].id+",'"+result[key].history_subject_code+"','"
+                        +result[key].history_subject_complete_division+"','"+result[key].history_semester+"',"
+                        +result[key].history_grade_year+",'"+result[key].history_student_grade
+                        +"')\">수정</button>"
                         +"<button class=\"btn btn-xs btn-danger\" onclick=remove_subject("+result[key].id+")>삭제</button></td>"
                         +"</tr>"
                     )
@@ -347,6 +437,39 @@
             }
         })
     }
+
+    function update_subject(id, subject_code, division, semester, year, grade){
+        $("#update_subject_name").val(subject_code).trigger("change")
+        $("#update_subject_division option:contains("+division+")").prop("selected", true)
+        $("#update_year option:contains("+year+")").prop("selected", true)
+        $("#update_semester option:contains("+semester+")").prop("selected", true)
+        $("#update_grades option:contains("+grade+")").prop("selected", true)
+        $("#update_subject_id").text(id)
+    }
+
+    $("#update_subject_submit").click(function(){
+        $.ajax({
+            url: '/data/graduation/history/'+$("#update_subject_id").text()+'/',
+            type: 'PATCH',
+            data: {
+                'university' : {% if student %}"{{ student.student_university_name }}"{% endif %},
+                'history_lecture_code' : 1,
+                'history_subject_name' : $("#update_subject_name option:selected").text(),
+                'history_subject_code' : $("#update_subject_name").val(),
+                'history_subject_complete_division' : $("#update_subject_division option:selected").text(),
+                'history_grade_year' : $("#update_year option:selected").text(),
+                'history_semester' : $("#update_semester option:selected").text(),
+                'history_student_grade' : $("#update_grades").val()
+            },
+            success: function (result) {
+                $("#modal_subject_update").hide()
+                history_list_load()
+            },
+            error: function () {
+                alert('error2')
+            }
+        })
+    })
 
 </script>
       

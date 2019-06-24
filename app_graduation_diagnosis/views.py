@@ -10,6 +10,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .serializers import HistorySerializer
 from django.http import Http404
+from .models import archieving_history
 
 # Create your views here.
 
@@ -19,6 +20,7 @@ class HistoryViewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return archieving_history.objects.filter(history_user=self.request.user)
+
 
 def save_subject(request):
 
