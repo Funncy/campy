@@ -9,8 +9,8 @@ from allauth.socialaccount.models import SocialAccount
 
 # Create your views here.
 
-def get_student(pk):
-    return StudentInfo.objects.get(pk=pk, student_major_division='주전공')
+def get_student_by_major(pk):
+    return StudentInfo.objects.filter(pk=pk, student_major_division='주전공')
 
 @login_required
 def Student(request):

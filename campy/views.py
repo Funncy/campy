@@ -4,12 +4,12 @@ from django.shortcuts import render, redirect
 from app_account_management.models import StudentInfo
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from app_account_management.views import get_student
+from app_account_management.views import get_student_by_major
 
 # 화면 데이터 가져오는 함수
 def get_context_data(request, activeName):
     # 학생 정보 및 활성화 메뉴 설정
-    student = get_student(request.user.id)
+    student = get_student_by_major(request.user.id)
     context = {
         'student': student,
         activeName : 1
