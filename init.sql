@@ -78,6 +78,19 @@ VALUES('meta_completionDivision', '이수구분리스트', 'sejongCompletionDivi
 INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
 VALUES('meta_completionDivision', '이수구분리스트', 'sejongCompletionDivision006', '기초교양', 'sejongUniversity' );
 
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_completionDivision', '이수구분리스트', 'seoulCompletionDivision001', '전공필수', 'seoulUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_completionDivision', '이수구분리스트', 'seoulCompletionDivision002', '전공선택', 'seoulUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_completionDivision', '이수구분리스트', 'seoulCompletionDivision003', '중핵필수', 'seoulUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_completionDivision', '이수구분리스트', 'seoulCompletionDivision004', '중핵선택', 'seoulUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_completionDivision', '이수구분리스트', 'seoulCompletionDivision005', '자유교양', 'sejongUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_completionDivision', '이수구분리스트', 'seoulCompletionDivision006', '기초교양', 'seoulUniversity' );
+
 --영역
 INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
 VALUES('meta_domain', '영역리스트', 'sejongDomain001', '사회와가치', 'sejongUniversity' );
