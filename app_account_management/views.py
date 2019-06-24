@@ -12,7 +12,7 @@ from allauth.socialaccount.models import SocialAccount
 def get_student_by_major(pk):
     student = None
     try :
-        student = StudentInfo.objects.get(pk=pk, student_major_division='주전공')
+        student = StudentInfo.objects.get(user_id=pk, student_major_division='주전공')
     except StudentInfo.DoesNotExist:
         return None
     return student
