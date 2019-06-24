@@ -316,7 +316,7 @@
                         +result[key].history_subject_area+"</td><td>"
                         +result[key].history_subject_credit+"학점"+"</td>"
                         +"<td><button class=\"btn btn-xs btn-warning\">수정</button>"
-                        +"<button class=\"btn btn-xs btn-danger\">삭제</button></td>"
+                        +"<button class=\"btn btn-xs btn-danger\" onclick=remove_subject("+result[key].id+")>삭제</button></td>"
                         +"</tr>"
                     )
                 }
@@ -330,6 +330,20 @@
             },
             error: function () {
                 alert('error2')
+            }
+        })
+    }
+
+    function remove_subject(id){
+        $.ajax({
+            url: '/data/graduation/history/'+id,
+            type: 'DELETE',
+            data: {  },
+            success: function (result) {
+                history_list_load()
+            },
+            error: function () {
+                alert('error6')
             }
         })
     }

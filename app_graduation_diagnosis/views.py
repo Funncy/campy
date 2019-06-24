@@ -9,10 +9,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .serializers import HistorySerializer
+from django.http import Http404
 
 # Create your views here.
 
-class HistoryViewset(viewsets.ReadOnlyModelViewSet):
+class HistoryViewset(viewsets.ModelViewSet):
     queryset = archieving_history.objects.all()
     serializer_class = HistorySerializer
 
