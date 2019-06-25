@@ -26,3 +26,21 @@ class archieving_history(models.Model):
     history_student_grade = models.CharField(max_length=20)
     history_grade_year = models.CharField(max_length=20)
     history_semester = models.CharField(max_length=20)
+
+# 졸업 요건
+class graduation_rule(models.Model):
+    # 대학이름
+    # 학과코드
+    # 졸업 요건 이름
+    # 트랙
+    # 룰 타입
+    # 룰 값
+    # 이수구분 종류
+    rule_university_name = models.CharField(max_length=50)
+    rule_department_code = models.CharField(max_length=50)
+    rule_name = models.CharField(max_length=50)
+    rule_track = models.CharField(max_length=50, default='자동')
+    rule_type = models.CharField(max_length=10, default='0')
+    rule_value = models.CharField(max_length=50, default='0')
+    rule_division = models.CharField(max_length=30)
+
