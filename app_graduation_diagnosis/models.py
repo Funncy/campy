@@ -31,6 +31,7 @@ class archieving_history(models.Model):
 class graduation_rule(models.Model):
     # 대학이름
     # 학과코드
+    # 입학년도
     # 졸업 요건 이름
     # 트랙
     # 룰 타입
@@ -38,6 +39,7 @@ class graduation_rule(models.Model):
     # 이수구분 종류
     rule_university_name = models.CharField(max_length=50)
     rule_department_code = models.CharField(max_length=50)
+    rule_admission_year = models.CharField(max_length=20)
     rule_name = models.CharField(max_length=50)
     rule_track = models.CharField(max_length=50, default='자동')
     rule_type = models.CharField(max_length=10, default='0')
