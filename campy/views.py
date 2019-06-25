@@ -66,6 +66,16 @@ def history(request):
     context['subjects'] = subjects
     return render(request, 'history.html', context)
 
+# 룰 설정 화면
+def rule(request):
+    context = get_context_data(request, 'ruleActive')
+    return render(request, 'rule-manage.html', context)
+
+# 과목 설정 화면
+def subject(request):
+    context = get_context_data(request, 'subjectActive')
+    return render(request, 'subject-manage.html', context)
+
 @login_required
 def join(request):
 

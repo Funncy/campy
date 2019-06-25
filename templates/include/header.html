@@ -187,13 +187,29 @@
       </form>
 
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header"><i class="fa fa-university"></i> 대학 생활</li>
+        <li class="header"> 대학 생활</li>
         <li class="{% if courseActive %}active{% endif %}"><a href="{% url 'course' %}"><i class="fa fa-calendar"></i> <span>수강설계</span></a></li>
         <li class="{% if graduationActive %}active{% endif %}"><a href="{% url 'graduation' %}"><i class="fa fa-graduation-cap"></i> <span>졸업진단</span></a></li>
         <li class="{% if communityActive %}active{% endif %}"><a href="{% url 'community' %}"><i class="fa  fa-comments-o"></i> <span>커뮤니티</span></a></li>
-          <li class="header"><i class="fa fa-user"></i> 내 정보</li>
-          <li class="{% if historyActive %}active{% endif %}"><a href="{% url 'history' %}"><i class="fa fa-file-text-o"></i> <span>수강 이력 관리</span></a></li>
-          <li class="{% if mypageActive %}active{% endif %}"><a href="{% url 'mypage' %}"><i class="fa fa-cog"></i> <span>내 정보 관리</span></a></li>
+
+        <li class="header"> 내 정보</li>
+        <li class="{% if historyActive %}active{% endif %}"><a href="{% url 'history' %}"><i class="fa fa-file-text-o"></i> <span>수강 이력 관리</span></a></li>
+        <li class="{% if mypageActive %}active{% endif %}"><a href="{% url 'mypage' %}"><i class="fa fa-cog"></i> <span>내 정보 관리</span></a></li>
+
+        <li class="header"> 관리 메뉴</li>
+        <li class="treeview">
+                    <a href="#!"><i class="fa fa-university"></i> <span>시스템 관리</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{% if subjectGroupActive %}active{% endif %}"><a href="{% url 'mypage' %}">과목 그룹 관리</a></li>
+                        <li class="{% if ruleActive %}active{% endif %}"><a href="{% url 'rule' %}">졸업 요건 관리</a></li>
+                        <li class="{% if subjectActive %}active{% endif %}"><a href="{% url 'subject' %}">과목 관리</a></li>
+                        <li class="{% if generalActive %}active{% endif %}"><a href="{% url 'mypage' %}">일반 설정 관리</a></li>
+                    </ul>
+        </li>
       </ul>
     </section>
 

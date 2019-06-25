@@ -18,6 +18,8 @@ urlpatterns = [
     path('community/', views.community, name='community'),
     path('mypage/', views.mypage, name='mypage'),
     path('join/', views.join, name='join'),
+    path('rule/', views.rule, name='rule'),
+    path('subject/', views.subject, name='subject'),
 
     # data list
     path('data/user/', include('app_account_management.urls')),
