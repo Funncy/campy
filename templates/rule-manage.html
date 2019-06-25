@@ -18,34 +18,34 @@
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="box box-primary">
+            <div class="box box-primary">
+                <div class="overlay" id="search-check" style="display: none;">
+                        <i class="fa fa-check"></i>
+                </div>
                     <div class="box-header with-border">
                         <h4>STEP 1: 졸업 요건 검색</h4>
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse" id="search-rule">
                               <i class="fa fa-minus"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="box-body with-border">
+                    <div class="box-body">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label>대학교</label>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>1</option>
-                                        <option>1</option>
+                                    <select class="form-control" id="university_list">
+                                        {% for university in universitys %}
+                                            <option value="{{ university.meta_data_relation_code }}">{{ university.meta_data_relation_name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>입학년도</label>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>1</option>
-                                        <option>1</option>
+                                    <select class="form-control" id="admission_year">
                                     </select>
                                 </div>
                             </div>
@@ -54,49 +54,49 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label>학과</label>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>1</option>
-                                        <option>1</option>
+                                    <select class="form-control" id="deparment_list">
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>이수트랙</label>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>1</option>
-                                        <option>1</option>
+                                    <select class="form-control" id="track_list">
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button class="btn btn-primary" style="width: 100%">졸업 요건 조회하기</button>
+                                <button class="btn btn-primary" style="width: 100%" id="rule_search">졸업 요건 조회하기</button>
                             </div>
                         </div>
                     </div>
-                    <div class="box-footer">
+                    <div class="box-footer clearfix">
                         <div class="col-md-12">
                             <span><i class="fa fa-warning"></i>졸업 요건이 검색되지 않으면 <a href="#"><b>여기</b></a>로 신고 바랍니다.</span>
                         </div>
                     </div>
                 </div>
-                <div class="box box-primary">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary collapsed-box">
+                    <div class="overlay" id="result-wait">
+                        <i class="fa fa-lock"></i>
+                    </div>
                     <div class="box-header with-border">
-                        <h4>STEP 2: 졸업 요건 확인 및 설정</h4>
+                        <h3 class="box-title">STEP 2: 졸업 요건 확인 및 설정</h3>
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                              <i class="fa fa-minus"></i>
-                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse" id="result-rule"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
-                    <div class="box-body with-border">
+                    <div class="box-body" style="display:none;">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label>대학교</label>
-                                    <div class="form-control">
+                                    <div class="form-control" id="result_university">
                                         대학교 자동입력
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>입학년도</label>
-                                    <div class="form-control">
+                                    <div class="form-control" id="result_admission_year">
                                         입학년도 자동입력
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label>학과</label>
-                                    <div class="form-control">
+                                    <div class="form-control" id="result_department">
                                         학과 자동입력
                                     </div>
                                 </div>
@@ -120,22 +120,23 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>이수트랙</label>
-                                    <div class="form-control">
+                                    <div class="form-control" id="result_track">
                                         이수트랙 자동입력
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <button class="btn btn-primary" style="width: 100%">
-                                    졸업 요건 재검색
-                                </button>
-                            </div>
-
                         </div>
-                        <br>
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table table-bordered table-striped table-hover text-center">
+                                <button type="submit" id="result-close" class="btn btn-primary btn-block">
+                                    <i class="fa fa-undo"></i> 졸업 요건 재검색
+                                </button>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-striped table-hover text-center" id="table-rule">
                                     <thead>
                                         <tr>
                                             <th class="hidden-xs" style="width: 80px">요건 번호</th>
@@ -145,38 +146,231 @@
                                             <th class="hidden-xs" style="width: 100px">관리</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>
-                                                <button class="btn btn-xs btn-warning">수정</button>
-                                                <button class="btn btn-xs btn-danger">삭제</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <button class="btn btn-primary btn-xs">새 요건 추가</button>
-                                            </td>
-                                        </tr>
+                                    <tbody id="tbody-rule">
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="box-footer">
-                        각 과목 그룹에 해당하는 이수 교과목은 과목 그룹 관리에서 지정하실 수 있습니다.
+                    <div class="box-footer" style="display: none;">
+                        <i class="icon fa fa-info-circle"></i> 각 과목 그룹에 해당하는 이수 교과목은 <a href="#"><b>과목 그룹 관리</b></a>에서 지정하실 수 있습니다.<br>
+                        <i class="icon fa fa-info-circle"></i> 엑셀파일로 모든 학과의 졸업 요건을 내보내고 싶으신가요? <a href="#"><b>서비스 준비 중</b></a>
                     </div>
                 </div>
             </div>
         </div>
 
+
+    <div class="modal fade" id="modal-create">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">새로운 졸업 요건을 추가합니다.</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>입학연도</label>
+                                        <span class="form-control" id="modal_create_year" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label>대학교</label>
+                                        <span class="form-control" id="modal_create_university" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>이수트랙</label>
+                                        <span class="form-control" id="modal_create_track" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label>학과</label>
+                                        <span class="form-control" id="modal_create_department" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                            <p class="text-center">&mdash;</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group has-feedback">
+                                        <label for="modal_create_rule_group">졸업 요건 이름</label>
+                                        <input type="text" class="form-control" id="modal_create_rule_name" value="졸업 요건">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group has-feedback">
+                                        <label for="modal_create_rule_group">과목 그룹</label>
+                                        <select class="form-control select2" id="modal_create_rule_group" style="width: 100%;">
+                                            <option selected="selected" value="0">없음</option>
+                                            <option value="1">테스트</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="modal_create_rule_type">졸업 요건 종류</label>
+                                        <select class="form-control select2" id="modal_create_rule_type" style="width: 100%;">
+                                            <option selected="selected" value="1">이수 학점</option>
+                                            <option value="2">평균 평점</option>
+                                            <option value="3">이수 교과목 수</option>
+                                            <option value="4">서로 다른 이수 영역 수</option>
+                                            <option value="5">다른 졸업 요건 값 수정(과목그룹 -> 졸업요건)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="modal_create_rule_value">졸업 요건 지정 값 (최솟값)</label>
+                                        <input type="text" class="form-control text-center" id="modal_create_rule_value">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                            </form>
+                            <i class="icon fa fa-info-circle"></i> 새로운 졸업 요건을 추가할 때에는 이미 존재하는 졸업 요건에 유의하시기 바랍니다.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-primary" id="modal_create">추가하기</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+    <div class="modal fade" id="modal-update">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">졸업 요건을 수정합니다.</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                            <div class="row">
+                                <div id="modal_update_id" style="visibility: hidden;">-</div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>입학연도</label>
+                                        <span class="form-control" id="modal_update_year" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label>대학교</label>
+                                        <span class="form-control" id="modal_update_university" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>이수트랙</label>
+                                        <span class="form-control" id="modal_update_track" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label>학과</label>
+                                        <span class="form-control" id="modal_update_department" style="width: 100%;">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                            <p class="text-center">&mdash;</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group has-feedback">
+                                        <label for="modal_update_rule_name">졸업 요건 이름</label>
+                                        <input type="text" class="form-control" id="modal_update_rule_name" value="졸업 요건">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group has-feedback">
+                                        <label for="modal_update_subject_group">과목 그룹</label>
+                                        <select class="form-control select2" id="modal_update_subject_group" style="width: 100%;">
+                                            <option selected="selected" value="0">없음</option>
+                                            <option value="1">테스트</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="modal_update_rule_type">졸업 요건 종류</label>
+                                        <select class="form-control select2" id="modal_update_rule_type" style="width: 100%;">
+                                            <option selected="selected" value="1">이수 학점</option>
+                                            <option value="2">평균 평점</option>
+                                            <option value="3">이수 교과목 수</option>
+                                            <option value="4">서로 다른 이수 영역 수</option>
+                                            <option value="5">다른 졸업 요건 값 수정(과목그룹 -> 졸업요건)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="modal_update_rule_value">졸업 요건 지정 값 (최솟값)</label>
+                                        <input type="text" class="form-control text-center" id="modal_update_rule_value">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                            </form>
+                            <i class="icon fa fa-info-circle"></i> 새로운 졸업 요건을 추가할 때에는 이미 존재하는 졸업 요건에 유의하시기 바랍니다.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-primary" id="modal_update">수정하기</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+    <div class="modal fade" id="modal-delete">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">정말로 삭제 하시겠습니까?</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <div id="modal_delete_id" style="visibility: hidden;">-</div>
+                                <div class="form-group">
+                                    <label for="modal_delete_rule_name">졸업 요건 이름</label>
+                                    <input type="text" class="form-control" id="modal_delete_rule_name" disabled>
+                                </div>
+                            </div>
+                            <i class="icon fa fa-info-circle"></i> 유의하여 삭제해주시기 바랍니다.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-primary" id="modal_delete">삭제하기</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
@@ -185,6 +379,321 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+<script>
+
+    var rule_university = $('#university_list option:selected')
+    var rule_department = $('#deparment_list option:selected')
+    var rule_admission_year = $('#admission_year')
+    var rule_track = $('#track_list')
+    var rule_name = $('#modal_create_rule_name')
+    var rule_type = $('#modal_create_rule_type')
+    var rule_value = $('#modal_create_rule_value')
+    var rule_subject_group = $('#modal_create_rule_group')
+
+
+    $(document).ready(function(){
+
+        // 초기 학번 설정
+        var current_year = new Date().getFullYear() + 1;
+        for(var year=1950; year <= current_year ; current_year--) {
+            $('#admission_year').append("<option value='"+current_year+"'>"+current_year+" 학번"+"</option>")
+        }
+
+        // 기본 대학 학과 설정
+        change_deparmentlist($('#university_list').val())
+
+        // 기본 이수트랙 설정
+        //change_track($('#university_list').val())
+        $('#track_list').append("<option value='자동'>자동</option>")
+    })
+
+    // 대학 변경시 학과 변경
+    $('#university_list').change(function(){
+        change_deparmentlist($('#university_list').val())
+    })
+
+    function change_rule_divisionlist(university_code){
+        $.ajax({
+            url: '/data/common/metainfo/',
+            type: 'GET',
+            data: {
+                'meta_data_code': 'meta_',
+                'upper_data_code': university_code
+            },
+            success: function (result) {
+                $("#deparment_list").empty()
+
+                for(var key in result){
+                    for(var key2 in result[key].departments){
+                        $("#deparment_list").append(
+                           "<option value='"+result[key].departments[key2].department_code+"'>"
+                            +" ( "+result[key].college_name+" ) "+result[key].departments[key2].department_name
+                            +"</option>"
+                        )
+                    }
+
+                }
+            },
+            error: function () {
+                alert('department_list error')
+            }
+        })
+    }
+
+    // 학과 변경
+    function change_deparmentlist(university_code){
+        $.ajax({
+            url: '/data/common/departments/',
+            type: 'GET',
+            data: {
+                'meta_data_code': university_code
+            },
+            success: function (result) {
+                $("#deparment_list").empty()
+
+                for(var key in result){
+                    for(var key2 in result[key].departments){
+                        $("#deparment_list").append(
+                           "<option value='"+result[key].departments[key2].department_code+"'>"
+                            +" ( "+result[key].college_name+" ) "+result[key].departments[key2].department_name
+                            +"</option>"
+                        )
+                    }
+
+                }
+            },
+            error: function () {
+                alert('department_list error')
+            }
+        })
+    }
+
+    // 이수트랙 변경
+    function change_track(university_code){
+
+        $.ajax({
+            url: '/data/common/metainfo/',
+            type: 'GET',
+            data: {
+                'meta_data_code': 'meta_trackList',
+                'upper_data_code': university_code
+            },
+            success: function (result) {
+                $("#track_list").empty()
+
+                for(var key in result){
+                    $('#track_list').append(
+                        "<option value='"+result[key].meta_data_relation_code
+                        +"'>"+result[key].meta_data_relation_name+"</option>"
+                    )
+                }
+            },
+            error: function () {
+                alert('track_error')
+            }
+        })
+    }
+
+    // 검색 시작
+    $('#rule_search').click(function() {
+
+        // 검색 버튼 죽이기
+        $('#rule_search').prop('disabled', 'disabled');
+        $('#search-check').css("display", "");
+
+        // 하단 박스 살리면서 테이블 정보 가져오기
+        reload(1)
+
+        set__modal()
+
+
+    })
+
+    function reload(open){
+        $.ajax({
+            url: '/data/graduation/rules/',
+            type: 'GET',
+            data: {
+                'university_name': $('#university_list option:selected').text(),
+                'department_code': $('#deparment_list').val(),
+                'admission_year': rule_admission_year.val(),
+                'track' : rule_track.val()
+            },
+            success: function (result) {
+                $('#result_university').text(rule_university.text())
+                $('#result_department').text($('#deparment_list option:selected').text())
+                $('#result_admission_year').text(rule_admission_year.val())
+                $('#result_track').text(rule_track.val())
+
+                //룰 테이블 셋
+                $('#tbody-rule').empty()
+
+                for (var key in result) {
+                    $('#tbody-rule').append(
+                        "<tr><td>" + result[key].id + "</td><td>"
+                        + result[key].rule_name + "</td><td>"
+                        + result[key].rule_type + "</td><td>"
+                        + result[key].rule_value + "</td><td class=\"hidden-xs\">"
+                        + "<button type=\"button\" class=\"btn btn-warning btn-xs\" data-toggle=\"modal\" data-target=\"#modal-update\" "
+                        + "onclick=\"rule_update("
+                        + result[key].id +", '"
+                        + result[key].rule_name + "', "
+                        + result[key].rule_subject_group + ", "
+                        + result[key].rule_type + ", "
+                        + result[key].rule_value
+                        +")\">수정</button>"
+                        + "<button type=\"button\" class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#modal-delete\" "
+                        + "onclick=\"rule_delete("
+                        + result[key].id +", '"
+                        + result[key].rule_name +"'"
+                        + ")\">삭제</button>"
+                        + "</tr>"
+                    )
+                }
+
+                // 추가 버튼
+                $('#tbody-rule').append('<tr class="hidden-xs"><td class="hidden-xs"></td><td></td><td></td><td></td><td class="hidden-xs">' +
+                    '<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-create">새 요건 추가</button></td></tr>')
+
+                if (open == 1) {
+                    // 결과 박스 동기화
+                    $('#search-rule').trigger("click");
+                    $('#result-wait').css("display", "none");
+                    $('#result-rule').trigger("click");
+                    $('#result-close').prop('disabled', '')
+                }
+
+            },
+            error: function () {
+                $('#rule_search').prop('disabled', '');
+                $('#search-check').css("display", "none");
+                alert('검색 에러')
+            }
+        })
+    }
+
+    function rule_update(id, rule_name, subject_group, rule_type, rule_value){
+        $('#modal_update_id').text(id)
+        $('#modal_update_rule_name').val(rule_name)
+        $('#modal_update_subject_group').val(subject_group)
+        $('#modal_update_subject_group').trigger("change")
+        $('#modal_update_rule_type').val(rule_type)
+        $('#modal_update_rule_type').trigger("change")
+        $('#modal_update_rule_value').val(rule_value)
+    }
+
+    function rule_delete(id, rule_name){
+        $('#modal_delete_id').text(id)
+        $('#modal_delete_rule_name').val(rule_name)
+    }
+
+
+    $('#result-close').click(function() {
+        $('#result-close').prop('disabled', 'disabled')
+        $('#search-check').css("display", "none");
+        $('#result-rule').trigger("click");
+        $('#search-rule').trigger("click");
+        $('#result-wait').css("display", "disabled");
+        // 검색 버튼 살리기
+        $('#rule_search').prop('disabled', '');
+    })
+
+    function set__modal(){
+        // 생성 모달
+        $('#modal_create_university').text(rule_university.text())
+        $('#modal_create_department').text($('#deparment_list option:selected').text())
+        $('#modal_create_year').text(rule_admission_year.val())
+        $('#modal_create_track').text(rule_track.val())
+
+        // 업데이트 모달
+        $('#modal_update_university').text(rule_university.text())
+        $('#modal_update_department').text($('#deparment_list option:selected').text())
+        $('#modal_update_year').text(rule_admission_year.val())
+        $('#modal_update_track').text(rule_track.val())
+
+        // 삭제 모달
+        $('#modal_delete_university').text(rule_university.text())
+        $('#modal_delete_department').text($('#deparment_list option:selected').text())
+        $('#modal_delete_year').text(rule_admission_year.val())
+        $('#modal_delete_track').text(rule_track.val())
+    }
+
+    $('#modal_create').click(function(){
+
+        if($('#modal_create_rule_group').val()=='0'){
+            alert('과목그룹을 지정해주세요.')
+            return
+        }
+
+        $.ajax({
+            url: '/data/graduation/rules/',
+            type: 'POST',
+            data: {
+                'rule_university_name': $('#university_list option:selected').text(),
+                'rule_department_code': $('#deparment_list').val(),
+                'rule_admission_year': rule_admission_year.val(),
+                'rule_name' : rule_name.val(),
+                'rule_track' : rule_track.val(),
+                'rule_type' : rule_type.val(),
+                'rule_value' : rule_value.val(),
+                'rule_subject_group' : rule_subject_group.val()
+            },
+            success: function (result) {
+                $('#modal-create').prop('disabled', '')
+                $('#modal-create').modal('hide')
+                reload(0)
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    })
+
+    $('#modal_update').click(function(){
+
+        if($('#modal_update_rule_group').val()=='0'){
+            alert('과목그룹을 지정해주세요.')
+            return
+        }
+
+        $.ajax({
+            url: '/data/graduation/rules/'+$('#modal_update_id').text()+'/',
+            type: 'PATCH',
+            data: {
+                'rule_name' : $('#modal_update_rule_name').val(),
+                'rule_type' : $('#modal_update_rule_type').val(),
+                'rule_value' : $('#modal_update_rule_value').val(),
+                'rule_subject_group' : $('#modal_update_subject_group').val()
+            },
+            success: function (result) {
+                $('#modal-update').prop('disabled', '')
+                $('#modal-update').modal('hide')
+                reload(0)
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    })
+
+    $('#modal_delete').click(function(){
+        $.ajax({
+            url: '/data/graduation/rules/'+$('#modal_delete_id').text()+'/',
+            type: 'DELETE',
+            data: {},
+            success: function (result) {
+                $('#modal-delete').prop('disabled', '')
+                $('#modal-delete').modal('hide')
+                reload(0)
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    })
+    
+</script>
 
 
 {% include "include/footer.html" %}

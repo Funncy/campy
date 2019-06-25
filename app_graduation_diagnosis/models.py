@@ -36,7 +36,7 @@ class graduation_rule(models.Model):
     # 트랙
     # 룰 타입
     # 룰 값
-    # 이수구분 종류
+    # 과목그룹
     rule_university_name = models.CharField(max_length=50)
     rule_department_code = models.CharField(max_length=50)
     rule_admission_year = models.CharField(max_length=20)
@@ -44,5 +44,5 @@ class graduation_rule(models.Model):
     rule_track = models.CharField(max_length=50, default='자동')
     rule_type = models.CharField(max_length=10, default='0')
     rule_value = models.CharField(max_length=50, default='0')
-    rule_division = models.CharField(max_length=30)
+    rule_subject_group = models.CharField(max_length=30)
 

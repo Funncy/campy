@@ -8,9 +8,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-from .serializers import HistorySerializer
+from .serializers import HistorySerializer, RuleSerializer
 from django.http import Http404
-from .models import archieving_history
+from .models import archieving_history, graduation_rule
 
 # Create your views here.
 
@@ -20,6 +20,23 @@ class HistoryViewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return archieving_history.objects.filter(history_user=self.request.user)
+
+class RuleViewset(viewsets.ModelViewSet):
+    queryset = graduation_rule.objects.all()
+    serializer_class = RuleSerializer
+
+    def get_queryset(self):
+        university_name = self.request.query_params.get('university_name')
+        department_code = self.request.query_params.get('department_code')
+        admission_year = self.request.query_params.get('admission_year')
+        track = self.request.query_params.get('track')
+        # PATCH 용
+        if university_name is None:
+            return graduation_rule.objects.all()
+        return graduation_rule.objects.filter(rule_university_name=university_name, rule_department_code=department_code,
+                                              rule_admission_year=admission_year, rule_track=track)
+
+
 
 
 def save_subject(request):

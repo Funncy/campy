@@ -34,7 +34,7 @@ def set_deparment_and_college(request):
     # 상위대학 코드
     meta_data_code = request.GET['meta_data_code']
 
-    colleges = MetaDatainfo.objects.filter(upper_data_code=meta_data_code)
+    colleges = MetaDatainfo.objects.filter(upper_data_code=meta_data_code, meta_data_code='meta_collegeList')
 
     colleges_and_departments = list()
     i = 0
@@ -58,39 +58,6 @@ def set_deparment_and_college(request):
 
     return JsonResponse(colleges_and_departments, safe=False)
 
+def get_all_universitys():
+    return MetaDatainfo.objects.filter(meta_data_code='meta_universityList')
 
-
-'''
-class UniversityViewset(viewsets.ModelViewSet):
-    queryset = UniversityInfo.objects.all()
-    serializer_class = UniversitySerializer
-
-    def get_queryset(self):
-        university = self.request.query_params.get('university')
-        return UniversityInfo.objects.filter(university_name=university)
-
-class DepartmentViewset(viewsets.ModelViewSet):
-    queryset = DepartmentInfo.objects.all()
-    serializer_class = DepartmentSerializer
-
-    def get_queryset(self):
-        university = self.request.query_params.get('university')
-        return DepartmentInfo.objects.filter(university_name=university)
-
-class CompletionDivisionViewset(viewsets.ModelViewSet):
-    queryset = CompletionDivision.objects.all()
-    serializer_class = CompletionDivisionSerializer
-
-    def get_queryset(self):
-        university = self.request.query_params.get('university')
-        return CompletionDivision.objects.filter(university_name=university)
-
-
-def get_all_UniversityInfo(request):
-    if request.method == 'POST':
-        #모든 대학 정보 던져주기
-        Universitys = UniversityInfo.objects.all().distinct()
-        return JsonResponse()
-    return
-
-'''

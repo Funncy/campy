@@ -4,9 +4,10 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'history', views.HistoryViewset)
+router.register(r'rules', views.RuleViewset)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('', include(router.urls)),
-    path('subject/', views.save_subject )
+    path('subject/', views.save_subject)
 ]

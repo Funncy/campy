@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from app_account_management.views import get_student_by_major
 from app_university_data.views import get_all_subject
+from app_common_data.views import get_all_universitys
 
 # 화면 데이터 가져오는 함수
 def get_context_data(request, activeName):
@@ -69,6 +70,8 @@ def history(request):
 # 룰 설정 화면
 def rule(request):
     context = get_context_data(request, 'ruleActive')
+    universitys = get_all_universitys()
+    context['universitys'] = universitys
     return render(request, 'rule-manage.html', context)
 
 # 과목 설정 화면

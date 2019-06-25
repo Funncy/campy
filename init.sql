@@ -108,6 +108,18 @@ VALUES('meta_domain', '영역리스트', 'sejongDomain001', '인성과도덕', '
 INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
 VALUES('meta_domain', '영역리스트', 'sejongDomain001', '쓰기와말하기', 'sejongUniversity' );
 
+--이수트랙
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_trackList', '이수트랙리스트', 'sejongTrack000', '자동', 'sejongUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_trackList', '이수트랙리스트', 'sejongTrack001', '공통', 'sejongUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_trackList', '이수트랙리스트', 'sejongTrack002', '전공', 'sejongUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_trackList', '이수트랙리스트', 'sejongTrack003', '부전공', 'sejongUniversity' );
+INSERT INTO app_common_data_metadatainfo(meta_data_code,meta_data_name,meta_data_relation_code,meta_data_relation_name,upper_data_code)
+VALUES('meta_trackList', '이수트랙리스트', 'sejongTrack004', '복수전공', 'sejongUniversity' );
+
 
 --과목정보
 
