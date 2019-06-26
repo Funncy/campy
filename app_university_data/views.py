@@ -34,8 +34,12 @@ class SubjectViewset(viewsets.ModelViewSet):
         return SubjectInfo.objects.filter(university_name=university, subject_name=subject)
 
 # 모든 과목 가져오기 (학생 데이터 기반)
-def get_all_subject(request, student):
+def get_all_subject_by_student(student):
     return SubjectInfo.objects.filter(university_name=student.student_university_name)
+
+# 모든 과목 가져오기 (관리자용)
+def get_all_subject():
+    return SubjectInfo.objects.all()
 
 # 과목 정보 가져오기
 def get_subject_data(university_name, subject_code):

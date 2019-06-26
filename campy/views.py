@@ -3,10 +3,12 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from app_account_management.models import StudentInfo
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.urls import reverse
 from app_account_management.views import get_student_by_major
-from app_university_data.views import get_all_subject
+from app_university_data.views import get_all_subject_by_student, get_all_subject
 from app_common_data.views import get_all_universitys
+
 
 # 화면 데이터 가져오는 함수
 def get_context_data(request, activeName):
@@ -63,7 +65,7 @@ def mypage(request):
 # 개인 수강 이력 화면
 def history(request):
     context = get_context_data(request, 'historyActive')
-    subjects = get_all_subject(request, context['student'])
+    subjects = get_all_subject_by_student(context['student'])
     context['subjects'] = subjects
     return render(request, 'history.html', context)
 
@@ -77,6 +79,25 @@ def rule(request):
 # 과목 설정 화면
 def subject(request):
     context = get_context_data(request, 'subjectActive')
+    universitys = get_all_universitys()
+    subjects = get_all_subject()
+
+    #pagenation
+
+    paginator = Paginator(subjects, 20)
+    page = request.GET.get('page')
+
+    try:
+        subjects = paginator.page(page)
+    except PageNotAnInteger:
+        #페이지가 숫자가 아니면 1번 페이지로
+        subjects = paginator.page(1)
+    except EmptyPage:
+        #페이지 범위 초과시 마지막 페이지
+        subjects = paginator.page(paginator.num_pages)
+
+    context['universitys'] = universitys
+    context['subjects'] = subjects
     return render(request, 'subject-manage.html', context)
 
 @login_required

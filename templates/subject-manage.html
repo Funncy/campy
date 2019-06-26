@@ -1,234 +1,197 @@
 {% load static %}
 {% include "include/header.html" %}
-<div class="content-wrapper">
-    <div class="content-header">
-      <h1>교과목을 관리 할 수 있습니다.</h1>
-    </div>
-<div class="row">
 
-</div>
-<div class="row">
-    <div class="col-md-2">
-        <select  class="selectpicker col-md-12" data-live-search="true" id = "university-list">
-          <option value="null">학교 전체</option>
-        </select>
-      </div>
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>과목 관리
+        <small>Subject Management</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 과목 관리</a></li>
+      </ol>
+    </section>
 
-    <div class="col-md-2">
-      <select  class="selectpicker col-md-12" data-live-search="true" id = "year-list">
-        <option value="null">년도 전체</option>
-      </select>
-    </div>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h4>과목 관리를 할 수 있습니다.</h4>
+            </div>
 
-    <div class="col-md-2">
-      <select  class="selectpicker col-md-12" data-live-search="true"" id = "department-list">
-        <option value="null">학과 전체</option>
-      </select>
-    </div>
-    
-    <div class="col-md-2">
-      <select class="selectpicker col-md-12" data-live-search="true" id = "subject-list">
-        <option value="null">교과목 전체</option>
-      </select>
-    </div>
-    <div class="col-md-2">
-        <button class="btn col-md-12">생성</button>
-    </div>
-    <div class="col-md-2">
-      <button class="btn col-md-12">조회</button>
-    </div>
-</div>
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>과목</th>
-                  <th>년도</th>
-                  <th>학과</th>
-                  <th>이수영역</th>
-                  <th>수강자유</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>바른유연성</td>
-                  <td>2003</td>
-                  <td>요가</td>
-                  <td>중요핵심</td>
-                  <td>선택</td>
-                </tr>
-                <tr>
-                  <td>알고리즘</td>
-                  <td>2005</td>
-                  <td>컴퓨터공학</td>
-                  <td>중요핵심</td>
-                  <td>선택</td>
-                </tr>
-                <tr>
-                  <td>중세미술1</td>
-                  <td>2001</td>
-                  <td>미술</td>
-                  <td>중요핵심</td>
-                  <td>필수</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <select  class="form-control select2" id="university_list">
+                                <option value="all">학교 전체</option>
+                                {% for university in universitys %}
+                                    <option value="{{ university.meta_data_relation_code }}">{{ university.meta_data_relation_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                         <div class="form-group">
+                            <select  class="form-control select2" data-live-search="true" id="year_list">
+                                <option value="all">년도 전체</option>
+                            </select>
+                         </div>
+                    </div>
+
+                    <div class="col-md-2">
+                         <div class="form-group">
+                            <select  class="form-control select2" data-live-search="true" id="department_list">
+                                <option value="all">학과 전체</option>
+                            </select>
+                         </div>
+                    </div>
+
+                    <div class="col-md-2">
+                         <div class="form-group">
+                            <select  class="form-control select2" data-live-search="true" id = "division_list">
+                                <option value="all">이수구분 전체</option>
+                            </select>
+                         </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary col-md-12">생성</button>
+                    </div>
+                    <div class="col-md-2">
+                    <button class="btn btn-primary col-md-12">조회</button>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-striped table-hover text-center">
+                          <thead>
+                            <tr>
+                              <th>과목</th>
+                              <th>대학</th>
+                              <th>이수구분</th>
+                              <th>학과</th>
+                              <th>이수구</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for subject in subjects %}
+                              <tr>
+                                <td>{{ subject.subject_name }}</td>
+                                <td>{{ subject.university_name }}</td>
+                                <td>{{ subject.subject_completion_division }}</td>
+                                <td>{{ subject.subject_area }}</td>
+                                <td>{{ subject.subject_credit }}</td>
+                              </tr>
+                          {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer text-center" >
+                <ul class="pagination pagination-sm no-margin">
+                    {% if subjects.has_previous %}
+                        <li><a href="?page={{ subjects.previous_page_number }}"><<</a></li>
+                        <li><a href="?page={{ subjects.previous_page_number}}">{{ subjects.previous_page_number}}</a></li>
+                    {% endif %}
+                    <li><a href="">{{ subjects.number }}</a></li>
+                    {% if subjects.has_next %}
+                        <li><a href="?page={{ subjects.next_page_number }}">{{ subjects.next_page_number }}</a></li>
+                        <li><a href="?page={{ subjects.next_page_number }}">>></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+        </div>
 
 
+
+      <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+
+    </section>
+    <!-- /.content -->
   </div>
-</div>
-  <script>
-    function read_year() {
-      $.ajax({
-        type:"POST",
-        url:"data-test",
-        data : {name : "홍길동"},
-        dataType : "text",
-        async: false,
-        success: function(xml)
-        {
-          console.log(xml);
-          alert(xml);
-        },
-        error: function(xhr, status, error) 
-        {
-          alert(error);
-        }	
-      });
+
+<script>
+
+    $(document).ready(function(){
+        // 초기 학번 설정
+        var current_year = new Date().getFullYear() + 1;
+        for(var year=1950; year <= current_year ; current_year--) {
+            $('#year_list').append("<option value='"+current_year+"'>"+current_year+" 학번"+"</option>")
+        }
+
+
+    })
+
+    // 대학 변경시 학과 변경
+    $('#university_list').change(function(){
+        change_deparmentlist($('#university_list').val())
+        change_rule_divisionlist($('#university_list').val())
+    })
+
+    // 이수 구분 변경
+    function change_rule_divisionlist(university_code){
+        $.ajax({
+            url: '/data/common/metainfo/',
+            type: 'GET',
+            data: {
+                'meta_data_code': 'meta_completionDivision',
+                'upper_data_code': university_code
+            },
+            success: function (result) {
+                $("#division_list").empty()
+
+                $("#division_list").append("<option value='all'>이수구분 전체</option>")
+
+               for(var key in result){
+                   $("#division_list").append(
+                       "<option value='"+result[key].meta_data_relation_code
+                       +"'>"+result[key].meta_data_relation_name+"</option>"
+                   )
+                }
+            },
+            error: function () {
+                alert('department_list error')
+            }
+        })
     }
-  </script>
 
-  <script>
-  
-  $( document ).ready(function() {
-    console.log( "ready!" );
-    create_subjectList();
-    create_yearList();
-    create_departmentList();
-  });
+    // 학과 변경
+    function change_deparmentlist(university_code){
+        $.ajax({
+            url: '/data/common/departments/',
+            type: 'GET',
+            data: {
+                'meta_data_code': university_code
+            },
+            success: function (result) {
+                $("#department_list").empty()
 
-  function create_subjectList() {
-    domId='#subject-list'
+                $("#department_list").append("<option value='all'>학과전체</option>")
 
-    $(domId).append('<option>국어</option>');
-    $(domId).append('<option>영어</option>');
-    $(domId).append('<option>수학</option>');
-    $(domId).append('<option>사회</option>');
+                for(var key in result){
+                    for(var key2 in result[key].departments){
+                        $("#department_list").append(
+                           "<option value='"+result[key].departments[key2].department_code+"'>"
+                            +" ( "+result[key].college_name+" ) "+result[key].departments[key2].department_name
+                            +"</option>"
+                        )
+                    }
 
-  }
+                }
+            },
+            error: function () {
+                alert('department_list error')
+            }
+        })
+    }
 
-  function create_yearList() {
-    domId='#year-list'
-    
-    $(domId).append('<option>2019</option>');
-    $(domId).append('<option>2018</option>');
-    $(domId).append('<option>2017</option>');
-    $(domId).append('<option>2016</option>');
+</script>
 
-  }
-
-  
-  function create_departmentList() {
-    domId='#department-list'
-    
-    $(domId).append('<option>영어과</option>');
-    $(domId).append('<option>무용과</option>');
-    $(domId).append('<option>경영과</option>');
-    $(domId).append('<option>컴퓨터과</option>');
-
-  }
-
-
-
-  $('#search').click(function () {
-
-        // if(subject.find('option:selected').val() === '0')
-        // {
-        //     iziToast.show({
-        //         title: '알림',
-        //         message: info01 + alert05,
-        //         theme: 'light',
-        //         color: 'red',
-        //         position: 'topRight',
-        //         timeout: 3000
-        //     });
-
-        //     return;
-        // }
-
-        // $('#search').prop('disabled', 'disabled');
-        // $('#search-check').css("display", '');
-
-        // $.ajax({
-        //     url: '/subject/search',
-        //     type: 'get',
-        //     data: { 'subject' : subject.val(),
-        //         'year': year.val(),
-        //         'department': major.val() },
-        //     success: function (result) {
-        //         if (result['result'] === 'success') {
-        //             $('#searched_subject').text($('#subject').find('option:selected').text());
-        //             $('#searched_year').text($('#year').find('option:selected').text());
-        //             $('#searched_major').text($('#major').find('option:selected').text());
-        //             $('#modal_searched_subject').text($('#subject').find('option:selected').text());
-        //             $('#group_list').empty();
-
-        //             group_list.empty();
-
-        //             for (var key in result['groups']) {
-        //                 if (result['groups'].hasOwnProperty(key)) {
-        //                     var essential = "선택";
-
-        //                     if (result['groups'][key]['systemSubjectGroupSubjectMappings'][0]['essential'] === 1) {
-        //                         essential = "필수";
-        //                     }
-
-        //                     group_list.append('<tr><td class="hidden-xs">' + result['groups'][key]['no']
-        //                         + '</td><td>' + result['groups'][key]['name'] + '</td>'
-        //                         + '<td>' + essential + '</td><td class="hidden-xs"><button type="button" class="btn btn-warning btn-xs" disabled>대체</button> <button type="button" class="btn btn-danger btn-xs" onclick="remove(' + result['groups'][key]['no'] + ')">해제</button></td></tr>')
-        //                 }
-        //             }
-
-        //             group_list.append('<tr class="hidden-xs"><td></td><td></td><td></td><td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-create">새 그룹 지정</button></td></tr>');
-
-        //             $('#search-subject').trigger('click');
-        //             $('#result-wait').css('display', 'none');
-        //             $('#result-subject').trigger('click')
-        //         } else {
-        //             iziToast.show({
-        //                 title: '알림',
-        //                 message: info01 + alert02,
-        //                 theme: 'light',
-        //                 color: 'red',
-        //                 position: 'topRight',
-        //                 timeout: 3000
-        //             });
-
-        //             $('#searched_subject').text('-');
-        //             $('#searched_year').text('-');
-        //             $('#searched_major').text('-');
-
-        //             $('#search-check').css('display', 'none');
-        //             $('#search').prop('disabled', '')
-        //         }
-        //     },
-        //     error: function () {
-        //         iziToast.show({
-        //             title: '알림',
-        //             message: info01 + alert00,
-        //             theme: 'light',
-        //             color: 'red',
-        //             position: 'topRight',
-        //             timeout: 3000
-        //         });
-
-        //         $('#searched_subject').text('-');
-        //         $('#searched_year').text('-');
-        //         $('#searched_major').text('-');
-
-        //         $('#search-check').css('display', 'none');
-        //         $('#search').prop('disabled', '')
-        //     }
-        // })
-    });
-
-  </script>
+{% include "include/footer.html" %}

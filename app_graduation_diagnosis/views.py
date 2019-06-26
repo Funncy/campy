@@ -30,7 +30,7 @@ class RuleViewset(viewsets.ModelViewSet):
         department_code = self.request.query_params.get('department_code')
         admission_year = self.request.query_params.get('admission_year')
         track = self.request.query_params.get('track')
-        # PATCH 용
+        # ATCH 용
         if university_name is None:
             return graduation_rule.objects.all()
         return graduation_rule.objects.filter(rule_university_name=university_name, rule_department_code=department_code,

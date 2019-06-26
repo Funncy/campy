@@ -16,8 +16,6 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
             <div class="box box-primary">
                 <div class="overlay" id="search-check" style="display: none;">
                         <i class="fa fa-check"></i>
@@ -54,7 +52,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label>학과</label>
-                                    <select class="form-control" id="deparment_list">
+                                    <select class="form-control" id="department_list">
                                     </select>
                                 </div>
                             </div>
@@ -75,9 +73,7 @@
                             <span><i class="fa fa-warning"></i>졸업 요건이 검색되지 않으면 <a href="#"><b>여기</b></a>로 신고 바랍니다.</span>
                         </div>
                     </div>
-                </div>
             </div>
-        </div>
 
         <div class="row">
             <div class="col-md-12">
@@ -156,8 +152,6 @@
                         <i class="icon fa fa-info-circle"></i> 각 과목 그룹에 해당하는 이수 교과목은 <a href="#"><b>과목 그룹 관리</b></a>에서 지정하실 수 있습니다.<br>
                         <i class="icon fa fa-info-circle"></i> 엑셀파일로 모든 학과의 졸업 요건을 내보내고 싶으신가요? <a href="#"><b>서비스 준비 중</b></a>
                     </div>
-                </div>
-            </div>
         </div>
 
 
@@ -383,7 +377,7 @@
 <script>
 
     var rule_university = $('#university_list option:selected')
-    var rule_department = $('#deparment_list option:selected')
+    var rule_department = $('#department_list option:selected')
     var rule_admission_year = $('#admission_year')
     var rule_track = $('#track_list')
     var rule_name = $('#modal_create_rule_name')
@@ -422,11 +416,11 @@
                 'upper_data_code': university_code
             },
             success: function (result) {
-                $("#deparment_list").empty()
+                $("#department_list").empty()
 
                 for(var key in result){
                     for(var key2 in result[key].departments){
-                        $("#deparment_list").append(
+                        $("#department_list").append(
                            "<option value='"+result[key].departments[key2].department_code+"'>"
                             +" ( "+result[key].college_name+" ) "+result[key].departments[key2].department_name
                             +"</option>"
@@ -450,11 +444,11 @@
                 'meta_data_code': university_code
             },
             success: function (result) {
-                $("#deparment_list").empty()
+                $("#department_list").empty()
 
                 for(var key in result){
                     for(var key2 in result[key].departments){
-                        $("#deparment_list").append(
+                        $("#department_list").append(
                            "<option value='"+result[key].departments[key2].department_code+"'>"
                             +" ( "+result[key].college_name+" ) "+result[key].departments[key2].department_name
                             +"</option>"
@@ -516,13 +510,13 @@
             type: 'GET',
             data: {
                 'university_name': $('#university_list option:selected').text(),
-                'department_code': $('#deparment_list').val(),
+                'department_code': $('#department_list').val(),
                 'admission_year': rule_admission_year.val(),
                 'track' : rule_track.val()
             },
             success: function (result) {
                 $('#result_university').text(rule_university.text())
-                $('#result_department').text($('#deparment_list option:selected').text())
+                $('#result_department').text($('#department_list option:selected').text())
                 $('#result_admission_year').text(rule_admission_year.val())
                 $('#result_track').text(rule_track.val())
 
@@ -602,19 +596,19 @@
     function set__modal(){
         // 생성 모달
         $('#modal_create_university').text(rule_university.text())
-        $('#modal_create_department').text($('#deparment_list option:selected').text())
+        $('#modal_create_department').text($('#department_list option:selected').text())
         $('#modal_create_year').text(rule_admission_year.val())
         $('#modal_create_track').text(rule_track.val())
 
         // 업데이트 모달
         $('#modal_update_university').text(rule_university.text())
-        $('#modal_update_department').text($('#deparment_list option:selected').text())
+        $('#modal_update_department').text($('#department_list option:selected').text())
         $('#modal_update_year').text(rule_admission_year.val())
         $('#modal_update_track').text(rule_track.val())
 
         // 삭제 모달
         $('#modal_delete_university').text(rule_university.text())
-        $('#modal_delete_department').text($('#deparment_list option:selected').text())
+        $('#modal_delete_department').text($('#department_list option:selected').text())
         $('#modal_delete_year').text(rule_admission_year.val())
         $('#modal_delete_track').text(rule_track.val())
     }
@@ -631,7 +625,7 @@
             type: 'POST',
             data: {
                 'rule_university_name': $('#university_list option:selected').text(),
-                'rule_department_code': $('#deparment_list').val(),
+                'rule_department_code': $('#department_list').val(),
                 'rule_admission_year': rule_admission_year.val(),
                 'rule_name' : rule_name.val(),
                 'rule_track' : rule_track.val(),
