@@ -5,6 +5,7 @@ from . import views
 router = DefaultRouter()
 router.register(r'history', views.HistoryViewset)
 router.register(r'rules', views.RuleViewset)
+router.register(r'group', views.GroupViewset)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [

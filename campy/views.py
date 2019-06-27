@@ -85,6 +85,16 @@ class subject_group(ListView):
     template_name = 'subject-group-manage.html'
     context_object_name = 'context'
 
+    # search 용
+    def get_queryset(self):
+        try:
+            university = self.request.GET['university']
+        except:
+            university = ''
+        if university == '':
+            return graduation_subject_group.objects.all()
+        return graduation_subject_group.objects.filter(subject_group_university_name=university)
+
     # context에 대학 추가
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

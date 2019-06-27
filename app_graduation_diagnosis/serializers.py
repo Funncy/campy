@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import archieving_history, graduation_rule
+from .models import archieving_history, graduation_rule, graduation_subject_group
 
 class HistorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,4 +9,9 @@ class HistorySerializer(serializers.ModelSerializer):
 class RuleSerializer(serializers.ModelSerializer):
     class Meta:
         model = graduation_rule
+        fields = ('__all__')
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = graduation_subject_group
         fields = ('__all__')
