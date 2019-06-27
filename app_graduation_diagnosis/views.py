@@ -19,7 +19,7 @@ class HistoryViewset(viewsets.ModelViewSet):
     serializer_class = HistorySerializer
 
     def get_queryset(self):
-        return archieving_history.objects.filter(history_user=self.request.user)
+        return archieving_history.objects.filter(history_user=self.request.user.id)
 
 class RuleViewset(viewsets.ModelViewSet):
     queryset = graduation_rule.objects.all()
@@ -30,7 +30,7 @@ class RuleViewset(viewsets.ModelViewSet):
         department_code = self.request.query_params.get('department_code')
         admission_year = self.request.query_params.get('admission_year')
         track = self.request.query_params.get('track')
-        # ATCH 용
+        # PATCH 용
         if university_name is None:
             return graduation_rule.objects.all()
         return graduation_rule.objects.filter(rule_university_name=university_name, rule_department_code=department_code,

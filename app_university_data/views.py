@@ -10,17 +10,47 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse, JsonResponse
+from rest_framework.pagination import PageNumberPagination
 
 # Create your views here.
+
+# pagination용
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 30
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
 
 class SubjectsViewset(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = SubjectInfo.objects.all()
     serializer_class = SubjectSerializer
+    pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
         university = self.request.query_params.get('university')
-        return SubjectInfo.objects.filter(university_name=university)
+        search = self.request.query_params.get('search')
+        # Search로 들어온 값
+        if search == '1':
+            division = self.request.query_params.get('division')
+            area = self.request.query_params.get('area')
+
+            #대학 전체 조회
+            if university == '학교 전체':
+                return SubjectInfo.objects.all()
+            else: #대학 내에서 이수구분 전체
+                if division == '이수구분 전체':
+                    if area == '영역 전체': # 대학 내부 모든 과목
+                        return SubjectInfo.objects.filter(university_name=university)
+                    else:
+                        return SubjectInfo.objects.filter(university_name=university, subject_area=area)
+                else:
+                    if area == '영역 전체':
+                        return SubjectInfo.objects.filter(university_name=university, subject_completion_division=division)
+                    else:
+                        return SubjectInfo.objects.filter(university_name=university, subject_completion_division=division, subject_area=area)
+        else:
+            return SubjectInfo.objects.filter(university_name=university)
 
 
 class SubjectViewset(viewsets.ModelViewSet):

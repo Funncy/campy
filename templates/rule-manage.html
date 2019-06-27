@@ -543,7 +543,6 @@
                         + result[key].rule_name +"'"
                         + ")\">삭제</button>"
                         + "</tr>"
-                    )
                 }
 
                 // 추가 버튼
@@ -551,6 +550,7 @@
                     '<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-create">새 요건 추가</button></td></tr>')
 
                 if (open == 1) {
+                    )
                     // 결과 박스 동기화
                     $('#search-rule').trigger("click");
                     $('#result-wait').css("display", "none");

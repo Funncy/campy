@@ -8,6 +8,9 @@ from django.urls import reverse
 from app_account_management.views import get_student_by_major
 from app_university_data.views import get_all_subject_by_student, get_all_subject
 from app_common_data.views import get_all_universitys
+from django.views.generic import ListView
+from app_graduation_diagnosis.models import graduation_subject_group
+from app_common_data.models import MetaDatainfo
 
 
 # 화면 데이터 가져오는 함수
@@ -76,10 +79,23 @@ def rule(request):
     context['universitys'] = universitys
     return render(request, 'rule-manage.html', context)
 
+# 과목 그룹 설정 화면
+class subject_group(ListView):
+    model = graduation_subject_group
+    template_name = 'subject-group-manage.html'
+    context_object_name = 'context'
+
+    # context에 대학 추가
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['universitys'] = get_all_universitys()
+        return context
+
 # 과목 설정 화면
 def subject(request):
     context = get_context_data(request, 'subjectActive')
     universitys = get_all_universitys()
+    '''
     subjects = get_all_subject()
 
     #pagenation
@@ -95,11 +111,49 @@ def subject(request):
     except EmptyPage:
         #페이지 범위 초과시 마지막 페이지
         subjects = paginator.page(paginator.num_pages)
-
-    context['universitys'] = universitys
     context['subjects'] = subjects
+    '''
+    context['universitys'] = universitys
     return render(request, 'subject-manage.html', context)
 
+# 일반 설정 화면 (메타데이터)
+class general(ListView):
+    model = MetaDatainfo
+    template_name = 'general-setting.html'
+    context_object_name = 'context'
+    paginate_by = 30
+
+    # search 용
+    def get_queryset(self):
+        try:
+            meta_data_code = self.request.GET['meta_data_code']
+            meta_data_name = self.request.GET['meta_data_name']
+            meta_data_relation_code = self.request.GET['meta_data_relation_code']
+            meta_data_relation_name = self.request.GET['meta_data_relation_name']
+            meta_upper_data_code = self.request.GET['meta_upper_data_code']
+        except:
+            meta_data_code = ''
+            meta_data_name = ''
+            meta_data_relation_code = ''
+            meta_data_relation_name = ''
+            meta_upper_data_code = ''
+        return MetaDatainfo.objects.filter(meta_data_code__icontains=meta_data_code,
+                                           meta_data_name__icontains=meta_data_name,
+                                           meta_data_relation_code__icontains=meta_data_relation_code,
+                                           meta_data_relation_name__icontains=meta_data_relation_name,
+                                           upper_data_code__icontains=meta_upper_data_code)
+
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['meta_data_code'] = MetaDatainfo.objects.all().values('meta_data_code').distinct()
+        context['meta_data_name'] = MetaDatainfo.objects.all().values('meta_data_name').distinct()
+        context['meta_data_relation_code'] = MetaDatainfo.objects.all().values('meta_data_relation_code').distinct()
+        context['meta_data_relation_name'] = MetaDatainfo.objects.all().values('meta_data_relation_name').distinct()
+        context['upper_data_code'] = MetaDatainfo.objects.all().values('upper_data_code').distinct()
+        return context
+
+# 최초 로그인 화면
 @login_required
 def join(request):
 

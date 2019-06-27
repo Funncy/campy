@@ -32,34 +32,27 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                          <div class="form-group">
-                            <select  class="form-control select2" data-live-search="true" id="year_list">
-                                <option value="all">년도 전체</option>
-                            </select>
-                         </div>
-                    </div>
-
-                    <div class="col-md-2">
-                         <div class="form-group">
-                            <select  class="form-control select2" data-live-search="true" id="department_list">
-                                <option value="all">학과 전체</option>
-                            </select>
-                         </div>
-                    </div>
-
-                    <div class="col-md-2">
-                         <div class="form-group">
-                            <select  class="form-control select2" data-live-search="true" id = "division_list">
+                            <select  class="form-control select2" data-live-search="true" id="division_list">
                                 <option value="all">이수구분 전체</option>
                             </select>
                          </div>
                     </div>
+
+                    <div class="col-md-3">
+                         <div class="form-group">
+                            <select  class="form-control select2" data-live-search="true" id="area_list">
+                                <option value="all">영역 전체</option>
+                            </select>
+                         </div>
+                    </div>
+
                     <div class="col-md-2">
                         <button class="btn btn-primary col-md-12">생성</button>
                     </div>
                     <div class="col-md-2">
-                    <button class="btn btn-primary col-md-12">조회</button>
+                    <button class="btn btn-primary col-md-12" id="search">조회</button>
                     </div>
                 </div>
                 <br>
@@ -72,20 +65,11 @@
                               <th>과목</th>
                               <th>대학</th>
                               <th>이수구분</th>
-                              <th>학과</th>
-                              <th>이수구</th>
+                              <th>영역</th>
+                              <th>학점</th>
                             </tr>
                           </thead>
-                          <tbody>
-                          {% for subject in subjects %}
-                              <tr>
-                                <td>{{ subject.subject_name }}</td>
-                                <td>{{ subject.university_name }}</td>
-                                <td>{{ subject.subject_completion_division }}</td>
-                                <td>{{ subject.subject_area }}</td>
-                                <td>{{ subject.subject_credit }}</td>
-                              </tr>
-                          {% endfor %}
+                          <tbody id="subject_list">
                           </tbody>
                         </table>
                     </div>
@@ -93,15 +77,8 @@
             </div>
             <div class="box-footer text-center" >
                 <ul class="pagination pagination-sm no-margin">
-                    {% if subjects.has_previous %}
-                        <li><a href="?page={{ subjects.previous_page_number }}"><<</a></li>
-                        <li><a href="?page={{ subjects.previous_page_number}}">{{ subjects.previous_page_number}}</a></li>
-                    {% endif %}
-                    <li><a href="">{{ subjects.number }}</a></li>
-                    {% if subjects.has_next %}
-                        <li><a href="?page={{ subjects.next_page_number }}">{{ subjects.next_page_number }}</a></li>
-                        <li><a href="?page={{ subjects.next_page_number }}">>></a></li>
-                    {% endif %}
+                        <li><a id="page_prev" ><<</a></li>
+                        <li><a id="page_next" >>></a></li>
                 </ul>
             </div>
 
@@ -119,38 +96,35 @@
 
 <script>
 
+    var page = 1
+
     $(document).ready(function(){
-        // 초기 학번 설정
-        var current_year = new Date().getFullYear() + 1;
-        for(var year=1950; year <= current_year ; current_year--) {
-            $('#year_list').append("<option value='"+current_year+"'>"+current_year+" 학번"+"</option>")
-        }
-
-
+        get_subjects(page, '학교 전체', '이수구분 전체', '영역 전체')
     })
 
     // 대학 변경시 학과 변경
     $('#university_list').change(function(){
-        change_deparmentlist($('#university_list').val())
-        change_rule_divisionlist($('#university_list').val())
+        // 이수구분
+        get_metadata($('#university_list').val(), 'meta_completionDivision', $("#division_list"), '이수구분 전체')
+        // 영
+        get_metadata($('#university_list').val(), 'meta_domain', $("#domain_list"), '영역 전체')
     })
 
-    // 이수 구분 변경
-    function change_rule_divisionlist(university_code){
+    function get_metadata(university_code , meta_data_code, select_box, select_all_text){
         $.ajax({
             url: '/data/common/metainfo/',
             type: 'GET',
             data: {
-                'meta_data_code': 'meta_completionDivision',
+                'meta_data_code': meta_data_code,
                 'upper_data_code': university_code
             },
             success: function (result) {
-                $("#division_list").empty()
+                select_box.empty()
 
-                $("#division_list").append("<option value='all'>이수구분 전체</option>")
+                select_box.append("<option value='all'>"+select_all_text+"</option>")
 
                for(var key in result){
-                   $("#division_list").append(
+                   select_box.append(
                        "<option value='"+result[key].meta_data_relation_code
                        +"'>"+result[key].meta_data_relation_name+"</option>"
                    )
@@ -162,35 +136,59 @@
         })
     }
 
-    // 학과 변경
-    function change_deparmentlist(university_code){
+    $("#search").click(function(){
+        page = 1
+        get_subjects(page, $('#university_list option:selected').text(), $('#division_list option:selected').text(), $('#area_list option:selected').text())
+    })
+
+    $("#page_prev").click(function(){
+        page = page - 1
+        if(page < 1){
+            page = 1
+            return
+        }
+        get_subjects(page, $('#university_list option:selected').text(), $('#division_list option:selected').text(), $('#area_list option:selected').text())
+
+    })
+
+    $("#page_next").click(function(){
+        page = page + 1
+        get_subjects(page, $('#university_list option:selected').text(), $('#division_list option:selected').text(), $('#area_list option:selected').text())
+    })
+
+    function get_subjects(page, university, division ,area) {
         $.ajax({
-            url: '/data/common/departments/',
+            url: '/data/university/subjects/',
             type: 'GET',
             data: {
-                'meta_data_code': university_code
+                'search': 1,
+                'university': university,
+                'division': division,
+                'area': area,
+                'page': page
             },
             success: function (result) {
-                $("#department_list").empty()
-
-                $("#department_list").append("<option value='all'>학과전체</option>")
-
-                for(var key in result){
-                    for(var key2 in result[key].departments){
-                        $("#department_list").append(
-                           "<option value='"+result[key].departments[key2].department_code+"'>"
-                            +" ( "+result[key].college_name+" ) "+result[key].departments[key2].department_name
-                            +"</option>"
-                        )
-                    }
-
+                $('#subject_list').empty()
+                // 과목 리스트 가져오기
+                for (var key in result["results"]) {
+                    $('#subject_list').append(
+                        "<tr><td>" + result["results"][key].subject_name
+                        + "</td><td>" + result["results"][key].university_name
+                        + "</td><td>" + result["results"][key].subject_completion_division
+                        + "</td><td>" + result["results"][key].subject_area
+                        + "</td><td>" + result["results"][key].subject_credit
+                        + "</td></tr>"
+                    )
                 }
+
             },
             error: function () {
                 alert('department_list error')
             }
         })
     }
+
+
 
 </script>
 

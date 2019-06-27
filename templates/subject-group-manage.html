@@ -1,0 +1,335 @@
+{% load static %}
+{% include "include/header.html" %}
+  
+<div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            과목 그룹 관리
+            <small>Subject Group Management</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 과목 그룹 관리</a></li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+                <div class="box box-primary">
+                    <div class="overlay" id="search-check" style="display: none;">
+                            <i class="fa fa-check"></i>
+                    </div>
+                        <div class="box-header with-border">
+                            <h4>STEP 1: 과목 그룹 검색</h4>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse" id="search-rule">
+                                  <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>대학교</label>
+                                        <select class="form-control" id="university_list">
+                                            {% for university in universitys %}
+                                                <option value="{{ university.meta_data_relation_code }}">{{ university.meta_data_relation_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>학과</label>
+                                            <select class="form-control" id="department_list">
+                                            </select>
+                                        </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary" style="width: 100%" id="rule_search">졸업 요건 조회하기</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <div class="col-md-12">
+                                <span><i class="fa fa-warning"></i>졸업 요건이 검색되지 않으면 <a href="#"><b>여기</b></a>로 신고 바랍니다.</span>
+                            </div>
+                        </div>
+                </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary collapsed-box">
+                        <div class="overlay" id="result-wait" style="display: none;">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                        <div class="box-header with-border">
+                            <h3 class="box-title">STEP 2: 졸업 요건 확인 및 설정</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse" id="result-rule"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body" style="display:none;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>대학교</label>
+                                        <div class="form-control" id="result_university">
+                                            대학교 자동입력
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>학과</label>
+                                        <div class="form-control" id="result_department">
+                                            학과 자동입력
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" id="result-close" class="btn btn-primary btn-block">
+                                        <i class="fa fa-undo"></i> 졸업 요건 재검색
+                                    </button>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-striped table-hover text-center" id="table-rule">
+                                        <thead>
+                                            <tr>
+                                                <th class="hidden-xs" style="width: 80px">요건 번호</th>
+                                                <th>과목 그룹 이름</th>
+                                                <th style="width: 80px">요건 종류</th>
+                                                <th style="width: 80px">지정 점수</th>
+                                                <th class="hidden-xs" style="width: 100px">관리</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody-rule">
+                                            <tr  data-toggle="modal" data-target="#Mo_plus">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button class="btn btn-danger btn-xs">삭제</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add_subject_group">추가</button>
+                                                </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer" style="display: none;">
+                            <i class="icon fa fa-info-circle"></i> 각 과목 그룹에 해당하는 이수 교과목은 <a href="#"><b>과목 그룹 관리</b></a>에서 지정하실 수 있습니다.<br>
+                            <i class="icon fa fa-info-circle"></i> 엑셀파일로 모든 학과의 졸업 요건을 내보내고 싶으신가요? <a href="#"><b>서비스 준비 중</b></a>
+                        </div>
+            </div>
+
+                        <!--추가 버튼 눌렀을 떄 모달-->
+
+                        <div class="modal fade" id="add_subject_group" role="dialog" style="display: none">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="header"><b>과목 그룹을 추가합니다.</b></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                  <div class="form-group">
+                                                      <label>과목 그룹 이름</label>
+                                                      <input type="text" class="form-control" style="width:100%">
+                                                  </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                              <div class="form-group">
+                                                  <label>과목 이름</label>
+                                                    <table class="table table-bordered table-striped table-hover" style="text-align: center">
+                                                        <thead>
+                                                            <tr style="font-weight: bold">
+                                                                <td style="width:500px">이수구분</td>
+                                                                <td>관리</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>으으응?</td>
+                                                                <td>
+                                                                    <button class="btn btn-danger btn-xs">삭제</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td>
+                                                                    <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal_plus">추가</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                              </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                        <i class="fa fa-warning"></i> 알아서 채우시길 바랍니다.
+                                    </div>
+                                    <div class="modal-footer">
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                                          <button class="btn btn-primary pull-right" >추가하기</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                        </div>
+
+
+            <!--과목 그룹 수정 모달-->
+            <div class="modal fade" id="Mo_plus" role="dialog" style="display: none">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="header"><b>과목 그룹을 수정합니다.</b></h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                      <div class="form-group">
+                                          <label>과목 그룹 이름</label>
+                                          <input type="text" class="form-control" style="width:100%">
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group">
+                                      <label>과목 이름</label>
+                                        <table class="table table-bordered table-striped table-hover" style="text-align: center">
+                                            <thead>
+                                                <tr style="font-weight: bold">
+                                                    <td style="width:500px">이수구분</td>
+                                                    <td>관리</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>으으응?</td>
+                                                    <td>
+                                                        <button class="btn btn-danger btn-xs">삭제</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal_plus">추가</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                            <i class="fa fa-warning"></i> 알아서 채우시길 바랍니다.
+                        </div>
+                        <div class="modal-footer">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                              <button class="btn btn-primary pull-right" >추가하기</button>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+            </div>
+
+            <!--과목 그룹 수정 내 추가 모달-->
+
+            <div class="modal fade" id="Modal_plus" role="dialog" style="display: none">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="header"><b>이수 구분을 추가합니다.</b></h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-12">
+                              <div class="form-group">
+                                    <table class="table table-bordered table-striped table-hover" style="text-align: center">
+                                        <thead>
+                                            <tr style="font-weight: bold">
+                                                <td>선택</td>
+                                                <td style="width:450px">이수 구분</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="checkbox"></td>
+                                                <td>이수 구분 들어감.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox"></td>
+                                                <td>이수 구분 들어감.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox"></td>
+                                                <td>이수 구분 들어감.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                        <i class="fa fa-warning"></i> 알아서 채우시길 바랍니다.
+                    </div>
+                    <div class="modal-footer">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                          <button class="btn btn-primary pull-right" >추가하기</button>
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+
+
+
+
+
+        </section>
+
+      </div>
+
+
+{% include "include/footer.html" %}

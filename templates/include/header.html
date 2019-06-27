@@ -205,10 +205,10 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{% if subjectGroupActive %}active{% endif %}"><a href="{% url 'mypage' %}">과목 그룹 관리</a></li>
+                        <li class="{% if subjectGroupActive %}active{% endif %}"><a href="{% url 'subject_group' %}">과목 그룹 관리</a></li>
                         <li class="{% if ruleActive %}active{% endif %}"><a href="{% url 'rule' %}">졸업 요건 관리</a></li>
                         <li class="{% if subjectActive %}active{% endif %}"><a href="{% url 'subject' %}">과목 관리</a></li>
-                        <li class="{% if generalActive %}active{% endif %}"><a href="{% url 'mypage' %}">일반 설정 관리</a></li>
+                        <li class="{% if generalActive %}active{% endif %}"><a href="{% url 'general' %}">일반 설정 관리</a></li>
                     </ul>
         </li>
         {% endif %}

@@ -1,0 +1,165 @@
+{% load static %}
+{% include "include/header.html" %}
+
+ <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>일반 관리
+        <small>Metadata Management</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 일반 관리</a></li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h4>메타데이터 관리를 할 수 있습니다.</h4>
+            </div>
+
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>meta_code</label>
+                            <select class="form-control" id="meta_code">
+                                <option value="">모든 메타코드</option>
+                                    {% for meta_data in meta_data_code %}
+                                        <option value="{{ meta_data.meta_data_code }}">{{ meta_data.meta_data_code }}</option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>meta_name</label>
+                            <select class="form-control" id="meta_name">
+                                <option value="">모든 메타코드</option>
+                                    {% for meta_data in meta_data_name %}
+                                        <option value="{{ meta_data.meta_data_name }}">{{ meta_data.meta_data_name }}</option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>meta_relation_code</label>
+                            <select class="form-control" id="meta_relation_code">
+                                <option value="">모든 메타코드</option>
+                                    {% for meta_data in meta_data_relation_code %}
+                                        <option value="{{ meta_data.meta_data_relation_code }}">{{ meta_data.meta_data_relation_code }}</option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>meta_relation_name</label>
+                            <select class="form-control" id="meta_relation_name">
+                                <option value="">모든 메타코드</option>
+                                    {% for meta_data in meta_data_relation_name %}
+                                        <option value="{{ meta_data.meta_data_relation_name }}">{{ meta_data.meta_data_relation_name }}</option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>upper_meta_code</label>
+                            <select class="form-control" id="meta_upper_code">
+                                <option value="">모든 메타코드</option>
+                                    {% for meta_data in upper_data_code %}
+                                        <option value="{{ meta_data.upper_data_code }}">{{ meta_data.upper_data_code }}</option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-3 col-md-offset-1">
+                            <button class="btn btn-primary col-md-12">생성</button>
+                        </div>
+                        <div class="col-md-3 col-md-offset-4">
+                        <button class="btn btn-primary col-md-12" id="search">조회</button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-striped table-hover text-center">
+                          <thead>
+                            <tr>
+                              <th style="width:10%">메타코드</th>
+                              <th style="width:30%">메타이름</th>
+                              <th style="width:30%">메타관련코드</th>
+                              <th style="width:10%">메타관련이름</th>
+                              <th style="width:10%">상위코드</th>
+                              <th style="width:8%">관리</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% if context %}
+                          {% for meta_data in context %}
+                              <tr>
+                              <td>{{ meta_data.meta_data_code }}</td>
+                              <td>{{ meta_data.meta_data_name }}</td>
+                              <td>{{ meta_data.meta_data_relation_code }}</td>
+                              <td>{{ meta_data.meta_data_relation_name }}</td>
+                              <td>{{ meta_data.upper_data_code }}</td>
+                              <td>
+                                <button class="btn btn-warning btn-xs">수정</button>
+                                <button class="btn btn-danger btn-xs">삭제</button>
+                            </td>
+                            </tr>
+                          {% endfor %}
+                          {% endif %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer text-center" >
+                <ul class="pagination pagination-sm no-margin">
+                    {% if is_paginated %}
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page={{ page_obj.previous_page_number }}"><<</a></li>
+                        {% endif %}
+                            <li><span class="page-current">
+                           {{ page_obj.number }}
+                            </span></li>
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}">>></a></li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+
+        </div>
+    </section>
+        </div>
+
+<script>
+    $('#search').click(function(){
+        var meta_data_code = $('#meta_code').val()
+        var meta_data_name = $('#meta_name').val()
+        var meta_data_relation_code = $('#meta_relation_code').val()
+        var meta_data_relation_name = $('#meta_relation_name').val()
+        var meta_upper_data_code = $('#meta_upper_code').val()
+        window.location.replace('/general/?meta_data_code='+meta_data_code+'&meta_data_name='+meta_data_name
+        +'&meta_data_relation_code='+meta_data_relation_code+'&meta_data_relation_name='+meta_data_relation_name
+        +'&meta_upper_data_code='+meta_upper_data_code)
+    })
+</script>
+
+      <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+ {% include "include/footer.html" %}
