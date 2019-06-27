@@ -63,6 +63,8 @@ def course(request):
 # 개인정보 화면
 def mypage(request):
     context = get_context_data(request, 'mypageActive')
+    universitys = get_all_universitys()
+    context['universitys'] = universitys
     return render(request, 'mypage.html', context)
 
 # 개인 수강 이력 화면

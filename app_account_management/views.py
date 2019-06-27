@@ -92,14 +92,25 @@ class StudentInfoViewset(viewsets.ModelViewSet):
         return StudentInfo.objects.filter(user_id=user_id)
 
 
+    # 사용자 ID
+    # 학생 이름
+    # 학생 번호(학번)
+    # 학생 입학 연도
+    # 학생 전공 구분
+    # 학생 전공 이름
+    # 학생 대학 이름
+    # 학생 단과대학 이름
+
+
 def read_studentInfo(request):
     print('2'+str(request));
     if request.method == 'GET':
-        print('1233')
         # 조회
-        parameter_userId = request.GET['user_id']
-        print('1235'+parameter_userId)
-        studentInfo_list  = StudentInfo.objects.filter(user_id=parameter_userId)
+        parameter_userId = request.user.id #request.GET['user_id']
+        studentInfo_list = StudentInfo.objects.filter(user_id=1)
+
+
+
         response = serializers.serialize("json", studentInfo_list)
 
         return HttpResponse(response, content_type='application/json')

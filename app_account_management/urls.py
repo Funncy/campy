@@ -9,5 +9,5 @@ router.register(r'read', views.StudentInfoViewset)
 urlpatterns = [
     path('', include(router.urls)),
     path('student/', views.Student, name='student'),
-    # path('read/', views.read_studentInfo, name='read_student'),
+    path('read2/', views.read_studentInfo, name='read_student'),
 ]
