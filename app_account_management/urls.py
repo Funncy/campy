@@ -10,4 +10,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('student/', views.Student, name='student'),
     path('read2/', views.read_studentInfo, name='read_student'),
+    path('privacy-update/', views.update_studentInfo, name='update_studentinfo')
 ]

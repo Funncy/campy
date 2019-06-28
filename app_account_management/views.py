@@ -20,6 +20,44 @@ def get_student_by_major(pk):
         return None
     return student
 
+
+def update_studentInfo(request):
+    if request.method == 'PUT':
+        # 데이터 가져오기
+        university_name = request.POST['user_university_name']
+        main_major_department = request.POST['main_major_department']
+        main_major_college = request.POST['main_major_college']
+        double_major_department = request.POST['double_major_department']
+        double_major_college = request.POST['double_major_college']
+        minor_major_department = request.POST['minor_major_department']
+        minor_major_college = request.POST['minor_major_college']
+
+
+        #주전공, 대학 바꾸기
+        student_info = StudentInfo.objects.get(user_id=request.user.id, student_major_division='주전공')
+        student_info.student_major_name = main_major_department
+        student_info.student_college_name = main_major_college
+        student_info.student_university_name = university_name
+        student_info.save()
+
+        #복수전공 있을시 바꾸기
+        if double_major_department is not None:
+            student_info = StudentInfo.objects.get(user_id=request.user.id, student_major_division='복수전공')
+            student_info.student_major_name = double_major_department
+            student_info.student_college_name = double_major_college
+            student_info.save()
+
+        #부전공 있을시 바꾸기
+        if minor_major_department is not None:
+            student_info = StudentInfo.objects.get(user_id=request.user.id, student_major_division='복수전공')
+            student_info.student_major_name = minor_major_department
+            student_info.student_college_name = minor_major_college
+            student_info.save()
+
+        return HttpResponse(status=204)
+    return HttpResponse(status=403)
+
+
 @login_required
 def Student(request):
     if request.method == 'POST':
