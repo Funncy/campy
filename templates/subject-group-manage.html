@@ -125,211 +125,173 @@
                         </div>
             </div>
 
-                        <!-- 그룹 생성 모달-->
 
-                        <div class="modal fade" id="modal-create" role="dialog" style="display: none">
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h4 class="header"><b>과목 그룹을 추가합니다.</b></h4>
-                                    </div>
-                                    <div class="modal-body">
-                                      <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                  <div class="form-group">
-                                                      <label>과목 그룹 이름</label>
-                                                      <input type="text" id="modal_group_name" class="form-control" style="width:100%">
-                                                  </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-md-12">
-                                              <div class="form-group">
-                                                  <label>과목 이름</label>
-                                                    <table class="table table-bordered table-striped table-hover" style="text-align: center">
-                                                        <thead>
-                                                            <tr style="font-weight: bold">
-                                                                <td style="width:500px">이수구분</td>
-                                                                <td>관리</td>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="modal_create_table">
-                                                            <tr>
-                                                                <td>으으응?</td>
-                                                                <td>
-                                                                    <button class="btn btn-danger btn-xs">삭제</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>
-                                                                    <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-division-add">추가</button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                              </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                        <i class="fa fa-warning"></i> 알아서 채우시길 바랍니다.
-                                    </div>
-                                    <div class="modal-footer">
-                                      <div class="row">
-                                        <div class="col-md-12">
-                                          <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
-                                          <button class="btn btn-primary pull-right" id="modal_create" >추가하기</button>
-                                        </div>
-                                    </div>
-                                    </div>
-                                  </div>
-                                </div>
+        <div class="modal fade" id="modal-read">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">선택하신 그룹에 지정된 과목 목록입니다.</h4>
+                    </div>
+                    <div class="modal-body" id ="modal-read-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-bold">이수구분</p>
+                                <table class="table table-bordered table-striped table-hover text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>이수구분</th>
+                                        <th class="hidden-xs" style="width: 100px">관리</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="divisionList_read">
+                                    </tbody>
+                                </table>
+
+                                <p class="text-bold">선택 영역</p>
+                                <table class="table table-bordered table-striped table-hover text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>선택영역</th>
+                                        <th class="hidden-xs" style="width: 100px">관리</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="areaList_read">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.col -->
                         </div>
+                        <!-- /.row -->
 
-
-            <!--그룹 수정 모달-->
-            <div class="modal fade" id="modal-update" role="dialog" style="display: none">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="header"><b>과목 그룹을 수정합니다.</b></h4>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                          <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                      <div class="form-group">
-                                          <label>과목 그룹 이름</label>
-                                          <input type="text" class="form-control" style="width:100%">
-                                      </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <div class="modal fade" id="modal-new-group">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">새로운 과목 그룹을 생성합니다.</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-group-lg">
+                                    <label for="systemName">새 과목 그룹 이름</label>
+                                    <input type="text" class="form-control text-bold text-center" id="groupName"
+                                           placeholder="새로운 과목 그룹의 이름을 입력해주십시오.">
                                 </div>
                             </div>
-                            <div class="row">
-                              <div class="col-md-12">
-                                  <div class="form-group">
-                                      <label>이수구분 리스트</label>
-                                        <table class="table table-bordered table-striped table-hover" style="text-align: center">
-                                            <thead>
-                                                <tr style="font-weight: bold">
-                                                    <td style="width:500px">이수구분</td>
-                                                    <td>관리</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>으으응?</td>
-                                                    <td>
-                                                        <button class="btn btn-danger btn-xs">삭제</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>
-                                                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Modal_plus">추가</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                  </div>
-                              </div>
+                            <!-- /.col -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-primary" onclick="addGroup()" data-dismiss="modal">생성하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-delete">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">정말로 삭제 하시겠습니까?</h4>
+                    </div>
+                    <div class="modal-body" id="modal-delete-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-group-lg">
+                                    <label for="systemName">삭제할 과목 그룹 이름</label>
+                                    <input type="text" class="form-control text-bold text-center" id="modal_delete_group_name"
+                                    disabled>
+                                </div>
                             </div>
-                          </div>
-                            <i class="fa fa-warning"></i> 알아서 채우시길 바랍니다.
+                            <div class="col-md-12">
+                                <i class="icon fa fa-info-circle"></i> 유의하여 삭제해주시기 바랍니다. <span style="color:#dd4b39;">연결된 졸업요건도 같이 삭제 됩니다.</span>
+                            </div>
+                            <!-- /.col -->
                         </div>
                         <div class="modal-footer">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
-                              <button class="btn btn-primary pull-right" >추가하기</button>
-                            </div>
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-            </div>
-
-            <!--과목 그룹 삭제 모달-->
-
-            <div class="modal fade" id="modal-delete" role="dialog" style="display: none">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h4 class="header"><b>과목 그룹을 삭제합니다</b></h4>
-                    </div>
-                    <div class="modal-body">
-                            <div class="col-md-12">
-                                <div id="modal_delete_id" style="visibility: hidden;">-</div>
-                                <div class="form-group">
-                                    <label for="modal_delete_rule_name">과목 그룹 이름</label>
-                                    <input type="text" class="form-control" id="modal_delete_group_name" disabled>
-                                </div>
-                            </div>
-                            <i class="icon fa fa-info-circle"></i> 유의하여 삭제해주시기 바랍니다.
-                        </div>
-                    <div class="modal-footer">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
-                          <button class="btn btn-primary pull-right" id="modal_delete">삭제하기</button>
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-primary" id="modal_delete">삭제하기</button>
                         </div>
                     </div>
-                    </div>
-                  </div>
                 </div>
+                <!-- /.modal-content -->
             </div>
+            <!-- /.modal-dialog -->
+        </div>
 
-
-        <!-- 이수구분 추가 모달 -->
-         <div class="modal fade" id="modal-division-add" role="dialog" style="display: none">
-                <div class="modal-dialog">
-                  <div class="modal-content">
+        <div class="modal fade" id="modal-list">
+            <div class="modal-dialog">
+                <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="header"><b>이수 구분을 추가합니다.</b></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">새로운 과목을 추가합니다.</h4>
                     </div>
-                    <div class="modal-body">
-                      <div class="col-md-12">
+                    <div class="modal-body" id="modal-list-body">
                         <div class="row">
-                          <div class="col-md-12">
-                              <div class="form-group">
-                                    <table class="table table-bordered table-striped table-hover" style="text-align: center">
-                                        <thead>
-                                            <tr style="font-weight: bold">
-                                                <td>선택</td>
-                                                <td style="width:450px">이수 구분</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="division_table">
-                                            <tr>
-                                                <td><input type="checkbox"></td>
-                                                <td>이수 구분 들어감.</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-                        <i class="fa fa-warning"></i> 알아서 채우시길 바랍니다.
-                    </div>
-                    <div class="modal-footer">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <button class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
-                          <button class="btn btn-primary pull-right" onclick="add_division()" id="modal_division_add">추가하기</button>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>과목 검색</label>
+                                    <input type="text" class="form-control text-bold text-center" id="searchList"
+                                           placeholder="검색하고자 하는 과목 이름의 일부를 입력하십시오.">
+                                </div>
+                                <table class="table table-bordered table-striped table-hover text-center">
+                                    <thead>
+                                    <tr>
+                                        <th class="hidden-xs" style="width: 50px">선택</th>
+                                        <th style="width: 80px">학수번호</th>
+                                        <th>과목 이름</th>
+                                        <th style="width: 120px">영역</th>
+                                        <th style="width: 50px">학점</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="subject-option-list">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.col -->
                         </div>
                     </div>
+                    <div class="modal-footer" id="searchFooter">
                     </div>
-                  </div>
                 </div>
+                <!-- /.modal-content -->
             </div>
-
+            <!-- /.modal-dialog -->
+        </div>
 
         </section>
 
       </div>
 
 <script>
+
+    var delete_group_no = 0;
+
     $('#rule_search').click(function(){
         // 검색 버튼 죽이기
         $('#rule_search').prop('disabled', 'disabled')
@@ -352,7 +314,7 @@
                 for(var key in result){
                  $('#tbody-group').append(
                      "<tr><td>"+result[key].id
-                     +"</td><td data-toggle=\"modal\" data-target=\"#modal-update\">"+result[key].subject_group_name
+                     +"</td><td data-toggle=\"modal\" data-target=\"#modal-read\" onclick=\"readGroup("+result[key].id+")\">"+result[key].subject_group_name
                      +"</td><td>"+result[key].subject_group_university_name
                      +"</td><td><button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#modal-delete\" onclick=\""
                      +"delete_group("+result[key].id+",'"+result[key].subject_group_name+"')\">삭제</button></td></tr>"
@@ -362,7 +324,7 @@
 
                 $('#tbody-group').append("<tr><td></td><td></td><td></td><td>"
                     +"<button class=\"btn btn-primary btn-xs\""
-                    +" data-toggle=\"modal\" onclick=\"set_modal_create()\" data-target=\"#modal-create\" "
+                    +" data-toggle=\"modal\" data-target=\"#modal-new-group\" "
                     +">추가</button></td></tr>")
 
                 //추가 모달 셋팅
@@ -377,23 +339,23 @@
                 }
 
             },
-            error: function () {
+            error: function(request,status,error) {
                 $('#rule_search').prop('disabled', '');
                 $('#search-check').css("display", "none");
-                alert('검색 에러')
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
         })
     }
 
     // 그룹 삭제
     function delete_group(pk, group_name){
+        delete_group_no = pk;
         $('#modal_delete_group_name').val(group_name)
-        $('#modal_delete_id').val(pk)
     }
 
     $('#modal_delete').click(function(){
         $.ajax({
-            url: '/data/graduation/group/'+$('#modal_delete_id').val()+'/',
+            url: '/data/graduation/group/'+delete_group_no+'/',
             type: 'DELETE',
             data: {
             },
@@ -402,8 +364,8 @@
                 $('#modal-delete').modal('hide')
                 reload(0)
             },
-            error: function () {
-                alert('삭제 에러')
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
         })
     })
@@ -426,8 +388,8 @@
                     )
                 }
             },
-            error: function () {
-                alert('삭제 에러')
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
         })
     }
@@ -451,8 +413,8 @@
                     )
                 }
             },
-            error: function () {
-                alert('삭제 에러')
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
         })
     }
@@ -473,8 +435,8 @@
             success: function (result) {
 
             },
-            error: function () {
-                alert('삭제 에러')
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
         })
 
@@ -490,6 +452,53 @@
         // 검색 버튼 살리기
         $('#rule_search').prop('disabled', '');
     })
+
+    function addGroup(){
+        $.ajax({
+            url: '/data/graduation/group/',
+            type: 'POST',
+            data: {
+                'subject_group_university_name' : $('#university_list option:selected').text(),
+                'subject_group_name' : $('#groupName').val()
+            },
+            success: function (result) {
+                reload(0);
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    }
+
+    function readGroup(group_id){
+        $.ajax({
+            url: '/data/graduation/group/mapping/',
+            type: 'GET',
+            data: {
+                'mapping_subject_group' : group_id
+            },
+            success: function (result) {
+
+                $('#divisionList_read').empty()
+                $('#areaList_read').empty()
+
+                for(var key in result){
+                    if(result[key].mapping_completion_division != ''){
+                        $('#divisionList_read').append(
+                            "<tr><td>"+result[key].mapping_completion_division+"</td><td class=\"hidden-xs\">"
+                            +"<button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"removeMapping("
+                            +result[key].id+")\" >삭제</button></td></tr>"
+                        )
+                    }else if(result[key].mapping_area != ''){
+
+                    }
+                }
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    }
 </script>
 
 {% include "include/footer.html" %}
