@@ -107,6 +107,12 @@ class subject_group(ListView):
         context['universitys'] = get_all_universitys()
         return context
 
+def subject_group_create(request):
+    context = get_context_data(request, 'ruleActive')
+    universitys = get_all_universitys()
+    context['universitys'] = universitys
+    return render(request, 'subject-group-add.html', context)
+
 # 과목 설정 화면
 def subject(request):
     context = get_context_data(request, 'subjectActive')

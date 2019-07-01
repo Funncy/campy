@@ -22,6 +22,7 @@ urlpatterns = [
     path('rule/', views.rule, name='rule'),
     path('subject/', views.subject, name='subject'),
     path('subject/group/', views.subject_group.as_view(), name='subject_group'),
+    path('subject/group/create', views.subject_group_create, name='subject_group_create'),
     path('general/', views.general.as_view(), name='general'),
     path('general/create', views.general_create, name='general_create'),
 

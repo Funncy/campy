@@ -24,16 +24,19 @@
                       <div class="row">
                               <div class="col-md-8">
                                   <div class="form-group">
-                                    <select class="form-control select2" style="width:100%">
-                                        <option>대학교를 입력해주세요.</option>
+                                    <label>대학교</label>
+                                    <select class="form-control select2" style="width:100%" id="university_list">
+                                        {% for university in universitys %}
+                                            <option value="{{ university.meta_data_relation_name }}">{{ university.meta_data_relation_name }}</option>
+                                        {% endfor %}
                                     </select>
                                   </div>
                               </div>
                               <div class="col-md-2">
-                                <button class="btn btn-primary" style="width: 100%">생성</button>
+                                <button class="btn btn-primary" style="width: 100%; margin-top: 25px;">생성</button>
                               </div>
                               <div class="col-md-2">
-                                <button class="btn btn-primary" style="width: 100%">조회</button>
+                                <button class="btn btn-primary" style="width: 100%;margin-top: 25px; ">조회</button>
                               </div>
                       </div>
                       <br>
@@ -47,7 +50,7 @@
                                         <th style="width:7%">관리</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="group_table">
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -83,216 +86,49 @@
 
 
 <script>
-
-    var delete_group_no = 0;
-
-    $('#rule_search').click(function(){
-        // 검색 버튼 죽이기
-        $('#rule_search').prop('disabled', 'disabled')
-        $('#search-check').css('display', '')
-
-        reload(1)
+    $(document).ready(function(){
+        set_group()
     })
 
-    function reload(open){
+    $('#university_list').change(function(){
+        set_group()
+    })
+
+    function set_group(){
         $.ajax({
             url: '/data/graduation/group/',
             type: 'GET',
             data: {
-                'university_name': $('#university_list option:selected').text()
+                'university_name': $('#university_list').val()
             },
             success: function (result) {
+                $('#group_table').empty()
 
-                $('#tbody-group').empty()
 
-                for(var key in result){
-                 $('#tbody-group').append(
-                     "<tr><td>"+result[key].id
-                     +"</td><td data-toggle=\"modal\" data-target=\"#modal-read\" onclick=\"readGroup("+result[key].id+")\">"+result[key].subject_group_name
-                     +"</td><td>"+result[key].subject_group_university_name
-                     +"</td><td><button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#modal-delete\" onclick=\""
-                     +"delete_group("+result[key].id+",'"+result[key].subject_group_name+"')\">삭제</button></td></tr>"
-                 )
+
+               for(var key in result){
+                   $('#group_table').append(
+                        "<tr><td>"+result[key].subject_group_university_name
+                       +"</td><td>"+result[key].subject_group_name
+                       +"</td><td>"
+                       +"<button class=\"btn btn-warning btn-xs\">수정</button>"
+                       +"<button class=\"btn btn-danger btn-xs\">삭제</button>"
+                       +"</td></tr>"
+                   )
                 }
 
-
-                $('#tbody-group').append("<tr><td></td><td></td><td></td><td>"
-                    +"<button class=\"btn btn-primary btn-xs\""
-                    +" data-toggle=\"modal\" data-target=\"#modal-new-group\" "
-                    +">추가</button></td></tr>")
-
-                //추가 모달 셋팅
-                get_divison()
-
-                if (open == 1) {
-                    // 결과 박스 동기화
-                    $('#search-rule').trigger("click");
-                    $('#result-wait').css("display", "none");
-                    $('#result-rule').trigger("click");
-                    $('#result-close').prop('disabled', '')
-                }
-
+                $('#group_table').append(
+                    "<tr><td></td><td></td><td>"
+                    +"<a href='{% url 'subject_group_create' %}'><button class=\"btn btn-primary btn-xs\">추가</button></a>"
+                    +"</td></tr>"
+                )
             },
-            error: function(request,status,error) {
-                $('#rule_search').prop('disabled', '');
-                $('#search-check').css("display", "none");
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            error: function () {
+                alert('department_list error')
             }
         })
     }
 
-    // 그룹 삭제
-    function delete_group(pk, group_name){
-        delete_group_no = pk;
-        $('#modal_delete_group_name').val(group_name)
-    }
-
-    $('#modal_delete').click(function(){
-        $.ajax({
-            url: '/data/graduation/group/'+delete_group_no+'/',
-            type: 'DELETE',
-            data: {
-            },
-            success: function (result) {
-                $('#modal-delete').prop('disabled', '')
-                $('#modal-delete').modal('hide')
-                reload(0)
-            },
-            error:function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        })
-    })
-
-    // 그룹 추가
-    function set_modal_create(){
-        $.ajax({
-            url: '/data/graduation/group/mapping/',
-            type: 'GET',
-            data: {
-                'subject_group' : 'meta_completionDivision'
-            },
-            success: function (result) {
-               $('#division_table').empty()
-                for(var key in result){
-                    $('#division_table').append(
-                        "<tr><td><input type='checkbox' id='new-"+result[key].id+"' class=\"minimal-red\" name=\"selectedList\""
-                        +" value='"+result[key].id+"'></td><td>"
-                        +result[key].meta_data_relation_name+"</td></tr>"
-                    )
-                }
-            },
-            error:function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        })
-    }
-
-    // 이수구분 모달 데이터 생성
-    function get_divison(){
-        $.ajax({
-            url: '/data/common/metainfo/',
-            type: 'GET',
-            data: {
-                'meta_data_code' : 'meta_completionDivision',
-                'upper_data_code' : $('#university_list').val()
-            },
-            success: function (result) {
-               $('#division_table').empty()
-                for(var key in result){
-                    $('#division_table').append(
-                        "<tr><td><input type='checkbox' id='new-"+result[key].id+"' class=\"minimal-red\" name=\"selectedList\""
-                        +" value='"+result[key].id+"'></td><td>"
-                        +result[key].meta_data_relation_name+"</td></tr>"
-                    )
-                }
-            },
-            error:function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        })
-    }
-
-    function add_division(){
-        var checkboxValues = [];
-        $("input[name='selectedList']:checked").each(function (i) {
-            checkboxValues.push($(this).val());
-        });
-
-        $.ajax({
-            url: '/data/grduation/group/',
-            type: 'GET',
-            data: {
-                'meta_data_code' : 'meta_completionDivision',
-                'divisions' : checkboxValues
-            },
-            success: function (result) {
-
-            },
-            error:function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        })
-
-
-    }
-
-    $('#result-close').click(function() {
-        $('#result-close').prop('disabled', 'disabled')
-        $('#search-check').css("display", "none");
-        $('#result-rule').trigger("click");
-        $('#search-rule').trigger("click");
-        $('#result-wait').css("display", "disabled");
-        // 검색 버튼 살리기
-        $('#rule_search').prop('disabled', '');
-    })
-
-    function addGroup(){
-        $.ajax({
-            url: '/data/graduation/group/',
-            type: 'POST',
-            data: {
-                'subject_group_university_name' : $('#university_list option:selected').text(),
-                'subject_group_name' : $('#groupName').val()
-            },
-            success: function (result) {
-                reload(0);
-            },
-            error:function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        })
-    }
-
-    function readGroup(group_id){
-        $.ajax({
-            url: '/data/graduation/group/mapping/',
-            type: 'GET',
-            data: {
-                'mapping_subject_group' : group_id
-            },
-            success: function (result) {
-
-                $('#divisionList_read').empty()
-                $('#areaList_read').empty()
-
-                for(var key in result){
-                    if(result[key].mapping_completion_division != ''){
-                        $('#divisionList_read').append(
-                            "<tr><td>"+result[key].mapping_completion_division+"</td><td class=\"hidden-xs\">"
-                            +"<button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"removeMapping("
-                            +result[key].id+")\" >삭제</button></td></tr>"
-                        )
-                    }else if(result[key].mapping_area != ''){
-
-                    }
-                }
-            },
-            error:function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        })
-    }
 </script>
 
 {% include "include/footer.html" %}
