@@ -32,11 +32,8 @@
                                     </select>
                                   </div>
                               </div>
-                              <div class="col-md-2">
-                                <button class="btn btn-primary" style="width: 100%; margin-top: 25px;">생성</button>
-                              </div>
-                              <div class="col-md-2">
-                                <button class="btn btn-primary" style="width: 100%;margin-top: 25px; ">조회</button>
+                              <div class="col-md-4">
+                                  <button class="btn btn-primary" style="width: 100%; margin-top: 25px;" id="create_group">생성</button>
                               </div>
                       </div>
                       <br>
@@ -59,13 +56,6 @@
                                             <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-delete">삭제</button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <button class="btn btn-primary btn-xs">추가</button>
-                                            </td>
-                                        </tr>
                                 </tbody>
                             </table>
                           </div>
@@ -141,18 +131,17 @@
                        +"</td></tr>"
                    )
                 }
-
-                $('#group_table').append(
-                    "<tr><td></td><td></td><td>"
-                    +"<a href='{% url 'subject_group_create' %}'><button class=\"btn btn-primary btn-xs\">추가</button></a>"
-                    +"</td></tr>"
-                )
             },
             error: function () {
                 alert('department_list error')
             }
         })
     }
+
+    $('#create_group').click(function(){
+        university = $('#university_list option:selected').text()
+        window.location.replace('/subject/group/create?university='+university)
+    })
 
 </script>
 

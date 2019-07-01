@@ -159,11 +159,12 @@
 
 <script>
     $(document).ready(function(){
+        var university_name = getParameterByName('university')
         // 대학 이수구분 로드
         $.ajax({
             url: '/data/common/university/data/',
             type: 'get',
-            data: { 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %},
+            data: { 'university' : university_name,
                     'meta_data_code' : 'meta_completionDivision'
             },
             success: function (result) {
@@ -186,7 +187,7 @@
         $.ajax({
             url: '/data/common/university/data/',
             type: 'get',
-            data: { 'university' : {% if student %}"{{ student.student_university_name }}"{% endif %},
+            data: { 'university' : university_name,
                     'meta_data_code' : 'meta_area'
             },
             success: function (result) {
@@ -288,11 +289,13 @@ $('#submit').click(function(){
 
     $.ajaxSettings.traditional = true;
 
+    var university_name = getParameterByName('university')
+
     $.ajax({
             url: '/data/graduation/mapping/save/',
             type: 'POST',
             data: { 'group_name' : $('#group_name').val(),
-                    'university_name' : '{% if student %}{{ student.student_university_name }}{% endif %}',
+                    'university_name' : university_name,
                     'divisions[]' : division,
                     'areas[]' : area
             },
@@ -304,6 +307,13 @@ $('#submit').click(function(){
             }
         })
 })
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 
 </script>
 
