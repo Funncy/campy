@@ -34,7 +34,7 @@
                     <label>대학교</label>
                     <select class="form-control selectpicker" data-live-search="true" style="width:100%"  name="user_university_name">
                         {% for university in universitys %}
-                            <option value="{{ university.meta_data_relation_code }}">{{ university.meta_data_relation_name }}</option>
+                            <option value="{{ university.meta_data_relation_name }}">{{ university.meta_data_relation_name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -52,6 +52,7 @@
                     <label>복수 전공</label>
                     <input name="double_major_college" type="hidden">
                         <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true"  style="width:100%"  name="double_major_department">
+                        <option value="0" selected>없음</option>
                         </select>
                 </div>
             </div>
@@ -60,6 +61,7 @@
                     <label>부 전공</label>
                     <input name="minor_major_college" type="hidden">
                         <select class="form-control selectpicker" data-show-subtext="true" data-live-search="true"  style="width:100%"  name="minor_major_department">
+                        <option value="0" selected>없음</option>
                         </select>
                 </div>
             </div>
@@ -79,72 +81,24 @@
 </form>
 <script>
 
+    $('.selectpicker').selectpicker({
+        width: '100%'
+    });
+
 
     $(document).ready(function(){
-
-        $('select[name=user_university_name]').selectpicker('val', {{ student.student_university_name }});
-        $('select[name=student_admission_year]').selectpicker('val', {{ student.student_admission_year }});
 
         var current_year = new Date().getFullYear() + 1;
         for(var year=1950; year <= current_year ; current_year--) {
             $('select[name=student_admission_year]').append("<option value='"+current_year+"'>"+current_year+" 학번"+"</option>")
         }
 
-        $.ajax({
-            url: '/data/common/departments/',
-            type: 'get',
-            data: { 'meta_data_code' : 'sejongUniversity'},
-            dataType : "json",
-            async: false,
-            contentType : "application/json",
-            success: function (result) {
-
-                //학교소속 단과대학: 학과 데이터 추가
-                for(var key in result){
-                    for(var key2 in result[key].departments){
-
-                        $("select[name=main_major_department]").append("<option data-subtext='"+result[key].departments[key2].department_name+"' value='"+result[key].departments[key2].department_name+"'>"+result[key].college_name+"</option>");
-                        $("select[name=double_major_department]").append("<option data-subtext='"+result[key].departments[key2].department_name+"' value='"+result[key].departments[key2].department_name+"'>"+result[key].college_name+"</option>");
-                        $("select[name=minor_major_department]").append("<option data-subtext='"+result[key].departments[key2].department_name+"' value='"+result[key].departments[key2].department_name+"'>"+result[key].college_name+"</option>");
-
-                    }
-                }
+        $('select[name=user_university_name]').selectpicker('val', '{{ student.student_university_name }}');
+        $('select[name=student_admission_year]').selectpicker('val', '{{ student.student_admission_year }}');
+        $('.selectpicker').selectpicker('refresh');
 
 
-                $("select").selectpicker('refresh');
-            },
-            error: function () {
-                alert('error2')
-            }
-        })
-
-        $.ajax({
-            url: '/data/common/departments/',
-            type: 'get',
-            data: { 'meta_data_code' : 'sejongUniversity'},
-            dataType : "json",
-            async: false,
-            contentType : "application/json",
-            success: function (result) {
-
-                //학교소속 단과대학: 학과 데이터 추가
-                for(var key in result){
-                    for(var key2 in result[key].departments){
-
-                        $("select[name=main_major_department]").append("<option data-subtext='"+result[key].departments[key2].department_name+"' value='"+result[key].departments[key2].department_name+"'>"+result[key].college_name+"</option>");
-                        $("select[name=double_major_department]").append("<option data-subtext='"+result[key].departments[key2].department_name+"' value='"+result[key].departments[key2].department_name+"'>"+result[key].college_name+"</option>");
-                        $("select[name=minor_major_department]").append("<option data-subtext='"+result[key].departments[key2].department_name+"' value='"+result[key].departments[key2].department_name+"'>"+result[key].college_name+"</option>");
-
-                    }
-                }
-
-
-                $("select").selectpicker('refresh');
-            },
-            error: function () {
-                alert('error2')
-            }
-        })
+        setDepartment('sejongUniversity')
 
         $.ajax({
             // url: '/data/account/read-studentinfo',
@@ -154,7 +108,7 @@
             async: false,
             success: function (result) {
 
-                $('select').selectpicker('val','');
+                //('select').selectpicker('val','');
                 for(var key in result){
                     var major = " ( "+result[key].student_college_name+" ) "+result[key].student_major_name
                     if(result[key].student_major_division == '주전공') {
@@ -173,26 +127,76 @@
 
     })
 
+    $('select[name=user_university_name]').change(function(){
+        setDepartment('sejongUniversity')
+    })
+
+
+    function setDepartment(){
+        $.ajax({
+            url: '/data/common/departments/',
+            type: 'get',
+            data: { 'meta_data_code' : 'sejongUniversity'},
+            dataType : "json",
+            async: false,
+            contentType : "application/json",
+            success: function (result) {
+
+                $("select[name=main_major_department]").empty();
+                $("select[name=double_major_department]").empty();
+                $("select[name=minor_major_department]").empty();
+
+                $("select[name=double_major_department]").append("<option value='0'>없음</option>");
+                $("select[name=minor_major_department]").append("<option value='0'>없음</option>");
+
+                //학교소속 단과대학: 학과 데이터 추가
+                for(var key in result){
+                    for(var key2 in result[key].departments){
+
+                        $("select[name=main_major_department]").append("<option data-subtext='"+result[key].departments[key2].department_name+"' value='"+result[key].departments[key2].department_name+"'>"+result[key].college_name+"</option>");
+                        $("select[name=double_major_department]").append("<option data-subtext='"+result[key].departments[key2].department_name+"' value='"+result[key].departments[key2].department_name+"'>"+result[key].college_name+"</option>");
+                        $("select[name=minor_major_department]").append("<option data-subtext='"+result[key].departments[key2].department_name+"' value='"+result[key].departments[key2].department_name+"'>"+result[key].college_name+"</option>");
+
+                    }
+                }
+
+
+                $("select").selectpicker('refresh');
+            },
+            error: function () {
+                alert('error2')
+            }
+        })
+    }
 
 
     function supdateData(){
+
+        if( ($('select[name=main_major_department]').val() === $('select[name=double_major_department]').val()) || ($('select[name=main_major_department]').val() === $('select[name=minor_major_department]').val())){
+            alert('학과를 중복 선택하셨습니다')
+            return
+        }else if((($('#sub_departments').val() === $('select[name=double_major_department]').val()) && ($('select[name=minor_major_department]').val()!=0) )){
+            alert('학과를 중복 선택하셨습니다')
+            return
+        }
 
             $("input[name=main_major_college]").val($("select[name=main_major_department] option:selected").text());
             $("input[name=double_major_college]").val($("select[name=double_major_department] option:selected").text());
             $("input[name=minor_major_college]").val($("select[name=minor_major_department] option:selected").text());
             console.log($("#info-student").serialize());
-            alert($("#info-student").serialize());
             $.ajax({
                 url: '/data/account/privacy-update/',
                 type: 'POST',
                 data: $("#info-student").serialize(),
                 async: false,
                 success: function (result) {
+                    alert('수정완료 되었습니다.')
                 },
                 error: function () {
+                    alert('오류 발생')
                 }
             })
-        }
+    }
 
 </script>
 

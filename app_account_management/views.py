@@ -43,11 +43,13 @@ def update_studentInfo(request):
         student_info.save()
 
         #복수전공 있을시 바꾸기
-        if double_major_department is not None:
+        if double_major_department != '0':
             try:
                 student_info = StudentInfo.objects.get(user_id=request.user.id, student_major_division='복수전공')
                 student_info.student_major_name = double_major_department
                 student_info.student_college_name = double_major_college
+                student_info.student_university_name = university_name
+                student_info.student_admission_year = student_admission_year
             except StudentInfo.DoesNotExist:
                 student_info = StudentInfo(user_id=request.user.id,
                                   student_admission_year=student_admission_year,
@@ -57,22 +59,35 @@ def update_studentInfo(request):
                                   student_major_name=double_major_department,
                                   student_college_name=double_major_college)
             student_info.save()
+        else: #없음 선택인데 데이터 있는 경우 삭제
+            try:
+                StudentInfo.objects.get(user_id=request.user.id, student_major_division='복수전공').delete()
+            except StudentInfo.DoesNotExist:
+                pass
+
 
         #부전공 있을시 바꾸기
-        if minor_major_department is not None:
+        if minor_major_department != '0':
             try:
                 student_info = StudentInfo.objects.get(user_id=request.user.id, student_major_division='부전공')
                 student_info.student_major_name = minor_major_department
                 student_info.student_college_name = minor_major_college
+                student_info.student_university_name = university_name
+                student_info.student_admission_year = student_admission_year
             except StudentInfo.DoesNotExist:
                 student_info = StudentInfo(user_id=request.user.id,
                                   student_admission_year=student_admission_year,
                                   student_university_name=university_name,
                                   student_major_division='부전공',
                                   student_name=request.user.username,
-                                  student_major_name=double_major_department,
-                                  student_college_name=double_major_college)
+                                  student_major_name=minor_major_department,
+                                  student_college_name=minor_major_college)
             student_info.save()
+        else: #없음 선택인데 데이터 있는 경우 삭제
+            try:
+                StudentInfo.objects.get(user_id=request.user.id, student_major_division='부전공').delete()
+            except StudentInfo.DoesNotExist:
+                pass
 
         return HttpResponse(status=204)
     return HttpResponse(status=403)
@@ -146,7 +161,7 @@ class StudentInfoViewset(viewsets.ModelViewSet):
     serializer_class = StudentInfoSerializer
 
     def get_queryset(self):
-        user_id = self.request.query_params.get('user_id')
+        user_id = self.request.user.id
         return StudentInfo.objects.filter(user_id=user_id)
 
 
@@ -164,11 +179,7 @@ def read_studentInfo(request):
     print('2'+str(request));
     if request.method == 'GET':
         # 조회
-        parameter_userId = request.user.id #request.GET['user_id']
-        studentInfo_list = StudentInfo.objects.filter(user_id=1)
-
-
-
+        studentInfo_list = StudentInfo.objects.filter(user_id=request.user.id)
         response = serializers.serialize("json", studentInfo_list)
 
         return HttpResponse(response, content_type='application/json')
