@@ -27,7 +27,7 @@ def get_context_data(request, activeName):
 def index(request):
     return render(request, 'index.html', {})
 
-def test(request):
+def test(request): 
     context = get_context_data(request, 'indexActive')
     return render(request, 'subject-group-add.html', context)
 
