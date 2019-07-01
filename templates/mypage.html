@@ -97,8 +97,7 @@
         $('select[name=student_admission_year]').selectpicker('val', '{{ student.student_admission_year }}');
         $('.selectpicker').selectpicker('refresh');
 
-
-        setDepartment('sejongUniversity')
+        setDepartment($('select[name=user_university_name]').val())
 
         $.ajax({
             // url: '/data/account/read-studentinfo',
@@ -128,15 +127,15 @@
     })
 
     $('select[name=user_university_name]').change(function(){
-        setDepartment('sejongUniversity')
+        setDepartment($('select[name=user_university_name]').val())
     })
 
 
-    function setDepartment(){
+    function setDepartment(university_name){
         $.ajax({
-            url: '/data/common/departments/',
+            url: '/data/common/departments/name/',
             type: 'get',
-            data: { 'meta_data_code' : 'sejongUniversity'},
+            data: { 'meta_data_code' : university_name },
             dataType : "json",
             async: false,
             contentType : "application/json",
