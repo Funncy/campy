@@ -1,0 +1,385 @@
+{% load static %}
+{% include "include/header.html" %}
+  
+<div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            과목 그룹 추가
+            <small>Subject Group Add</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 과목 그룹 추가</a></li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h4>과목 그룹 생성</h4>
+                </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>새 과목 그룹 이름</label>
+                                <input type="text" class="form-control" style="width:50%">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="box box-primary">
+                                    <div class="box-header"><label>이수구분 목록</label></div>
+                                    <div class="box-body">
+                                        <table class="table table-bordered table-striped table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>이수구분</th>
+                                                    <th style="width:10%">관리</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <button class="btn btn-danger btn-xs">삭제</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-completion-division">추가</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="box box-primary">
+                                    <div class="box-header"><label>선택영역 목록</label></div>
+                                    <div class="box-body">
+                                        <table class="table table-bordered table-striped table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>선택영역</th>
+                                                    <th style="width:10%">관리</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <button class="btn btn-danger btn-xs">삭제</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-selection-area">추가</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="box-footer">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary pull-right" style="width:25%">생성하기</button>
+                    </div>
+                </div>
+        </section>
+
+      </div>
+      <!--이수구분 모달-->
+      <div class="modal fade" id="modal-completion-division">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">이수구분 목록 추가</h4>
+                    </div>
+                    <div class="modal-body" id ="modal-read-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-bold">이수구분</p>
+                                <select class="form-control select2" style="width:100%"></select>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                                <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">추가</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <!--선택영역 모달-->
+        <div class="modal fade" id="modal-selection-area">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">선택영역 목록 추가</h4>
+                        </div>
+                        <div class="modal-body" id ="modal-read-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="text-bold">선택영역</p>
+                                    <select class="form-control select2" style="width:100%"></select>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+    
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">추가</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+<script>
+
+    var delete_group_no = 0;
+
+    $('#rule_search').click(function(){
+        // 검색 버튼 죽이기
+        $('#rule_search').prop('disabled', 'disabled')
+        $('#search-check').css('display', '')
+
+        reload(1)
+    })
+
+    function reload(open){
+        $.ajax({
+            url: '/data/graduation/group/',
+            type: 'GET',
+            data: {
+                'university_name': $('#university_list option:selected').text()
+            },
+            success: function (result) {
+
+                $('#tbody-group').empty()
+
+                for(var key in result){
+                 $('#tbody-group').append(
+                     "<tr><td>"+result[key].id
+                     +"</td><td data-toggle=\"modal\" data-target=\"#modal-read\" onclick=\"readGroup("+result[key].id+")\">"+result[key].subject_group_name
+                     +"</td><td>"+result[key].subject_group_university_name
+                     +"</td><td><button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#modal-delete\" onclick=\""
+                     +"delete_group("+result[key].id+",'"+result[key].subject_group_name+"')\">삭제</button></td></tr>"
+                 )
+                }
+
+
+                $('#tbody-group').append("<tr><td></td><td></td><td></td><td>"
+                    +"<button class=\"btn btn-primary btn-xs\""
+                    +" data-toggle=\"modal\" data-target=\"#modal-new-group\" "
+                    +">추가</button></td></tr>")
+
+                //추가 모달 셋팅
+                get_divison()
+
+                if (open == 1) {
+                    // 결과 박스 동기화
+                    $('#search-rule').trigger("click");
+                    $('#result-wait').css("display", "none");
+                    $('#result-rule').trigger("click");
+                    $('#result-close').prop('disabled', '')
+                }
+
+            },
+            error: function(request,status,error) {
+                $('#rule_search').prop('disabled', '');
+                $('#search-check').css("display", "none");
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    }
+
+    // 그룹 삭제
+    function delete_group(pk, group_name){
+        delete_group_no = pk;
+        $('#modal_delete_group_name').val(group_name)
+    }
+
+    $('#modal_delete').click(function(){
+        $.ajax({
+            url: '/data/graduation/group/'+delete_group_no+'/',
+            type: 'DELETE',
+            data: {
+            },
+            success: function (result) {
+                $('#modal-delete').prop('disabled', '')
+                $('#modal-delete').modal('hide')
+                reload(0)
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    })
+
+    // 그룹 추가
+    function set_modal_create(){
+        $.ajax({
+            url: '/data/graduation/group/mapping/',
+            type: 'GET',
+            data: {
+                'subject_group' : 'meta_completionDivision'
+            },
+            success: function (result) {
+               $('#division_table').empty()
+                for(var key in result){
+                    $('#division_table').append(
+                        "<tr><td><input type='checkbox' id='new-"+result[key].id+"' class=\"minimal-red\" name=\"selectedList\""
+                        +" value='"+result[key].id+"'></td><td>"
+                        +result[key].meta_data_relation_name+"</td></tr>"
+                    )
+                }
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    }
+
+    // 이수구분 모달 데이터 생성
+    function get_divison(){
+        $.ajax({
+            url: '/data/common/metainfo/',
+            type: 'GET',
+            data: {
+                'meta_data_code' : 'meta_completionDivision',
+                'upper_data_code' : $('#university_list').val()
+            },
+            success: function (result) {
+               $('#division_table').empty()
+                for(var key in result){
+                    $('#division_table').append(
+                        "<tr><td><input type='checkbox' id='new-"+result[key].id+"' class=\"minimal-red\" name=\"selectedList\""
+                        +" value='"+result[key].id+"'></td><td>"
+                        +result[key].meta_data_relation_name+"</td></tr>"
+                    )
+                }
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    }
+
+    function add_division(){
+        var checkboxValues = [];
+        $("input[name='selectedList']:checked").each(function (i) {
+            checkboxValues.push($(this).val());
+        });
+
+        $.ajax({
+            url: '/data/grduation/group/',
+            type: 'GET',
+            data: {
+                'meta_data_code' : 'meta_completionDivision',
+                'divisions' : checkboxValues
+            },
+            success: function (result) {
+
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+
+
+    }
+
+    $('#result-close').click(function() {
+        $('#result-close').prop('disabled', 'disabled')
+        $('#search-check').css("display", "none");
+        $('#result-rule').trigger("click");
+        $('#search-rule').trigger("click");
+        $('#result-wait').css("display", "disabled");
+        // 검색 버튼 살리기
+        $('#rule_search').prop('disabled', '');
+    })
+
+    function addGroup(){
+        $.ajax({
+            url: '/data/graduation/group/',
+            type: 'POST',
+            data: {
+                'subject_group_university_name' : $('#university_list option:selected').text(),
+                'subject_group_name' : $('#groupName').val()
+            },
+            success: function (result) {
+                reload(0);
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    }
+
+    function readGroup(group_id){
+        $.ajax({
+            url: '/data/graduation/group/mapping/',
+            type: 'GET',
+            data: {
+                'mapping_subject_group' : group_id
+            },
+            success: function (result) {
+
+                $('#divisionList_read').empty()
+                $('#areaList_read').empty()
+
+                for(var key in result){
+                    if(result[key].mapping_completion_division != ''){
+                        $('#divisionList_read').append(
+                            "<tr><td>"+result[key].mapping_completion_division+"</td><td class=\"hidden-xs\">"
+                            +"<button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"removeMapping("
+                            +result[key].id+")\" >삭제</button></td></tr>"
+                        )
+                    }else if(result[key].mapping_area != ''){
+
+                    }
+                }
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    }
+</script>
+
+{% include "include/footer.html" %}
