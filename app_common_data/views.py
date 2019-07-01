@@ -1,21 +1,31 @@
 from django.shortcuts import render
 from .models import MetaDatainfo
 from django.http import HttpResponse, JsonResponse
-from .serializers import MetaInfoSerializer
+from .serializers import MetaInfoSerializer, MetaCodeSerializer, MetaRelationSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.core import serializers
 
 # Create your views here.
 
-class MetaInfoViewset(viewsets.ReadOnlyModelViewSet):
+class MetaInfoViewset(viewsets.ModelViewSet):
     queryset = MetaDatainfo.objects.all()
     serializer_class = MetaInfoSerializer
 
     def get_queryset(self):
         meta_data_code = self.request.query_params.get('meta_data_code')
         upper_data_code = self.request.query_params.get('upper_data_code')
+        if meta_data_code is None and upper_data_code is None:
+            return MetaDatainfo.objects.all()
         return MetaDatainfo.objects.filter(meta_data_code=meta_data_code, upper_data_code=upper_data_code)
+
+class MetaCodeViewset(viewsets.ReadOnlyModelViewSet):
+    queryset = MetaDatainfo.objects.filter().values('meta_data_code', 'meta_data_name').order_by('meta_data_code').distinct()
+    serializer_class = MetaCodeSerializer
+
+class MetaRelationViewset(viewsets.ReadOnlyModelViewSet):
+    queryset = MetaDatainfo.objects.filter().values('meta_data_relation_code', 'meta_data_relation_name').order_by('meta_data_relation_code').distinct()
+    serializer_class = MetaRelationSerializer
 
 class UniversityDataViewset(viewsets.ReadOnlyModelViewSet):
     queryset = MetaDatainfo.objects.all()

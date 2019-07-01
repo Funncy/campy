@@ -3,6 +3,8 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
+router.register(r'metainfo/meta_code', views.MetaCodeViewset)
+router.register(r'metainfo/relation_code', views.MetaRelationViewset)
 router.register(r'metainfo', views.MetaInfoViewset)
 router.register(r'university/data', views.UniversityDataViewset)
 

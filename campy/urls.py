@@ -22,6 +22,7 @@ urlpatterns = [
     path('subject/', views.subject, name='subject'),
     path('subject/group/', views.subject_group.as_view(), name='subject_group'),
     path('general/', views.general.as_view(), name='general'),
+    path('general/create', views.general_create, name='general_create'),
 
     # data list
     path('data/user/', include('app_account_management.urls')),

@@ -8,7 +8,7 @@ from django.urls import reverse
 from app_account_management.views import get_student_by_major
 from app_university_data.views import get_all_subject_by_student, get_all_subject
 from app_common_data.views import get_all_universitys
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from app_graduation_diagnosis.models import graduation_subject_group
 from app_common_data.models import MetaDatainfo
 
@@ -127,6 +127,13 @@ def subject(request):
     '''
     context['universitys'] = universitys
     return render(request, 'subject-manage.html', context)
+
+
+# 일반 설정 생성 화면
+def general_create(request):
+    context = get_context_data(request, 'ruleActive')
+    return render(request, 'general-create.html', context)
+
 
 # 일반 설정 화면 (메타데이터)
 class general(ListView):

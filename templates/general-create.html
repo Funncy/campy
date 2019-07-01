@@ -1,0 +1,180 @@
+{% load static %}
+{% include "include/header.html" %}
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+            <div class="box box-primary">
+                    <div class="box-header">
+                        <h4>메타데이터 관리를 할 수 있습니다.</h4>
+                    </div>
+
+                    <div class="box-body">
+                    <form id="meta-data">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>meta_code</label>
+                                    <input class="form-control" name="meta_data_code" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>meta_name</label>
+                                    <input class="form-control" name="meta_data_name" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>meta_relation_code</label>
+                                    <input class="form-control" name="meta_data_relation_code" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>meta_relation_name</label>
+                                    <input class="form-control" name="meta_data_relation_name" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>upper_meta_code</label>
+                                    <input class="form-control" name="upper_data_code" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button class="btn btn-primary col-md-12" id="submit">생성</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-bordered table-striped table-hover text-center">
+                                  <thead>
+                                    <tr>
+                                      <th style="width:10%">메타코드</th>
+                                      <th style="width:30%">메타이름</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="meta_code_table">
+                                  </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                    <table class="table table-bordered table-striped table-hover text-center">
+                                      <thead>
+                                        <tr>
+                                          <th style="width:30%">메타관련코드</th>
+                                          <th style="width:10%">메타관련이름</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody id="meta_relation_table">
+                                      </tbody>
+                                    </table>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="box-footer text-center" >
+                        <ul class="pagination pagination-sm no-margin">
+                            {% if is_paginated %}
+                                {% if page_obj.has_previous %}
+                                    <li><a href="?page={{ page_obj.previous_page_number }}"><<</a></li>
+                                {% endif %}
+                                    <li><span class="page-current">
+                                   {{ page_obj.number }}
+                                    </span></li>
+                                {% if page_obj.has_next %}
+                                    <li><a href="?page={{ page_obj.next_page_number }}">>></a></li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                </div>
+
+
+      <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+<script>
+    $(document).ready(function(){
+         $.ajax({
+            url: '/data/common/metainfo/relation_code',
+            type: 'GET',
+            data: {
+            },
+            success: function (result) {
+                $('#meta_code_table').empty()
+
+
+               for(var key in result){
+                   $('#meta_code_table').append(
+                       "<tr><td>"+result[key].meta_data_relation_code
+                       +"</td><td>"+result[key].meta_data_relation_name
+                       +"</td></tr>"
+                   )
+                }
+            },
+            error: function () {
+                alert('department_list error')
+            }
+        })
+
+        $.ajax({
+            url: '/data/common/metainfo/meta_code',
+            type: 'GET',
+            data: {
+            },
+            success: function (result) {
+                $('#meta_relation_table').empty()
+
+
+               for(var key in result){
+                   $('#meta_relation_table').append(
+                       "<tr><td>"+result[key].meta_data_code
+                       +"</td><td>"+result[key].meta_data_name
+                       +"</td></tr>"
+                   )
+                }
+            },
+            error: function () {
+                alert('department_list error')
+            }
+        })
+    })
+
+    $('#submit').click(function(){
+        $.ajax({
+            url: '/data/common/metainfo/',
+            type: 'POST',
+            data: $("#meta-data").serialize(),
+            success: function (result) {
+                window.location.replace('/general')
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    })
+
+</script>
+{% include "include/footer.html" %}
