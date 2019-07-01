@@ -23,7 +23,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
-                                <label>새 과목 그룹 이름</label>
+                                <label>과목 그룹 이름</label>
                                 <input type="text" id="group_name" class="form-control" style="width:50%">
                             </div>
                         </div>
@@ -81,7 +81,7 @@
             </div>
             <div class="box-footer">
                     <div class="col-md-12">
-                        <button class="btn btn-primary pull-right" style="width:25%" id="submit">생성하기</button>
+                        <button class="btn btn-primary pull-right" style="width:25%" id="submit">수정하기</button>
                     </div>
                 </div>
         </section>
@@ -158,8 +158,56 @@
             <!-- /.modal -->
 
 <script>
-    $(document).ready(function(){
-        var university_name = getParameterByName('university')
+
+
+    var university_name = 0;
+    var id = 0;
+
+    $(document).ready(function() {
+
+        id = getParameterByName('id')
+
+        //그룹 데이터 가져오기
+        $.ajax({
+            url: '/data/graduation/get/group/mappings',
+            type: 'get',
+            data: { 'id': id },
+            success: function (result) {
+
+                $('#group_name').val(result[0].subject_group_name)
+
+                university_name = result[0].subject_group_university_name
+                set_data()
+
+                for (var key in result[0].mappings) {
+
+                    if(result[0].mappings[key].mapping_completion_division != ''){
+                        $('#division_table').prepend(
+                        "<tr><td>" + result[0].mappings[key].mapping_completion_division
+                        + "</td><td>"
+                        + "<button class=\"btn btn-danger btn-xs\" onclick=\"remove_table(this)\">삭제</button>"
+                        + "</td></tr>")
+                    }else if(result[0].mappings[key].mapping_area != ''){
+                        $('#area_table').prepend(
+                        "<tr><td>" + result[0].mappings[key].mapping_area
+                        + "</td><td>"
+                        + "<button class=\"btn btn-danger btn-xs\" onclick=\"remove_table(this)\">삭제</button>"
+                        + "</td></tr>")
+                    }
+                }
+
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+
+
+
+
+    })
+
+    function set_data(){
         // 대학 이수구분 로드
         $.ajax({
             url: '/data/common/university/data/',
@@ -178,8 +226,8 @@
                 $('#division_list').trigger("change");
 
             },
-            error: function () {
-                alert('error2')
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
         })
 
@@ -201,14 +249,11 @@
                 $('#area_list').trigger("change");
 
             },
-            error: function () {
-                alert('error2')
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
         })
-
-
-
-    })
+    }
 
     $('#divison_add').click(function(){
 
@@ -292,9 +337,10 @@ $('#submit').click(function(){
     var university_name = getParameterByName('university')
 
     $.ajax({
-            url: '/data/graduation/mapping/save/',
+            url: '/data/graduation/mapping/update/',
             type: 'POST',
-            data: { 'group_name' : $('#group_name').val(),
+            data: { 'id' : id,
+                    'group_name' : $('#group_name').val(),
                     'university_name' : university_name,
                     'divisions[]' : division,
                     'areas[]' : area
@@ -314,7 +360,6 @@ function getParameterByName(name) {
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-
 </script>
 
 {% include "include/footer.html" %}

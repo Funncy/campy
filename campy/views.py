@@ -113,6 +113,10 @@ def subject_group_create(request):
     context['universitys'] = universitys
     return render(request, 'subject-group-add.html', context)
 
+def subject_group_update(request):
+    context = get_context_data(request, 'ruleActive')
+    return render(request, 'subject-group-update.html', context)
+
 # 과목 설정 화면
 def subject(request):
     context = get_context_data(request, 'subjectActive')

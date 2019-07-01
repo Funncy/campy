@@ -85,14 +85,14 @@
                         <div id="modal_delete_id" style="visibility: hidden;">-</div>
                         <div class="form-group">
                             <label for="modal_delete_rule_name">과목 그룹 이름</label>
-                            <input type="text" class="form-control" id="modal_delete_rule_name" disabled>
+                            <input type="text" class="form-control" id="modal_delete_group_name" disabled>
                         </div>
                     </div>
                     <i class="icon fa fa-info-circle"></i> 유의하여 삭제해주시기 바랍니다.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
-                    <button type="button" class="btn btn-primary" id="modal_delete">삭제</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal_delete">삭제</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -126,14 +126,17 @@
                         "<tr><td>"+result[key].subject_group_university_name
                        +"</td><td>"+result[key].subject_group_name
                        +"</td><td>"
-                       +"<button class=\"btn btn-warning btn-xs\">수정</button>"
-                       +"<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#modal-delete\">삭제</button>"
+                       +"<button class=\"btn btn-warning btn-xs\" onclick=\"update_group("
+                       +result[key].id+")\">수정</button>"
+                       +"<button class=\"btn btn-danger btn-xs\" data-toggle=\"modal\" data-target=\"#modal-delete\""
+                       +" onclick=\"delete_group("
+                       +result[key].id+",'"+result[key].subject_group_name+"')\">삭제</button>"
                        +"</td></tr>"
                    )
                 }
             },
-            error: function () {
-                alert('department_list error')
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
         })
     }
@@ -142,6 +145,30 @@
         university = $('#university_list option:selected').text()
         window.location.replace('/subject/group/create?university='+university)
     })
+
+    function delete_group(id,subject_group_name){
+        $('#modal_delete_id').val(id)
+        $('#modal_delete_group_name').val(subject_group_name)
+    }
+
+    function update_group(id){
+        window.location.replace('/subject/group/update?id='+id)
+    }
+
+    $('#modal_delete').click(function(){
+        $.ajax({
+            url: '/data/graduation/group/'+$('#modal_delete_id').val()+"/",
+            type: 'DELETE',
+            data: {},
+            success: function (result) {
+                set_group()
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    })
+
 
 </script>
 

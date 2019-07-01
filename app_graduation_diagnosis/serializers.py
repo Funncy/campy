@@ -20,3 +20,9 @@ class MappingSerializer(serializers.ModelSerializer):
     class Meta:
         model = graduation_subject_group_mapping
         fields = ('__all__')
+
+class GroupAndMappingSerializer(serializers.ModelSerializer):
+    mappings = MappingSerializer(many=True)
+    class Meta:
+        model =graduation_subject_group
+        fields = ('subject_group_name', 'subject_group_university_name', 'mappings')

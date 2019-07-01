@@ -58,6 +58,6 @@ class graduation_subject_group_mapping(models.Model):
     # 과목 그룹 번호
     # 이수 구분 명
     # 영역 명
-    mapping_subject_group = models.ForeignKey(graduation_subject_group, on_delete=models.CASCADE)
+    mapping_subject_group = models.ForeignKey(graduation_subject_group, related_name='mappings', on_delete=models.CASCADE)
     mapping_completion_division = models.CharField(max_length=50, blank=True)
     mapping_area = models.CharField(max_length=50, blank=True)

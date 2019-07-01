@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-from .serializers import HistorySerializer, RuleSerializer, GroupSerializer, MappingSerializer
+from .serializers import HistorySerializer, RuleSerializer, GroupSerializer, MappingSerializer, GroupAndMappingSerializer
 from django.http import Http404
 from .models import archieving_history, graduation_rule, graduation_subject_group, graduation_subject_group_mapping
 
@@ -36,6 +36,16 @@ class RuleViewset(viewsets.ModelViewSet):
             return graduation_rule.objects.all()
         return graduation_rule.objects.filter(rule_university_name=university_name, rule_department_code=department_code,
                                               rule_admission_year=admission_year, rule_track=track)
+
+class GroupAndMappingViewset(viewsets.ModelViewSet):
+    queryset = graduation_subject_group.objects.all()
+    serializer_class = GroupAndMappingSerializer
+
+    def get_queryset(self):
+        id = self.request.query_params.get('id')
+        if id is None:
+            return graduation_subject_group.objects.all()
+        return graduation_subject_group.objects.filter(pk=id)
 
 class GroupViewset(viewsets.ModelViewSet):
     queryset = graduation_subject_group.objects.all()
@@ -115,4 +125,44 @@ def mapping_save(request):
         mapping.save()
 
     return HttpResponse(status=204)
+
+def mapping_update(request):
+    if request.method == "POST":
+        id = request.POST['id']
+        group_name = request.POST['group_name']
+        university_name = request.POST['university_name']
+        divisions = request.POST.getlist('divisions[]')
+        areas = request.POST.getlist('areas[]')
+
+        #그룹 수정
+        group = graduation_subject_group.objects.get(pk=id)
+        group.subject_group_name = group_name
+        group.save()
+
+        #매핑 수정
+        #먼저 모든 매핑 삭제
+        mappings = graduation_subject_group_mapping.objects.filter(mapping_subject_group=group).delete()
+
+        # 매핑 데이터 생성
+        for i in range(len(divisions)):
+            mapping = graduation_subject_group_mapping(
+                mapping_subject_group=group,
+                mapping_completion_division=divisions[i]
+            )
+            mapping.save()
+
+        for i in range(len(areas)):
+            mapping = graduation_subject_group_mapping(
+                mapping_subject_group=group,
+                mapping_area=areas[i]
+            )
+            mapping.save()
+
+
+        return HttpResponse(status=204)
+
+    return HttpResponse(status=400)
+
+
+
 
