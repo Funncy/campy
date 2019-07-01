@@ -11,5 +11,6 @@ router.register(r'group', views.GroupViewset)
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('', include(router.urls)),
-    path('subject/', views.save_subject)
+    path('subject/', views.save_subject),
+    path('mapping/save/', views.mapping_save),
 ]

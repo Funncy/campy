@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import archieving_history
 from app_university_data.views import get_subject_data
 from django.http import HttpResponse
 from rest_framework import viewsets
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -83,5 +84,35 @@ def save_subject(request):
                                             history_semester = history_semester)
 
     history_subject.save()
+    return HttpResponse(status=204)
+
+def mapping_save(request):
+    group_name = request.POST['group_name']
+    university_name = request.POST['university_name']
+    divisions = request.POST.getlist('divisions[]')
+    areas = request.POST.getlist('areas[]')
+
+    #그룹 생성
+    group = graduation_subject_group(
+        subject_group_name=group_name,
+        subject_group_university_name=university_name
+    )
+    group.save()
+
+    #매핑 데이터 생성
+    for i in range(len(divisions)):
+        mapping = graduation_subject_group_mapping(
+            mapping_subject_group=group,
+            mapping_completion_division = divisions[i]
+        )
+        mapping.save()
+
+    for i in range(len(areas)):
+        mapping = graduation_subject_group_mapping(
+            mapping_subject_group=group,
+            mapping_area = areas[i]
+        )
+        mapping.save()
+
     return HttpResponse(status=204)
 
