@@ -56,7 +56,7 @@
                                         <td></td>
                                         <td>
                                             <button class="btn btn-warning btn-xs">수정</button>
-                                            <button class="btn btn-danger btn-xs">삭제</button>
+                                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-delete">삭제</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -83,7 +83,32 @@
         <!-- /.content -->
       </div>
       <!-- /.content-wrapper -->
-
+<!--삭제 모달-->
+<div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">정말로 삭제 하시겠습니까?</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div id="modal_delete_id" style="visibility: hidden;">-</div>
+                        <div class="form-group">
+                            <label for="modal_delete_rule_name">과목 그룹 이름</label>
+                            <input type="text" class="form-control" id="modal_delete_rule_name" disabled>
+                        </div>
+                    </div>
+                    <i class="icon fa fa-info-circle"></i> 유의하여 삭제해주시기 바랍니다.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" id="modal_delete">삭제</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
 <script>
     $(document).ready(function(){
