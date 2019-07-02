@@ -148,6 +148,11 @@ def general_create(request):
     context = get_context_data(request, 'ruleActive')
     return render(request, 'general-create.html', context)
 
+def general_update(request, id):
+    context = get_context_data(request, 'ruleActive')
+    context['meta_data'] = MetaDatainfo.objects.get(pk=id)
+    return render(request, 'general-update.html', context)
+
 
 # 일반 설정 화면 (메타데이터)
 class general(ListView):

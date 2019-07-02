@@ -26,6 +26,7 @@ urlpatterns = [
     path('subject/group/update', views.subject_group_update, name='subject_group_update'),
     path('general/', views.general.as_view(), name='general'),
     path('general/create', views.general_create, name='general_create'),
+    path('general/update/<int:id>', views.general_update, name='general_update'),
 
     # data list
     path('data/user/', include('app_account_management.urls')),

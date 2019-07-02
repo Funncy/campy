@@ -105,7 +105,7 @@
                               <th style="width:8%">관리</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody id="meta_table">
                           {% if context %}
                           {% for meta_data in context %}
                               <tr>
@@ -115,8 +115,10 @@
                               <td>{{ meta_data.meta_data_relation_name }}</td>
                               <td>{{ meta_data.upper_data_code }}</td>
                               <td>
-                                <button class="btn btn-warning btn-xs">수정</button>
-                                <button class="btn btn-danger btn-xs">삭제</button>
+                                  <a href="{% url 'general_update' id=meta_data.id %}"><button class="btn btn-warning btn-xs" >수정</button></a>
+                                <!--<button class="btn btn-warning btn-xs" onclick="update_meta({{ meta_data.id }},'{{ meta_data.meta_data_name }}'
+                                        ,'{{ meta_data.meta_data_relation_code }}','{{ meta_data.meta_data_relation_name }}','{{ meta_data.upper_data_code }}')">수정</button>-->
+                                <button class="btn btn-danger btn-xs" onclick="delete_meta({{ meta_data.id }},'{{ meta_data.meta_data_name }}')">삭제</button>
                             </td>
                             </tr>
                           {% endfor %}
@@ -146,6 +148,34 @@
     </section>
         </div>
 
+<!--삭제 모달-->
+<div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">정말로 삭제 하시겠습니까?</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div id="modal_delete_id" style="visibility: hidden;">-</div>
+                        <div class="form-group">
+                            <label for="modal_delete_rule_name">과목 그룹 이름</label>
+                            <input type="text" class="form-control" id="modal_delete_meta_name" disabled>
+                        </div>
+                    </div>
+                    <i class="icon fa fa-info-circle"></i> 유의하여 삭제해주시기 바랍니다.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal_delete">삭제</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
 <script>
     $('#search').click(function(){
         var meta_data_code = $('#meta_code').val()
@@ -157,6 +187,56 @@
         +'&meta_data_relation_code='+meta_data_relation_code+'&meta_data_relation_name='+meta_data_relation_name
         +'&meta_upper_data_code='+meta_upper_data_code)
     })
+
+    function delete_meta(id, meta_name){
+        $('#modal_delete_id').val(id)
+        $('#modal_delete_meta_name').val(meta_name)
+        $('#modal-delete').modal('show')
+    }
+
+    $('#modal_delete').click(function(){
+        $.ajax({
+            url: '/data/common/metainfo/'+$('#modal_delete_id').val()+'/',
+            type: 'DELETE',
+            data: {},
+            success: function (result) {
+                reload()
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    })
+
+    function reload(){
+        $.ajax({
+            url: '/data/common/metainfo/',
+            type: 'GET',
+            data: {},
+            success: function (result) {
+                $('#meta_table').empty()
+
+                for(var key in result){
+                    $('#meta_table').append(
+                        "<tr><td>"+result[key].meta_data_code
+                        +"</td><td>"+result[key].meta_data_name
+                        +"</td><td>"+result[key].meta_data_relation_code
+                        +"</td><td>"+result[key].meta_data_relation_name
+                        +"</td><td>"+result[key].upper_data_code
+                        +"</td><td><button class=\"btn btn-warning btn-xs\" onclick=\"update_meta("
+                        +result[key].id+",'"+result[key].meta_data_name+"','"+result[key].meta_data_relation_code+"','"+result[key].meta_data_relation_name
+                        +"','"+result[key].upper_data_code+"')\">수정</button>"
+                        +"<button class=\"btn btn-danger btn-xs\" onclick=\"delete_meta("+result[key].id+",'"+result[key].meta_data_name
+                        +"')\">삭제</button>"
+                        +"</td></tr>"
+                    )
+                }
+            },
+            error:function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    }
 </script>
 
       <!--------------------------
