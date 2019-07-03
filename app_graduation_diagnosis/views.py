@@ -43,9 +43,12 @@ class GroupAndMappingViewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         id = self.request.query_params.get('id')
-        if id is None:
-            return graduation_subject_group.objects.all()
-        return graduation_subject_group.objects.filter(pk=id)
+        university_name = self.request.query_params.get('university_name')
+        if university_name is not None:
+            return graduation_subject_group.objects.filter(subject_group_university_name=university_name)
+        if id is not None:
+            return graduation_subject_group.objects.filter(pk=id)
+        return graduation_subject_group.objects.all()
 
 class GroupViewset(viewsets.ModelViewSet):
     queryset = graduation_subject_group.objects.all()

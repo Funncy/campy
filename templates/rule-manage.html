@@ -198,7 +198,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback">
-                                        <label for="modal_create_rule_group">졸업 요건 이름</label>
+                                        <label for="modal_create_rule_name">졸업 요건 이름</label>
                                         <input type="text" class="form-control" id="modal_create_rule_name" value="졸업 요건">
                                     </div>
                                 </div>
@@ -207,7 +207,6 @@
                                         <label for="modal_create_rule_group">과목 그룹</label>
                                         <select class="form-control select2" id="modal_create_rule_group" style="width: 100%;">
                                             <option selected="selected" value="0">없음</option>
-                                            <option value="1">테스트</option>
                                         </select>
                                     </div>
                                 </div>
@@ -498,11 +497,44 @@
 
         // 하단 박스 살리면서 테이블 정보 가져오기
         reload(1)
+        set_group()
 
         set__modal()
 
 
     })
+
+    function set_group(){
+        $.ajax({
+            url: '/data/graduation/group/',
+            type: 'GET',
+            data: {
+                'university_name': $('#university_list option:selected').text()
+            },
+            success: function (result) {
+                $("#modal_create_rule_group").empty()
+                $("#modal_update_subject_group").empty()
+
+                $("#modal_create_rule_group").append("<option value=''>없음</option>")
+                $("#modal_update_subject_group").append("<option value=''>없음</option>")
+
+                for(var key in result){
+                    $('#modal_create_rule_group').append(
+                        "<option value='"+result[key].id
+                        +"'>"+result[key].subject_group_name+"</option>"
+                    )
+
+                    $('#modal_update_subject_group').append(
+                        "<option value='"+result[key].id
+                        +"'>"+result[key].subject_group_name+"</option>"
+                    )
+                }
+            },
+            error: function () {
+                alert('group error')
+            }
+        })
+    }
 
     function reload(open){
         $.ajax({

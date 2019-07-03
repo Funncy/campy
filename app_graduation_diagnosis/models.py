@@ -27,6 +27,22 @@ class archieving_history(models.Model):
     history_grade_year = models.CharField(max_length=20)
     history_semester = models.CharField(max_length=20)
 
+# 과목 그룹
+class graduation_subject_group(models.Model):
+    # 과목 그룹 이름
+    # 대학 이름
+    subject_group_name = models.CharField(max_length=50)
+    subject_group_university_name = models.CharField(max_length=50)
+
+# 과목 그룹 매핑
+class graduation_subject_group_mapping(models.Model):
+    # 과목 그룹 번호
+    # 이수 구분 명
+    # 영역 명
+    mapping_subject_group = models.ForeignKey(graduation_subject_group, related_name='mappings', on_delete=models.CASCADE)
+    mapping_completion_division = models.CharField(max_length=50, blank=True)
+    mapping_area = models.CharField(max_length=50, blank=True)
+
 # 졸업 요건
 class graduation_rule(models.Model):
     # 대학이름
@@ -44,20 +60,5 @@ class graduation_rule(models.Model):
     rule_track = models.CharField(max_length=50, default='자동')
     rule_type = models.CharField(max_length=10, default='0')
     rule_value = models.CharField(max_length=50, default='0')
-    rule_subject_group = models.CharField(max_length=30)
+    rule_subject_group = models.ForeignKey(graduation_subject_group, on_delete=models.CASCADE)
 
-# 과목 그룹
-class graduation_subject_group(models.Model):
-    # 과목 그룹 이름
-    # 대학 이름
-    subject_group_name = models.CharField(max_length=50)
-    subject_group_university_name = models.CharField(max_length=50)
-
-# 과목 그룹 매핑
-class graduation_subject_group_mapping(models.Model):
-    # 과목 그룹 번호
-    # 이수 구분 명
-    # 영역 명
-    mapping_subject_group = models.ForeignKey(graduation_subject_group, related_name='mappings', on_delete=models.CASCADE)
-    mapping_completion_division = models.CharField(max_length=50, blank=True)
-    mapping_area = models.CharField(max_length=50, blank=True)

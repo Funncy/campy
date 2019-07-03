@@ -5,9 +5,9 @@ from . import views
 router = DefaultRouter()
 router.register(r'history', views.HistoryViewset)
 router.register(r'rules', views.RuleViewset)
-router.register(r'group/mapping', views.MappingViewset)
+router.register(r'mappings', views.MappingViewset)
+router.register(r'group/mappings', views.GroupAndMappingViewset)
 router.register(r'group', views.GroupViewset)
-router.register(r'get/group/mappings', views.GroupAndMappingViewset)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
