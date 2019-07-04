@@ -397,8 +397,7 @@
         change_deparmentlist($('#university_list').val())
 
         // 기본 이수트랙 설정
-        //change_track($('#university_list').val())
-        $('#track_list').append("<option value='자동'>자동</option>")
+        change_track($('#university_list').val())
     })
 
     // 대학 변경시 학과 변경
@@ -477,7 +476,7 @@
 
                 for(var key in result){
                     $('#track_list').append(
-                        "<option value='"+result[key].meta_data_relation_code
+                        "<option value='"+result[key].meta_data_relation_name
                         +"'>"+result[key].meta_data_relation_name+"</option>"
                     )
                 }
